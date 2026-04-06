@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 import gspread
 import pandas as pd
 import sys
@@ -12,7 +13,14 @@ AUDIT_FOLDER = 'UX Audit'
 def main():
     print("Connecting to Google Sheets...")
     try:
-        gc = gspread.service_account(filename=CREDENTIALS_FILE)
+        if 'GOOGLE_CREDENTIALS_JSON' in os.environ:
+            # Running on Render using an environment variable
+            credentials_dict = json.loads(os.environ['GOOGLE_CREDENTIALS_JSON'])
+            gc = gspread.service_account_from_dict(credentials_dict)
+        else:
+            # Fallback for local development
+            gc = gspread.service_account(filename=CREDENTIALS_FILE)
+            
         sh = gc.open_by_url(SPREADSHEET_URL)
     except Exception as e:
         print(f"Failed to connect to Google Sheets: {e}")

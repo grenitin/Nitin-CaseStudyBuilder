@@ -16,15 +16,18 @@
             <h3>New Evaluation</h3>
             <p style="color: var(--text-muted); margin-top: 5px; font-size: 0.9rem;">Enter the URL of the website you want to audit.</p>
             
-            <form id="auditForm" class="input-group">
-                <input type="url" id="urlInput" placeholder="https://example.com" required>
-                <button type="submit" id="submitBtn">
-                    <span id="btnText">Evaluate</span>
-                    <div class="loader" id="loader"></div>
-                </button>
+            <form id="auditForm" class="input-group" style="flex-direction: column; gap: 10px;">
+                <input type="text" id="apiInput" placeholder="Enter Gemini API Key" style="width: 100%; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; padding: 12px 20px; border-radius: 8px;" required>
+                <div style="display: flex; gap: 10px;">
+                    <input type="url" id="urlInput" placeholder="https://example.com" style="flex: 1;" required>
+                    <button type="submit" id="submitBtn">
+                        <span id="btnText">Evaluate</span>
+                        <div class="loader" id="loader"></div>
+                    </button>
+                </div>
             </form>
-            <div id="statusMessage" style="margin-top: 15px; font-size: 0.9rem; color: var(--success); display: none;">
-                Evaluation complete! Google Sheets updated. Scroll down to view.
+            <div id="statusMessage" style="margin-top: 15px; font-size: 0.9rem; color: #ffeb3b; display: none;">
+                Starting...
             </div>
         </div>
 
@@ -50,37 +53,75 @@
             e.preventDefault();
             
             const urlInput = document.getElementById('urlInput');
+            const apiInput = document.getElementById('apiInput');
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const loader = document.getElementById('loader');
             const statusMessage = document.getElementById('statusMessage');
             
-            // UI Loading state
             urlInput.disabled = true;
+            apiInput.disabled = true;
             submitBtn.disabled = true;
-            btnText.innerText = 'Evaluating...';
+            btnText.innerText = 'Initializing...';
             loader.style.display = 'block';
-            statusMessage.style.display = 'none';
+            statusMessage.style.display = 'block';
+            statusMessage.innerText = 'Creating background job...';
+            statusMessage.style.color = '#ffeb3b';
             
             try {
                 const response = await fetch('/evaluate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url: urlInput.value })
+                    body: JSON.stringify({ url: urlInput.value, api_key: apiInput.value })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    statusMessage.style.display = 'block';
-                    setTimeout(() => { window.location.reload(); }, 1500);
+                    const taskId = data.task_id;
+                    
+                    // Poll for status
+                    const pollInterval = setInterval(async () => {
+                        try {
+                            const res = await fetch('/status/' + taskId);
+                            const statusData = await res.json();
+                            
+                            statusMessage.innerText = statusData.status;
+                            
+                            if (statusData.complete) {
+                                clearInterval(pollInterval);
+                                if (statusData.error) {
+                                    statusMessage.style.color = '#ff4d4d';
+                                    statusMessage.innerText = "Failed: " + statusData.error;
+                                    urlInput.disabled = false;
+                                    apiInput.disabled = false;
+                                    submitBtn.disabled = false;
+                                    btnText.innerText = 'Evaluate';
+                                    loader.style.display = 'none';
+                                } else {
+                                    statusMessage.style.color = 'var(--success)';
+                                    statusMessage.innerText = 'Evaluation complete! Reloading...';
+                                    setTimeout(() => { window.location.reload(); }, 1500);
+                                }
+                            }
+                        } catch (err) {
+                            console.error("Polling error", err);
+                        }
+                    }, 2000); // check every 2 seconds
                 } else {
-                    alert("Error: " + data.error);
+                    statusMessage.style.color = '#ff4d4d';
+                    statusMessage.innerText = "Error: " + data.error;
+                    urlInput.disabled = false;
+                    apiInput.disabled = false;
+                    submitBtn.disabled = false;
+                    btnText.innerText = 'Evaluate';
+                    loader.style.display = 'none';
                 }
             } catch (err) {
-                alert("Request failed: " + err);
-            } finally {
+                statusMessage.style.color = '#ff4d4d';
+                statusMessage.innerText = "Request failed: " + err;
                 urlInput.disabled = false;
+                apiInput.disabled = false;
                 submitBtn.disabled = false;
                 btnText.innerText = 'Evaluate';
                 loader.style.display = 'none';

@@ -25,36 +25,30 @@ def index():
 def evaluate():
     data = request.json
     url = data.get('url')
+    api_key = data.get('api_key')
+    
     if not url: return jsonify({'error': 'URL is required'}), 400
+    if not api_key: return jsonify({'error': 'Gemini API Key is required'}), 400
     
-    if not url.startswith('http'):
-        url = 'https://' + url
-        
-    # Extract brand name
-    parsed = urlparse(url)
-    domain = parsed.netloc if parsed.netloc else parsed.path
-    brand = domain.replace('www.', '').split('.')[0].capitalize()
+    from ai_evaluator import run_ux_audit_worker, TASKS
+    import threading
+    import uuid
     
-    if not os.path.exists(AUDIT_FOLDER):
-        os.makedirs(AUDIT_FOLDER)
-        
-    filename = f"{brand}_UX_Audit_-_Heuristic_Evaluation.csv"
-    filepath = os.path.join(AUDIT_FOLDER, filename)
+    task_id = str(uuid.uuid4())
+    TASKS[task_id] = {"status": "Starting up...", "complete": False, "error": None}
     
-    # 1. Create a dummy evaluation for demonstration
-    if not os.path.exists(filepath):
-        with open(filepath, 'w') as f:
-            f.write("Index,Heuristic,Screenshot,Page URL,Page Name,Issue Description,Behavioral Insight,Attitudinal Insight,Cognitive Load,Severity,Priority,Recommendation\n")
-            f.write(f'1,Visibility of System Status,,{url},Home Page,Mock evaluation generated for {brand} homepage during automation sequence.,Users are unable to see background loaders.,Feeling of uncertainty.,Medium,3,P2,Add prominent skeletal loaders.\n')
-            
-    # 2. Call sync_ux_audits.py to update only this specific sheet
-    try:
-        import sys
-        subprocess.run([sys.executable, 'sync_ux_audits.py', filename], check=True)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-        
-    return jsonify({'success': True, 'brand': brand})
+    thread = threading.Thread(target=run_ux_audit_worker, args=(task_id, url, api_key))
+    thread.daemon = True
+    thread.start()
+    
+    return jsonify({'success': True, 'task_id': task_id})
+
+@app.route('/status/<task_id>')
+def get_status(task_id):
+    from ai_evaluator import TASKS
+    if task_id not in TASKS:
+        return jsonify({'error': 'Task not found'}), 404
+    return jsonify(TASKS[task_id])
 
 @app.route('/view/<brand>')
 def view(brand):
