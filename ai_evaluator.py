@@ -150,7 +150,16 @@ Cognitive Load must be either High, Medium, or Low. Severity must be 1-5. Priori
                     elif "```" in text_resp:
                         text_resp = text_resp.split("```")[1].split("```")[0].strip()
                         
-                    issues = json.loads(text_resp)
+                    try:
+                        issues = json.loads(text_resp)
+                    except json.JSONDecodeError:
+                        # Fallback: try to extract anything that looks like an array
+                        start_idx = text_resp.find('[')
+                        end_idx = text_resp.rfind(']') + 1
+                        if start_idx != -1 and end_idx != 0:
+                            issues = json.loads(text_resp[start_idx:end_idx])
+                        else:
+                            raise Exception("Gemini returned invalid JSON format.")
                     
                     for issue in issues:
                         audit_results.append({
@@ -169,6 +178,19 @@ Cognitive Load must be either High, Medium, or Low. Severity must be 1-5. Priori
                         
                 except Exception as e:
                     print(f"Failed to evaluate {page_url}: {e}")
+                    audit_results.append({
+                        "Heuristic": "System Error",
+                        "Screenshot": "",
+                        "Page URL": page_url,
+                        "Page Name": "Error",
+                        "Issue Description": f"Failed during analysis: {str(e)}",
+                        "Behavioral Insight": "-",
+                        "Attitudinal Insight": "-",
+                        "Cognitive Load": "Medium",
+                        "Severity": "5",
+                        "Priority": "P0",
+                        "Recommendation": "Check server logs or evaluate another site."
+                    })
                     
             browser.close()
             
