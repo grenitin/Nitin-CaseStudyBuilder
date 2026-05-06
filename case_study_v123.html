@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIPA Enterprise Redesign | UX Case Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@100;300;400;500;600;700&family=Outfit:wght@400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/case_study.css">
+</head>
+<body class="dark-mode">
+    <div class="glass-lines-bg"></div>
+    <div class="light-bubbles">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="back-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <main class="case-study-main">
+        <div class="canvas-wrapper">
+            <section class="cs-hero-centered">
+                <div class="cs-hero-visual-centered">
+                    <div class="cs-hero-image-wrapper">
+                        <img src="assets/images/fipa_laptop_dark_trans.png" alt="FIPA Desktop Mockup" class="cs-hero-image" />
+                        <div class="hero-badge badge-tl">
+                            <div class="badge-top">
+                                <span class="badge-num">+45%</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20"><path d="M0,15 Q10,15 15,10 T30,5 T50,2" /></svg>
+                            </div>
+                            <div class="badge-bottom">Efficiency</div>
+                        </div>
+                        <div class="hero-badge badge-br">
+                            <div class="badge-top">
+                                <span class="badge-num">-60%</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20"><path d="M0,18 L15,15 L30,8 L45,2 L50,0" /></svg>
+                            </div>
+                            <div class="badge-bottom">Error Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-hero-content-centered">
+                    <h1 class="cs-title-centered">FIPA Enterprise Redesign.</h1>
+                    <p class="cs-subtitle-centered">Streamlining complex supply chain procurement and transforming the digital ecosystem for global logistics.</p>
+                    <div class="cs-meta-row">
+                        <div class="meta-item-inline"><span class="meta-label">Role:</span> Principal Designer</div>
+                        <div class="meta-item-inline"><span class="meta-label">Duration:</span> 12 Weeks</div>
+                        <div class="meta-item-inline"><span class="meta-label">Client:</span> FIPA Logistics</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cs-section cs-expanded">
+                <div class="cs-section-marker">E</div>
+                <div class="cs-section-header">
+                    <h2>Let's empathize</h2>
+                    <p>Understanding the human behavior, market constraints, and foundational insights that drive the problem space.</p>
+                </div>
+                <div class="cs-section-content">
+                    <h3 class="cs-section-subtitle">Behavioral Findings</h3>
+                    <div class="cs-grid-3 carousel-mobile">
+                        <div class="cs-card">
+                            <h4>Cognitive Overload</h4>
+                            <p>Managers were forced to navigate 15+ disparate systems for a single shipment, leading to high error rates.</p>
+                        </div>
+                        <div class="cs-card">
+                            <h4>Trust Deficit</h4>
+                            <p>Lack of real-time tracking caused stakeholders to rely on manual phone calls for updates.</p>
+                        </div>
+                        <div class="cs-card">
+                            <h4>Legacy Resistance</h4>
+                            <p>Users preferred spreadsheets over the existing tool due to its complex and unintuitive interface.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>© 2026 Nitin Kr. • Portfolio Case Study</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.cs-section');
+            sections.forEach(section => {
+                const header = section.querySelector('.cs-section-header');
+                header.addEventListener('click', () => {
+                    section.classList.toggle('cs-expanded');
+                });
+            });
+            if(sections.length > 0) sections[0].classList.add('cs-expanded');
+        });
+    </script>
+</body>
+</html>
