@@ -181,8 +181,20 @@
             .preview-grid { grid-template-columns: 1fr; }
         }
     </style>
+    <script>
+        // --- High-Fidelity Theme Engine ---
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+            } else {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
-<body class="dark-mode">
+<body>
     <div class="ds-container">
         <header class="guide-header">
             <div>
@@ -658,12 +670,18 @@
         const body = document.body;
 
         themeToggle.addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                body.removeAttribute('data-theme');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark-mode');
             } else {
-                body.classList.add('dark-mode');
-                body.setAttribute('data-theme', 'dark');
+                document.body.classList.remove('dark-mode');
+                document.documentElement.classList.remove('dark-mode');
             }
         });
     </script>
