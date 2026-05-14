@@ -6,8 +6,32 @@
     <title>Nitin Kr. | Design Manager @ PwC India</title>
     <meta name="description" content="Portfolio of Nitin Kr. - Design Leader, Principal Product Architect, and AI Agent builder.">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/design-system.css">
+    <script>
+        // --- High-Fidelity Theme Engine ---
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+            } else {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
-<body>
+<body class="dark-mode">
+    <script>
+        // Sync body class with documentElement state
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
     <div class="glass-lines-bg"></div>
     <div class="light-bubbles">
         <div class="bubble b1"></div>
@@ -23,34 +47,41 @@
     <div class="cursor-follower"></div>
 
     <nav>
-        <div class="logo">Nitin Kr.</div>
-        <div class="nav-right">
-            <div class="nav-links" id="nav-links">
-                <a href="#portfolio" class="nav-link">Portfolio</a>
-                <a href="#lab" class="nav-link">The Lab</a>
-                <a href="#about" class="nav-link">About</a>
-            </div>
-            <div class="nav-actions">
-                <a href="tel:9024930553" class="nav-phone">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    <span>+91 90249 30553</span>
-                </a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mode-icon moon-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mode-icon sun-icon" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-                </button>
-                <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
-                    <span class="burger"></span>
-                </button>
+        <div class="ds-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">Nitin Kr<span class="logo-dot">.</span></div>
+            <div class="nav-right">
+                <div class="nav-links" id="nav-links">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="#lab" class="nav-link">The Lab</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <div class="mobile-menu-actions">
+                        <a href="https://www.linkedin.com/in/nitin-kr-205341b/" class="ds-btn ds-btn-primary" target="_blank">LinkedIn</a>
+                        <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-secondary" target="_blank">Resume</a>
+                    </div>
+                </div>
+                <div class="nav-actions">
+                    <a href="tel:9024930553" class="nav-phone">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+91 90249 30553</span>
+                    </a>
+                    <button class="theme-toggle ds-icon-btn" id="theme-toggle" aria-label="Toggle dark mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mode-icon moon-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mode-icon sun-icon" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    </button>
+                    <button class="menu-toggle ds-icon-btn" id="menu-toggle" aria-label="Toggle menu">
+                        <span class="burger"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
     <main>
         <!-- HERO SECTION -->
-        <section class="container section-top">
+        <section class="container ds-container ds-section">
             <div class="hero-grid">
-                <div class="reveal">
+                <div>
+                    <div class="reveal">
                     <div class="slider-dots">
                         <span class="dot active" data-index="0"></span>
                         <span class="dot" data-index="1"></span>
@@ -61,26 +92,26 @@
                     <div class="hero-slider">
                         <!-- Slide 1: Original -->
                         <div class="slide active">
-                            <h1 class="hero-title">Design Leader & Innovation Specialist.</h1>
-                            <p class="hero-desc">Architecting the boundary between human intent and AI.</p>
+                            <h1 class="ds-heading-h1">Design Leader and Innovation Specialist.</h1>
+                            <p class="ds-body-lg hero-desc">Architecting the boundary between human intent and AI.</p>
                         </div>
                         
                         <!-- Slide 2: Strategic Focus -->
                         <div class="slide">
-                            <h1 class="hero-title">Architecting the Future of Human-AI Interaction.</h1>
-                            <p class="hero-desc">Building autonomous systems through strategic agentic design frameworks.</p>
+                            <h1 class="ds-heading-h1">Crafting Seamless <br>Human-AI Experiences.</h1>
+                            <p class="ds-body-lg hero-desc">Building autonomous systems through strategic agentic design frameworks.</p>
                         </div>
                         
                         <!-- Slide 3: Enterprise Impact -->
                         <div class="slide">
-                            <h1 class="hero-title">Strategic Consultant for Global Enterprise Impact.</h1>
-                            <p class="hero-desc">Scaling digital innovation for global enterprise product ecosystems.</p>
-                        </div>
+                            <h1 class="ds-heading-h1">Building Future <br>Enterprise Experiences.</h1>
+                            <p class="ds-body-lg hero-desc">Scaling digital innovation for global enterprise product ecosystems.</p>
                     </div>
-
+                    </div>
+                    </div>
                     <div class="hero-actions">
-                        <a href="#" class="btn btn-primary">My Resume</a>
-                        <a href="#" class="btn btn-secondary">My LinkedIn</a>
+                        <a href="https://dribbble.com/Nitin_kr" class="ds-btn ds-btn-secondary" target="_blank">UI Portfolio</a>
+                        <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-primary" target="_blank">My Resume</a>
                     </div>
                 </div>
                 <div class="hero-image-container reveal">
@@ -90,156 +121,233 @@
                 </div>
             </div>
 
+
+
             <div class="stats-grid reveal">
-                <div class="stat-card pastel-blue">
+                <div class="ds-card pastel-blue">
                     <span class="stat-label">Working with</span>
-                    <h4>PwC</h4>
-                    <p>Design Manager.</p>
+                    <h4 class="ds-heading-h4">PwC</h4>
+                    <p class="ds-body">Design Manager.</p>
                 </div>
-                <div class="stat-card pastel-peach">
+                <div class="ds-card pastel-peach">
                     <span class="stat-label">Total Experience</span>
-                    <h4>12+ / 9+</h4>
-                    <p>UI/UX Design.</p>
+                    <h4 class="ds-heading-h4">12+ / 9+</h4>
+                    <p class="ds-body">UI/UX Design.</p>
                 </div>
-                <div class="stat-card pastel-mint">
+                <div class="ds-card pastel-mint">
                     <span class="stat-label">Education</span>
-                    <h4>Bachelor in Design</h4>
-                    <p>Himalayan university.</p>
+                    <h4 class="ds-heading-h4">BSc in Design</h4>
+                    <p class="ds-body">Himalayan University.</p>
                 </div>
-                <div class="stat-card pastel-lavender">
-                    <span class="stat-label">Certification</span>
-                    <h4>UX Certificate</h4>
-                    <p>Google, Coursera.</p>
+                <div class="ds-card pastel-lavender">
+                    <span class="stat-label">UI - UX Certification</span>
+                    <h4 class="ds-heading-h4">Gen & Agentic AI</h4>
+                    <p class="ds-body">IIT, Madras</p>
                 </div>
             </div>
+
         </section>
 
         <!-- THE LAB (AI AGENTS) -->
-        <section id="lab" class="lab-section reveal">
-            <div class="container">
+        <section id="lab" class="lab-section reveal ds-section">
+            <div class="container ds-container">
                 <div class="section-header">
                     <span class="hero-tag">Innovation Hub</span>
-                    <h2>The AI Lab</h2>
-                    <p>Autonomous agents for modern UX.</p>
+                    <h2 class="ds-heading-h2">The AI Lab</h2>
+                    <p class="ds-body">Autonomous agents for modern UX.</p>
                 </div>
                 <div class="lab-grid">
-                    <a href="http://localhost:8080" target="_blank" class="agent-card reveal" style="text-decoration: none; color: inherit;">
-                        <div class="agent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg></div>
-                        <h3>Case Study Builder</h3>
-                        <p>An autonomous data-to-case-study engine that transforms research into Behance-ready artifacts.</p>
-                        <div class="agent-badge">Beta</div>
-                    </a>
-                    <a href="http://localhost:5050" target="_blank" class="agent-card reveal" style="text-decoration: none; color: inherit;">
+                    <a href="https://uxauditai.onrender.com/" target="_blank" class="agent-card reveal" style="text-decoration: none; color: inherit;">
                         <div class="agent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
-                        <h3>Heuristic Evaluator</h3>
-                        <p>Vision-based agent that performs multi-fold heuristic audits with grounded, visual citations.</p>
+                        <h3 class="ds-heading-h3">Heuristic Evaluator</h3>
+                        <p class="ds-body">Vision-based agent that performs multi-fold heuristic audits with grounded, visual citations.</p>
                         <div class="agent-badge">Live</div>
+                        <div class="agent-footer">
+                            <span class="read-more">LAUNCH AGENT <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="3"><path d="M7 17l10-10M7 7h10v10"/></svg></span>
+                        </div>
                     </a>
-                    <div class="agent-card reveal">
-                        <div class="agent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></div>
-                        <h3>LinkedIn Automator</h3>
-                        <p>Strategic content delivery agent that automates high-impact thought leadership posting.</p>
-                        <div class="agent-badge">In-Dev</div>
-                    </div>
+                    <a href="#" class="agent-card reveal" style="text-decoration: none; color: inherit;">
+                        <div class="agent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg></div>
+                        <h3 class="ds-heading-h3">Case Study Builder</h3>
+                        <p class="ds-body">An autonomous data-to-case-study engine that transforms research into Behance-ready artifacts.</p>
+                        <div class="agent-badge">Beta</div>
+                        <div class="agent-footer">
+                            <span class="read-more">COMING SOON</span>
+                        </div>
+                    </a>
+                    <a href="#" class="agent-card reveal" style="text-decoration: none; color: inherit;">
+                        <div class="agent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
+                        <h3 class="ds-heading-h3">Accessibility Checker</h3>
+                        <p class="ds-body">Autonomous WCAG audit agent that scans and validates inclusive design standards across digital ecosystems.</p>
+                        <div class="agent-badge">Beta</div>
+                        <div class="agent-footer">
+                            <span class="read-more">COMING SOON</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- DESIGN THINKING PROCESS -->
-        <section id="process" class="container reveal">
+        <section id="process" class="container ds-container reveal ds-section">
             <div class="section-header">
                 <span class="hero-tag">Methodology</span>
-                <h2>Design Thinking Process</h2>
-                <p>Strategic impact through design methodology.</p>
+                <h2 class="ds-heading-h2">Design Thinking Process</h2>
+                <p class="ds-body">Strategic impact through design methodology.</p>
             </div>
             <div class="process-grid">
                 <div class="process-step">
                     <span class="step-num">01</span>
-                    <h3>Empathize</h3>
-                    <p>Deep user research and stakeholder interviews to understand the core problem.</p>
+                    <h3 class="ds-heading-h3">Let's Empathize</h3>
+
+                    <p class="ds-body">Deep user research and stakeholder interviews to understand the core problem.</p>
                 </div>
                 <div class="process-step">
                     <span class="step-num">02</span>
-                    <h3>Define</h3>
-                    <p>Synthesizing research into actionable insights and problem statements.</p>
+                    <h3 class="ds-heading-h3">Define Strategy</h3>
+
+                    <p class="ds-body">Synthesizing research into actionable insights and problem statements.</p>
                 </div>
                 <div class="process-step">
                     <span class="step-num">03</span>
-                    <h3>Ideate</h3>
-                    <p>Rapid brainstorming and creative exploration of potential solutions.</p>
+                    <h3 class="ds-heading-h3">Let's Ideate</h3>
+
+                    <p class="ds-body">Rapid brainstorming and creative exploration of potential solutions.</p>
                 </div>
                 <div class="process-step">
                     <span class="step-num">04</span>
-                    <h3>Prototype</h3>
-                    <p>Building high-fidelity interactive models to validate design decisions.</p>
+                    <h3 class="ds-heading-h3">Let's Design</h3>
+
+                    <p class="ds-body">Building high-fidelity interactive models to validate design decisions.</p>
                 </div>
                 <div class="process-step">
                     <span class="step-num">05</span>
-                    <h3>Test</h3>
-                    <p>Continuous usability testing and iteration based on real-world feedback.</p>
+                    <h3 class="ds-heading-h3">Let's Evaluate</h3>
+
+                    <p class="ds-body">Continuous usability testing and iteration based on real-world feedback.</p>
                 </div>
             </div>
         </section>
 
         <!-- PORTFOLIO / CASE STUDIES -->
-        <section id="portfolio" class="container">
+        <section id="portfolio" class="container ds-container ds-section">
             <div class="section-header reveal">
                 <span class="hero-tag">Work</span>
-                <h2>Featured Case Studies</h2>
-                <p>Research and strategy for products.</p>
+                <h2 class="ds-heading-h2">Featured Case Studies</h2>
+                <p class="ds-body">Research and strategy for products.</p>
+            </div>
+
+            <!-- Case Study: Careline HRMS -->
+            <div class="case-card-new hrms reveal">
+                <div class="case-content">
+                    <span class="case-tag">ENTERPRISE HRMS</span>
+                    <h3 class="ds-heading-h3 case-title">Careline HRMS - Employee Experience</h3>
+                    <p class="ds-body case-desc">A comprehensive HRMS transformation focusing on intuitive leave management, performance tracking, and streamlined employee workflows for a modern workforce.</p>
+                    <div class="case-actions">
+                        <a href="HRMS/case_study.html" class="btn-case-main">View Case Study</a>
+                        <a href="#" class="icon-action web" aria-label="View Live Website">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </a>
+                        <a href="#" class="icon-action mobile" aria-label="View Mobile App">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="case-visuals">
+                    <img src="HRMS/image/hero image/hrms_hero_main.png" alt="Careline HRMS Mockup" class="mockup-laptop">
+                </div>
             </div>
 
             <!-- Case Study 1: FIPA -->
             <div class="case-card-new fipa reveal">
                 <div class="case-content">
                     <span class="case-tag">B2B E-COMMERCE</span>
-                    <h3 class="case-title">FIPA Website - B2B ecommerce</h3>
-                    <p class="case-desc">UX audit with the objective of redesigning the website. Our strategic approach and industry knowledge empower us to be highly adaptable, ensuring we deliver personalized solutions aligned with our customers' needs.</p>
+                    <h3 class="ds-heading-h3 case-title">FIPA Website - B2B ecommerce</h3>
+                    <p class="ds-body case-desc">UX audit with the objective of redesigning the website. Our strategic approach and industry knowledge empower us to be highly adaptable, ensuring we deliver personalized solutions aligned with our customers' needs.</p>
                     <div class="case-actions">
-                        <a href="case_study.html" class="btn-case-main">View Case Study</a>
-                        <a href="#" class="icon-action web" aria-label="View Live Website">
+                        <a href="FIPA/case_study.html" class="btn-case-main">View Case Study</a>
+                        <a href="https://marvelapp.com/prototype/fic1cge/screen/76197292" target="_blank" class="icon-action web" aria-label="View Live Website">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         </a>
-                        <a href="#" class="icon-action mobile" aria-label="View Mobile App">
+                        <a href="https://marvelapp.com/prototype/6i0j88g/screen/77156766" target="_blank" class="icon-action mobile" aria-label="View Mobile App">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                         </a>
                     </div>
                 </div>
                 <div class="case-visuals">
-                    <img src="assets/images/fipa_laptop_final_trans.png" alt="FIPA Desktop Mockup" class="mockup-laptop light-only">
-                    <img src="assets/images/fipa_laptop_dark_trans.png" alt="FIPA Desktop Mockup" class="mockup-laptop dark-only">
+                    <img src="FIPA/image/hero image/FIPA.png" alt="FIPA Desktop Mockup" class="mockup-laptop">
                 </div>
             </div>
 
-            <!-- Case Study 2: LuxeTravel -->
-            <div class="case-card-new luxetravel reveal">
+
+
+
+            <!-- Case Study: HealthCare -->
+            <div class="case-card-new healthcare reveal">
                 <div class="case-content">
-                    <span class="case-tag">TRAVEL & HOSPITALITY</span>
-                    <h3 class="case-title">LuxeTravel - Mobile Experience</h3>
-                    <p class="case-desc">A premium travel companion app focused on seamless itinerary planning and local cultural immersion. We reimagined the end-to-end journey for high-end travelers.</p>
+                    <span class="case-tag">HEALTHCARE & DISCOVERY</span>
+                    <h3 class="ds-heading-h3 case-title">HealthCare - Specialist Discovery Platform</h3>
+                    <p class="ds-body case-desc">Simplifying medical care discovery through a unified ecosystem of verified specialists, transparent consultation fees, and real-time appointment tracking.</p>
                     <div class="case-actions">
-                        <a href="case_study.html" class="btn-case-main">View Case Study</a>
-                        <a href="#" class="icon-action web" aria-label="View Live Website">
+                        <a href="HealthCare/index.html" class="btn-case-main">View Case Study</a>
+                        <a href="https://marvelapp.com/prototype/2j9491c/screen/41751671" target="_blank" class="icon-action web" aria-label="View Live Website">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         </a>
-                        <a href="#" class="icon-action mobile" aria-label="View Mobile App">
+                    </div>
+                </div>
+                <div class="case-visuals">
+                    <img src="HealthCare/image/hero image/HealthCare.png" alt="HealthCare Dashboard Mockup" class="mockup-laptop">
+                </div>
+            </div>
+
+            <!-- Case Study: RoundMart -->
+            <div class="case-card-new roundmart reveal">
+                <div class="case-content">
+                    <span class="case-tag">UNIFIED CLASSIFIEDS</span>
+                    <h3 class="ds-heading-h3 case-title">RoundMart - Local Discovery Ecosystem</h3>
+                    <p class="ds-body case-desc">Bridging the trust gap in Indian and Middle Eastern real estate and service markets through verified, visual-first discovery.</p>
+                    <div class="case-actions">
+                        <a href="RoundMart/index.html" class="btn-case-main">View Case Study</a>
+                        <a href="https://marvelapp.com/prototype/54bi073/screen/59953569" target="_blank" class="icon-action web" aria-label="View Web Prototype">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </a>
+                        <a href="https://marvelapp.com/prototype/9d2bfc8/screen/62770022" target="_blank" class="icon-action mobile" aria-label="View Mobile Prototype">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                         </a>
                     </div>
                 </div>
                 <div class="case-visuals">
-                    <img src="assets/images/luxetravel_mobile_straight_trans.png" alt="LuxeTravel Mobile Mockup" class="mockup-mobile-hero light-only">
-                    <img src="assets/images/luxetravel_mobile_straight_dark_trans.png" alt="LuxeTravel Mobile Mockup" class="mockup-mobile-hero dark-only">
+                    <img src="assets/images/roundmart_hero_clean.png" alt="RoundMart Dashboard Mockup" class="mockup-laptop">
+                </div>
+            </div>
+
+
+
+            <!-- Case Study 4: Virtual Expo -->
+            <div class="case-card-new virtual-expo reveal">
+                <div class="case-content">
+                    <span class="case-tag">INDUSTRIAL TECH & B2B</span>
+                    <h3 class="ds-heading-h3 case-title">Virtual Expo</h3>
+                    <p class="ds-body case-desc">Reimagining industrial machinery exhibitions through an immersive, digital-first ecosystem for global manufacturers and buyers in a post-pandemic world.</p>
+                    <div class="case-actions">
+                        <a href="VirtualExpo/index.html" class="btn-case-main">View Case Study</a>
+                        <a href="https://marvelapp.com/prototype/7dgf5b6" target="_blank" class="icon-action web" aria-label="View Live Website">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="case-visuals">
+                    <img src="VirtualExpo/image/hero image/Virtual Expo.png" alt="Virtual Expo Desktop Mockup" class="mockup-laptop">
                 </div>
             </div>
         </section>
 
         <!-- EXPERIENCE TIMELINE -->
-        <section id="about" class="experience-section container reveal">
+        <section id="about" class="experience-section container reveal ds-section">
             <div class="section-header">
                 <span class="hero-tag">Career</span>
-                <h2>Professional Journey</h2>
-                <p>Leadership in digital product transformation.</p>
+                <h2 class="ds-heading-h2">Professional Journey</h2>
+                <p class="ds-body">Leadership in digital product transformation.</p>
             </div>
             <div class="experience-timeline">
                 <!-- Card 1: PwC -->
@@ -257,7 +365,8 @@
                     
                     <div class="journey-details">
                         <div class="details-inner">
-                            <p>As a Design Manager at PwC, I'm more than just a designer; I'm a leader, a strategist, and a problem-solver. My role is pivotal in bridging the gap between innovative design and tangible business outcomes for clients. PwC, as a global professional services firm, operates on a consultative model, meaning my design work directly impacts how clients solve their most complex challenges.</p>
+                            <h4 class="details-subtitle">Role</h4>
+                            <p class="ds-body">As a Design Manager at PwC, I'm more than just a designer; I'm a leader, a strategist, and a problem-solver. My role is pivotal in bridging the gap between innovative design and tangible business outcomes for clients. PwC, as a global professional services firm, operates on a consultative model, meaning my design work directly impacts how clients solve their most complex challenges.</p>
                             
                             <h4 class="details-subtitle">Core Responsibilities and Skills</h4>
                             <ul>
@@ -298,11 +407,18 @@
                     
                     <div class="journey-details">
                         <div class="details-inner">
-                            <p>Directed multi-platform SaaS product strategy. Focused on scaling design systems and optimizing user flow for financial enterprise applications.</p>
+                            <h4 class="details-subtitle">Role</h4>
+                            <p class="ds-body">As VP of Design at Technogen, I led the redesign of GSK Healthcare’s e-commerce platform, which faced challenges with usability, conversion, and customer trust. My role went beyond design delivery — I facilitated workshops with marketing, product, and tech stakeholders to uncover pain points and align on business priorities.</p>
+                            <p class="ds-body">Through user research, design audits, and iterative prototyping, we solved critical UX bottlenecks such as a Product listing flow and inconsistent product information.</p>
+                            <p class="ds-body">The result was a modern, user-centered e-commerce experience supported by a scalable design system, ensuring consistency across digital touchpoints.</p>
+                            <p class="ds-body">The redesign not only improved the overall brand perception but also delivered measurable impact — +35% user satisfaction, +22% conversion uplift, and –20% bounce rate.</p>
+                            
+                            <h4 class="details-subtitle">Core Responsibilities and Skills</h4>
                             <ul>
-                                <li>Orchestrated the redesign of core banking interfaces, increasing user retention by 40%.</li>
-                                <li>Established a unified design language system for all product suites.</li>
-                                <li>Led stakeholder workshops to align product vision with user research findings.</li>
+                                <li>Led end-to-end redesign of GSK Healthcare’s e-commerce platform, ensuring a seamless user journey and measurable business impact.</li>
+                                <li>Solved critical UX challenges through research, usability testing, and iterative design improvements.</li>
+                                <li>Facilitated workshops & brainstorming sessions with cross-functional stakeholders (marketing, product, engineering, compliance) to align design with business objectives.</li>
+                                <li>Defined and implemented a scalable design system, ensuring brand consistency and reducing design-to-development cycle time.</li>
                             </ul>
                         </div>
                     </div>
@@ -317,7 +433,7 @@
                     <div class="journey-header">
                         <div class="header-left">
                             <h3 class="journey-company">mavQ</h3>
-                            <span class="journey-date">2018 — 2020</span>
+                            <span class="journey-date">2021 — 2022</span>
                         </div>
                         <div class="header-right">
                             <h3 class="journey-role">Principal Designer</h3>
@@ -327,11 +443,56 @@
                     
                     <div class="journey-details">
                         <div class="details-inner">
-                            <p>Architected behavioral design frameworks for AI-driven analytics dashboards. Pioneered vision-based UX auditing methodologies.</p>
+                            <h4 class="details-subtitle">Role</h4>
+                            <p class="ds-body">At mavQ, I took complete ownership of designing an AI-powered document scanner from scratch. As the sole UX designer on the project, I collaborated with the product team to align on business objectives, conducted competitive research to identify market gaps, and transformed insights into user flows, wireframes, and prototypes.</p>
+                            <p class="ds-body">Beyond design execution, I played a key role in educating cross-functional teams—from engineering to QA—on user-centered design principles, ensuring that usability remained at the core of every decision.</p>
+                            <p class="ds-body">The project not only delivered a seamless, AI-enabled scanning experience but also received industry recognition, being nominated at the Aegis Graham Bell Awards for innovation.</p>
+                            
+                            <h4 class="details-subtitle">Core Responsibilities and Skills</h4>
                             <ul>
-                                <li>Developed AI-assisted design tools for rapid prototyping.</li>
-                                <li>Conducted extensive user research to inform AI agent behavior and personality.</li>
-                                <li>Published internal research on human-AI trust factors in enterprise UX.</li>
+                                <li>Owned end-to-end UX design of an AI-based document scanner, from concept to prototype.</li>
+                                <li>Conducted business and competitive analysis to define market opportunities and guide product direction.</li>
+                                <li>Created user flows, wireframes, and prototypes that shaped the product experience.</li>
+                                <li>Collaborated with product and engineering teams to balance business needs, user requirements, and technical feasibility.</li>
+                                <li>Educated cross-functional stakeholders on design thinking, usability, and user-first approaches.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="journey-footer">
+                        <button class="expand-btn">VIEW DETAILS</button>
+                    </div>
+                </div>
+
+                <!-- Card 4: CarDekho Group -->
+                <div class="journey-card reveal">
+                    <div class="journey-header">
+                        <div class="header-left">
+                            <h3 class="journey-company">CarDekho Group</h3>
+                            <span class="journey-date">2015 — 2021</span>
+                        </div>
+                        <div class="header-right">
+                            <h3 class="journey-role">Creative Head</h3>
+                            <span class="role-tag">Role</span>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-details">
+                        <div class="details-inner">
+                            <h4 class="details-subtitle">Role</h4>
+                            <p class="ds-body">As Creative Head at CarDekho Group (GirnarSoft), I led the design of a diverse range of digital products—from AI-powered chatbots to complex platforms like HRMS systems, healthcare web applications, e-commerce platforms, and lead-generation websites. My role combined creative vision with hands-on execution, ensuring every product not only met business goals but also delivered a seamless, user-first experience.</p>
+                            <p class="ds-body">I collaborated closely with cross-functional teams—product, engineering, and marketing—to drive innovation, improve usability, and maintain brand consistency across all digital touchpoints. Each project demanded a balance of strategic design thinking, rapid prototyping, and stakeholder alignment, enabling the group to scale products that were both impactful and market-ready.</p>
+                            
+                            <h4 class="details-subtitle">Core Responsibilities and Skills</h4>
+                            <ul>
+                                <li>Led a team of 8 designers, providing mentorship, direction, and design reviews to maintain high-quality output</li>
+                                <li>Led design strategy and execution across multiple digital products, including AI chatbots, HRMS, healthcare platforms, and e-commerce solutions.</li>
+                                <li>Directed and mentored design teams, ensuring delivery of high-quality, user-centric experiences.</li>
+                                <li>Conducted user research and competitive analysis to guide product design and innovation.</li>
+                                <li>Collaborated with stakeholders to align business goals with design outcomes, ensuring scalability and market relevance.</li>
+                                <li>Created and implemented design systems and guidelines to maintain brand consistency across products.</li>
+                                <li>Advocated for design thinking practices, fostering a culture of innovation within the organization.</li>
+                                <li>Drove measurable improvements in user engagement, lead generation, and customer satisfaction through optimized UX.</li>
                             </ul>
                         </div>
                     </div>
@@ -343,17 +504,17 @@
             </div>
         </section>
         <!-- LINKEDIN BLOGS SECTION -->
-        <section id="blogs" class="container reveal">
+        <section id="blogs" class="container ds-container reveal ds-section">
             <div class="section-header">
                 <span class="hero-tag">Thought Leadership</span>
-                <h2 class="section-title">Strategic Perspectives</h2>
-                <p>Industry insights at design intersections.</p>
+                <h2 class="ds-heading-h2 section-title">Strategic Perspectives</h2>
+                <p class="ds-body">Industry insights at design intersections.</p>
             </div>
 
             <div class="blogs-grid">
                 <!-- Blog 1 -->
-                <a href="#" class="blog-card reveal">
-                    <div class="blog-image" style="background-image: url('assets/images/blog_1.png');"></div>
+                <a href="https://www.linkedin.com/posts/nitin-kr-205341b_enterpriseux-spatialdesign-designeconomics-activity-7447913128203395072-JbpC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAIB3-UBlXi5WWCHqUOburz2tZd9em8xSn0" class="blog-card ds-card reveal" target="_blank">
+                    <div class="blog-image" style="background-image: url('assets/images/adaptive_depth.png');"></div>
                     <div class="blog-content">
                         <div class="blog-platform">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -361,8 +522,8 @@
                             </svg>
                             <span>LinkedIn Article</span>
                         </div>
-                        <h3 class="blog-title">Designing for AI Trust: Beyond the Interface.</h3>
-                        <p class="blog-summary">Exploring how behavioral psychology and transparent design systems build long-term trust in autonomous agents.</p>
+                        <h3 class="ds-heading-h3 blog-title">Enterprise UX & The Economics of Spatial Design.</h3>
+                        <p class="ds-body blog-summary">Exploring the intersection of spatial computing and enterprise architecture to drive measurable business value and user efficiency.</p>
                         <div class="blog-footer">
                             <span class="read-more">READ ARTICLE <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="3"><path d="M7 17l10-10M7 7h10v10"/></svg></span>
                         </div>
@@ -370,8 +531,8 @@
                 </a>
 
                 <!-- Blog 2 -->
-                <a href="#" class="blog-card reveal" style="transition-delay: 0.1s;">
-                    <div class="blog-image" style="background-image: url('assets/images/blog_2.png');"></div>
+                <a href="https://www.linkedin.com/posts/nitin-kr-205341b_uxdesign-generativeui-productstrategy-activity-7447672464106561536-VLJT?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAIB3-UBlXi5WWCHqUOburz2tZd9em8xSn0" class="blog-card ds-card reveal" style="transition-delay: 0.1s;" target="_blank">
+                    <div class="blog-image" style="background-image: url('assets/images/death_of_containers.png');"></div>
                     <div class="blog-content">
                         <div class="blog-platform">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -379,8 +540,8 @@
                             </svg>
                             <span>LinkedIn Article</span>
                         </div>
-                        <h3 class="blog-title">The ROI of Enterprise Design Systems.</h3>
-                        <p class="blog-summary">How standardized design language reduces engineering debt and accelerates product velocity at scale.</p>
+                        <h3 class="ds-heading-h3 blog-title">The Death of Containers.</h3>
+                        <p class="ds-body blog-summary">Stop designing for boxes. Embrace the Liquid Interface. Fluid motion is no longer a feature—it is the architecture.</p>
                         <div class="blog-footer">
                             <span class="read-more">READ ARTICLE <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="3"><path d="M7 17l10-10M7 7h10v10"/></svg></span>
                         </div>
@@ -388,8 +549,8 @@
                 </a>
 
                 <!-- Blog 3 -->
-                <a href="#" class="blog-card reveal" style="transition-delay: 0.2s;">
-                    <div class="blog-image" style="background-image: url('assets/images/blog_3.png');"></div>
+                <a href="https://www.linkedin.com/posts/nitin-kr-205341b_uxwriting-microcopy-productdesign-activity-7447664190481149952-3KP_?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAIB3-UBlXi5WWCHqUOburz2tZd9em8xSn0" class="blog-card ds-card reveal" style="transition-delay: 0.2s;" target="_blank">
+                    <div class="blog-image" style="background-image: url('assets/images/ux_writing.png');"></div>
                     <div class="blog-content">
                         <div class="blog-platform">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -397,8 +558,8 @@
                             </svg>
                             <span>LinkedIn Article</span>
                         </div>
-                        <h3 class="blog-title">Humanizing Complex Data Architectures.</h3>
-                        <p class="blog-summary">A strategic look at transforming complex technical data into meaningful human-centered narratives.</p>
+                        <h3 class="ds-heading-h3 blog-title">UX Writing: The Invisible Power of Voice.</h3>
+                        <p class="ds-body blog-summary">How microcopy and conversational design bridge the gap between technical complexity and human intuition.</p>
                         <div class="blog-footer">
                             <span class="read-more">READ ARTICLE <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="3"><path d="M7 17l10-10M7 7h10v10"/></svg></span>
                         </div>
@@ -407,10 +568,14 @@
             </div>
         </section>
         <!-- FOOTER -->
-        <footer id="contact" class="container">
+        <footer id="contact" class="container ds-container ds-section">
             <div class="reveal">
-                <h2 class="footer-title">Ready to build something?<br>Let's collaborate.</h2>
+                <h2 class="ds-heading-h2 footer-title">Ready to build something?<br>Let's collaborate.</h2>
                 <a href="mailto:grenitin@gmail.com" class="footer-email">grenitin@gmail.com</a>
+                <div class="footer-actions">
+                    <a href="https://dribbble.com/Nitin_kr" class="ds-btn ds-btn-secondary" target="_blank">UI Portfolio</a>
+                    <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-primary" target="_blank">My Resume</a>
+                </div>
                 <p class="footer-copyright">© 2026 Nitin Kr. • All Rights Reserved</p>
             </div>
         </footer>

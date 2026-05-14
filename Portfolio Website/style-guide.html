@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Portfolio - Design System Style Guide</title>
+    <link rel="stylesheet" href="assets/css/design-system.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400&family=Poppins:wght@100;300;400;500;600;700&family=Outfit:wght@400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            margin: 0;
+            transition: var(--transition);
+        }
+
+        .guide-header {
+            padding: var(--space-3xl) 0;
+            border-bottom: 1.5px solid var(--border-medium);
+    
+            margin-bottom: var(--space-3xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guide-section {
+            margin-bottom: var(--space-section);
+        }
+
+        .guide-section-title {
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .color-swatch {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .swatch-color {
+            height: 120px;
+        }
+
+        .swatch-info {
+            padding: var(--space-md);
+            background: var(--bg-canvas);
+        }
+
+        .swatch-name {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .swatch-value {
+            font-size: var(--fs-xs);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .type-demo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+
+        .type-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .spacing-demo {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .spacing-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xl);
+        }
+
+        .spacing-bar {
+            background: var(--primary);
+            height: 24px;
+            border-radius: var(--radius-xs);
+        }
+
+        .radius-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .radius-box {
+            background: var(--primary);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-on-primary);
+            font-weight: 700;
+        }
+
+        .shadow-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-3xl);
+        }
+
+        .shadow-box {
+            background: var(--bg-card);
+            height: 150px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Component Previews */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+        }
+
+        .component-preview {
+            padding: var(--space-2xl);
+            background: var(--bg-canvas);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .component-label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--primary);
+            color: var(--text-on-primary);
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            background: var(--primary);
+            color: var(--text-on-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .type-item { grid-template-columns: 1fr; gap: 8px; }
+            .preview-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <script>
+        // --- High-Fidelity Theme Engine ---
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+            } else {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="ds-container">
+        <header class="guide-header">
+            <div>
+                <h1 class="ds-heading-h1">UX Portfolio Design System</h1>
+                <p class="ds-body">Style guide for Boardroom Obsidian aesthetic.</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle">Toggle Light/Dark Mode</button>
+        </header>
+
+        <!-- 1. COLORS -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Color System</h2>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--primary);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Primary Accent</span>
+                        <span class="swatch-value">var(--primary)</span>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--bg-main);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Main Background</span>
+                        <span class="swatch-value">var(--bg-main)</span>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--text-primary);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Text Primary</span>
+                        <span class="swatch-value">var(--text-primary)</span>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--text-secondary);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Text Secondary</span>
+                        <span class="swatch-value">var(--text-secondary)</span>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--bg-card);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Glass Card</span>
+                        <span class="swatch-value">var(--bg-card)</span>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-color" style="background: var(--border-subtle); border: 1px solid rgba(0,0,0,0.05);"></div>
+                    <div class="swatch-info">
+                        <span class="swatch-name">Border Subtle</span>
+                        <span class="swatch-value">var(--border-subtle)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TYPOGRAPHY -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Typography Scale</h2>
+            <div class="type-demo">
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Heading 1</span>
+                        <span class="swatch-value">48px — 56px (Fluid)</span>
+                    </div>
+                    <h1 class="ds-heading-h1">The Future of Discovery</h1>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Heading 2</span>
+                        <span class="swatch-value">32px — 40px (Fluid)</span>
+                    </div>
+                    <h2 class="ds-heading-h2">Design Process & Methodology</h2>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Heading 3</span>
+                        <span class="swatch-value">24px — 32px (Fluid)</span>
+                    </div>
+                    <h3 class="ds-heading-h3">Information Architecture</h3>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Heading 4</span>
+                        <span class="swatch-value">24px (Fixed)</span>
+                    </div>
+                    <h4 class="ds-heading-h4">Key Project Goals</h4>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Body Large (LG)</span>
+                        <span class="swatch-value">16px</span>
+                    </div>
+                    <p class="ds-body-lg">A premium UX research and product design portfolio showcasing data-driven solutions.</p>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Body Standard (MD)</span>
+                        <span class="swatch-value">14px</span>
+                    </div>
+                    <p class="ds-body">Leveraging generative AI and advanced information discovery techniques to solve complex user problems and deliver high-impact business results.</p>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Caption / UI (SM)</span>
+                        <span class="swatch-value">12px</span>
+                    </div>
+                    <span class="ds-caption">UX AUDIT • 2024 • WEB APP</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SPACING -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Spacing & Layout System</h2>
+            <div class="spacing-demo">
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">8px (SM)</span>
+                    <div class="spacing-bar" style="width: var(--space-sm);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">16px (MD)</span>
+                    <div class="spacing-bar" style="width: var(--space-md);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">24px (LG)</span>
+                    <div class="spacing-bar" style="width: var(--space-lg);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">32px (XL)</span>
+                    <div class="spacing-bar" style="width: var(--space-xl);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">48px (2XL)</span>
+                    <div class="spacing-bar" style="width: var(--space-2xl);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">80px (Section)</span>
+                    <div class="spacing-bar" style="width: var(--space-section);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">80px (Sect-LG)</span>
+                    <div class="spacing-bar" style="width: var(--space-section-lg);"></div>
+                </div>
+                <div class="spacing-item">
+                    <span class="ds-caption" style="width: 120px;">80px (Hero)</span>
+                    <div class="spacing-bar" style="width: var(--space-hero);"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3.1 SECTION LAYOUT DEMO -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Vertical Section Spacing (Uniform 80px)</h2>
+            <div class="ds-content-stack">
+                <div style="background: var(--bg-canvas); border: 1px dashed var(--border-medium); padding: var(--space-xl); text-align: center;">
+                    <h3 class="ds-heading-h3">Page Header / Section</h3>
+                </div>
+                
+                <div style="height: var(--space-section); background: var(--accent-light); display: flex; align-items: center; justify-content: center; position: relative;">
+                    <span class="ds-caption" style="background: var(--bg-main); padding: 4px 12px; border-radius: var(--radius-pill);">Uniform Spacing (80px)</span>
+                    <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--primary); opacity: 0.3;"></div>
+                </div>
+
+                <div style="background: var(--bg-canvas); border: 1px dashed var(--border-medium); padding: var(--space-xl); text-align: center;">
+                    <h3 class="ds-heading-h3">Content Section</h3>
+                </div>
+
+                <div style="height: var(--space-section); background: var(--accent-light); display: flex; align-items: center; justify-content: center; position: relative;">
+                    <span class="ds-caption" style="background: var(--bg-main); padding: 4px 12px; border-radius: var(--radius-pill);">Uniform Spacing (80px)</span>
+                    <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--primary); opacity: 0.3;"></div>
+                </div>
+
+                <div style="background: var(--bg-canvas); border: 1px dashed var(--border-medium); padding: var(--space-xl); text-align: center;">
+                    <h3 class="ds-heading-h3">Footer / Final Section</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3.5 LINE SPACING / VERTICAL RHYTHM -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Line Spacing (Vertical Rhythm)</h2>
+            <div class="type-demo">
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Tight (1.1)</span>
+                        <span class="swatch-value">var(--lh-tight)</span>
+                    </div>
+                    <h1 class="ds-heading-h1" style="border: 1px dashed var(--border-medium);">Tight Line Height for Hero Headlines and Large Titles</h1>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Heading (1.3)</span>
+                        <span class="swatch-value">var(--lh-heading)</span>
+                    </div>
+                    <h2 class="ds-heading-h2" style="border: 1px dashed var(--border-medium);">Standard Heading Spacing for Subheaders and Section Titles</h2>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Base (1.6)</span>
+                        <span class="swatch-value">var(--lh-base)</span>
+                    </div>
+                    <p class="ds-body" style="border: 1px dashed var(--border-medium);">Base line height for standard body text. This provides a balanced readability for medium-length paragraphs in case studies and descriptions.</p>
+                </div>
+                <div class="type-item">
+                    <div style="display: flex; flex-direction: column;">
+                        <span class="ds-caption">Relaxed (1.8)</span>
+                        <span class="swatch-value">var(--lh-relaxed)</span>
+                    </div>
+                    <p class="ds-body-lg" style="border: 1px dashed var(--border-medium);">Relaxed line height for long-form reading or lead-in paragraphs. Enhanced white space between lines reduces cognitive load for dense information discovery.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3.2 PAGE SPACING ARCHITECTURE -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Page Spacing Architecture (Top to Bottom)</h2>
+            <div class="preview-grid">
+                <!-- Landing Page Blueprint -->
+                <div class="component-preview">
+                    <span class="component-label">Landing Page Flow</span>
+                    <div class="ds-content-stack-sm">
+                        <div style="padding: 8px; border-radius: 4px; background: var(--bg-main); text-align: center; border: 1px solid var(--border-subtle); font-weight: 600;">Navigation Bar</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 20px; border-radius: 8px; background: var(--accent-light); text-align: center; font-family: var(--font-heading);">Main Hero Content</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 15px; border-radius: 8px; background: var(--bg-main); text-align: center;">Work / Experience Grid</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 15px; border-radius: 8px; background: var(--bg-main); text-align: center;">Blog / Insights</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 8px; border-radius: 4px; background: var(--bg-main); text-align: center; border: 1px solid var(--border-subtle);">Footer</div>
+                    </div>
+                </div>
+
+                <!-- Case Study Blueprint -->
+                <div class="component-preview">
+                    <span class="component-label">Case Study Flow</span>
+                    <div class="ds-content-stack-sm">
+                        <div style="padding: 8px; border-radius: 4px; background: var(--bg-main); text-align: center; border: 1px solid var(--border-subtle); font-weight: 600;">Back to Home / Nav</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 20px; border-radius: 8px; background: var(--accent-light); text-align: center; font-family: var(--font-heading);">Study Header (Title/Meta)</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 15px; border-radius: 8px; background: var(--bg-main); text-align: center;">Problem & Discovery</div>
+                        <div style="height: 15px; border-left: 20px solid transparent; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 15px; border-radius: 8px; background: var(--bg-main); text-align: center;">Research & Methodology</div>
+                        <div style="height: 15px; border-left: 2px solid var(--primary); margin-left: 50%; display: flex; align-items: center;"><span class="ds-caption" style="margin-left: 10px;">Uniform 80px</span></div>
+                        <div style="padding: 8px; border-radius: 4px; background: var(--bg-main); text-align: center; border: 1px solid var(--border-subtle);">Related Projects / Next</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3.6 LAYOUT UTILITIES -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Layout Utilities</h2>
+            <div class="preview-grid">
+                <!-- Stack Demo -->
+                <div class="component-preview">
+                    <span class="component-label">Content Stack</span>
+                    <div class="ds-content-stack" style="border: 1px dashed var(--border-medium); padding: var(--space-md);">
+                        <div style="background: var(--accent-light); height: 40px; border-radius: var(--radius-xs);"></div>
+                        <div style="background: var(--accent-light); height: 40px; border-radius: var(--radius-xs);"></div>
+                        <div style="background: var(--accent-light); height: 40px; border-radius: var(--radius-xs);"></div>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .ds-content-stack (Gap: 32px)</div>
+                </div>
+
+                <!-- Section Padding Demo -->
+                <div class="component-preview">
+                    <span class="component-label">Section Padding</span>
+                    <div style="border: 1px dashed var(--border-medium); background: var(--bg-canvas);">
+                        <div class="ds-section" style="background: var(--accent-light); text-align: center;">
+                            <span class="ds-caption">Section Content Area</span>
+                        </div>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .ds-section (Padding Y: 100px)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. BORDER RADIUS -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Border Radius (Proportional)</h2>
+            <div class="radius-demo">
+                <div class="radius-box" style="border-radius: var(--radius-sm);">12px (SM)</div>
+                <div class="radius-box" style="border-radius: var(--radius-md);">14px (MD)</div>
+                <div class="radius-box" style="border-radius: var(--radius-lg);">18px (LG)</div>
+                <div class="radius-box" style="border-radius: var(--radius-pill);">Pill (100px)</div>
+            </div>
+        </section>
+
+        <!-- 5. ELEVATION -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Elevation & Shadows</h2>
+            <div class="shadow-demo">
+                <div class="shadow-box" style="box-shadow: var(--shadow-sm);">Shadow SM</div>
+                <div class="shadow-box" style="box-shadow: var(--shadow-md);">Shadow MD</div>
+            </div>
+        </section>
+
+        <!-- 6. COMPONENT LIBRARY: LANDING PAGE -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Landing Page Components</h2>
+            <div class="preview-grid">
+                <!-- Stat Card -->
+                <div class="component-preview">
+                    <span class="component-label">Statistics</span>
+                    <div class="ds-glass ds-card" style="padding: var(--space-lg);">
+                        <span class="ds-caption" style="color: var(--primary);">Experience</span>
+                        <h4 class="ds-heading-h4" style="margin: 8px 0;">12+ Years</h4>
+                        <p class="ds-body" style="font-size: var(--fs-body);">UI/UX Design & Leadership.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .stat-card</div>
+                </div>
+
+                <!-- Agent Card -->
+                <div class="component-preview">
+                    <span class="component-label">The Lab</span>
+                    <div class="ds-glass ds-card">
+                        <div style="background: var(--accent-glow); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/></svg>
+                        </div>
+                        <h3 class="ds-heading-h4">Case Study Builder</h3>
+                        <p class="ds-body" style="font-size: var(--fs-body); margin-bottom: 12px;">Autonomous data-to-case-study engine.</p>
+                        <span class="ds-caption" style="background: var(--primary); color: var(--text-on-primary); padding: 2px 8px; border-radius: 4px;">Live</span>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .agent-card</div>
+                </div>
+
+                <!-- Journey Card -->
+                <div class="component-preview" style="grid-column: span 2;">
+                    <span class="component-label">Experience Timeline</span>
+                    <div class="ds-glass ds-card">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                            <div>
+                                <h3 class="ds-heading-h3" style="font-size: 1.4rem; margin: 0;">PwC India</h3>
+                                <span class="ds-caption">2023 — PRESENT</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <h3 class="ds-heading-h4" style="margin: 0;">Design Manager</h3>
+                                <span class="ds-caption" style="color: var(--primary);">Leadership</span>
+                            </div>
+                        </div>
+                        <p class="ds-body">Leading high-impact digital transformation through strategic design methodology and cross-functional leadership.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .journey-card</div>
+                </div>
+
+                <!-- Blog Card -->
+                <div class="component-preview">
+                    <span class="component-label">Blog / Insight</span>
+                    <div class="ds-glass ds-card" style="padding: 0; overflow: hidden;">
+                        <div style="height: 120px; background: var(--border-subtle); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); color: var(--text-muted);">IMAGE_PLACEHOLDER</div>
+                        <div style="padding: var(--space-lg);">
+                            <span class="ds-caption" style="display: flex; align-items: center; gap: 6px;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                                LinkedIn Article
+                            </span>
+                            <h4 class="ds-heading-h4" style="margin: 10px 0; font-size: 1.1rem;">Designing for AI Trust</h4>
+                            <p class="ds-body" style="font-size: var(--fs-sm);">Exploring behavioral psychology in autonomous agents.</p>
+                        </div>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .blog-card</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. COMPONENT LIBRARY: CASE STUDY PAGE -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Case Study Page Components</h2>
+            <div class="preview-grid">
+                <!-- Insight Card -->
+                <div class="component-preview">
+                    <span class="component-label">UX Insight</span>
+                    <div class="ds-glass ds-card" style="border-left: 4px solid var(--primary); border-radius: var(--radius-sm);">
+                        <h4 class="ds-heading-h4" style="color: var(--primary); font-size: var(--fs-sm);">INSIGHT #01</h4>
+                        <p class="ds-body">Simplifying navigation reduced task completion time by 40% across key enterprise workflows.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .cs-insight-card</div>
+                </div>
+
+                <!-- Persona Card -->
+                <div class="component-preview">
+                    <span class="component-label">User Persona</span>
+                    <div class="ds-glass ds-card" style="display: flex; gap: var(--space-lg); align-items: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-glow); flex-shrink: 0;"></div>
+                        <div>
+                            <h4 class="ds-heading-h4" style="margin: 0;">The Strategist</h4>
+                            <p class="ds-body" style="font-size: var(--fs-sm); margin: 0;">High technical proficiency, low time availability.</p>
+                        </div>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .cs-persona</div>
+                </div>
+
+                <!-- Metric / Map Point -->
+                <div class="component-preview">
+                    <span class="component-label">Metric / Data Point</span>
+                    <div class="ds-glass ds-card" style="text-align: center; border-radius: var(--radius-lg);">
+                        <h3 class="ds-heading-h3" style="color: var(--primary); margin: 0;">+85%</h3>
+                        <p class="ds-caption">Efficiency Gains</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .cs-metric-card</div>
+                </div>
+
+                <!-- Flow / Process Box -->
+                <div class="component-preview">
+                    <span class="component-label">Flow / Logic Box</span>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .cs-flow-box</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. BUTTONS & INTERACTIVE ELEMENTS -->
+        <section class="guide-section">
+            <h2 class="ds-heading-h2 guide-section-title">Buttons & Actions (Hover Interactive)</h2>
+            <div class="preview-grid">
+                <!-- Primary Button -->
+                <div class="component-preview">
+                    <span class="component-label">Primary Action</span>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-md); align-items: flex-start;">
+                        <a href="#" class="ds-btn ds-btn-primary">Primary Button</a>
+                        <p class="ds-body" style="font-size: var(--fs-xs);">Hover to see the <b>glow and lift</b> effect. Used for main CTA.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .ds-btn-primary</div>
+                </div>
+
+                <!-- Secondary Button -->
+                <div class="component-preview">
+                    <span class="component-label">Secondary Action</span>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-md); align-items: flex-start;">
+                        <a href="#" class="ds-btn ds-btn-secondary">Secondary Button</a>
+                        <p class="ds-body" style="font-size: var(--fs-xs);">Hover to see the <b>accent-fill</b>. Now using <b>Semi Bold (600)</b> weight.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .ds-btn-secondary</div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="component-preview">
+                    <span class="component-label">Navigation</span>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-md); align-items: flex-start;">
+                        <a href="#" class="ds-btn ds-btn-secondary" style="padding: 10px 20px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+                            Back to Home
+                        </a>
+                        <p class="ds-body" style="font-size: var(--fs-xs);">Inherits secondary styles with specific padding/icon rules.</p>
+                    </div>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .back-btn</div>
+                </div>
+
+                <!-- Icon Action -->
+                <div class="component-preview">
+                    <span class="component-label">Quick Actions</span>
+                    <div style="display: flex; gap: var(--space-md);">
+                        <a href="#" class="ds-icon-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </a>
+                        <a href="#" class="ds-icon-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                        </a>
+                    </div>
+                    <p class="ds-body" style="font-size: var(--fs-xs); margin-top: 12px;">Hover for <b>scale and primary tint</b> feedback.</p>
+                    <div class="swatch-value" style="margin-top: 10px;">Class: .ds-icon-btn</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.documentElement.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

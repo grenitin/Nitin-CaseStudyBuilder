@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fables of Nitin Kr. | Design Leader</title>
+    <meta name="description" content="A fairytale journey through the professional works of Nitin Kr.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=UnifrakturMaguntia&family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <style>
+        /* --- The Great Library Theme (Storybook Layout) --- */
+        :root {
+            --paper: #F5E6CA;
+            --ink: #1A1A1A;
+            --gold: #D4AF37;
+            --forest: #050C09;
+            --accent-crimson: #8B0000;
+        }
+
+        body.dark-mode, [data-theme="dark"] {
+            --bg-main: #050C09;
+            --canvas-bg: #050C09;
+            --text-primary: #F2E8CF;
+            --text-secondary: rgba(242, 232, 207, 0.7);
+            --primary: var(--gold);
+            --border-medium: rgba(212, 175, 55, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Crimson Pro', serif;
+            line-height: 1.6;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- Storybook Layout Structure --- */
+        .storybook-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(to bottom, rgba(245, 230, 202, 0.02), transparent);
+            border-left: 1px solid var(--border-medium);
+            border-right: 1px solid var(--border-medium);
+            min-height: 100vh;
+        }
+
+        .manuscript {
+            position: relative;
+        }
+
+        /* --- Side Bookmarks (Navigation) --- */
+        .bookmarks {
+            position: fixed;
+            left: 50%;
+            margin-left: -580px;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .bookmark-link {
+            background: var(--gold);
+            color: var(--forest);
+            padding: 12px 20px;
+            font-family: 'UnifrakturMaguntia', serif;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 4px 0 0 4px;
+            transition: all 0.3s ease;
+            box-shadow: -5px 5px 15px rgba(0,0,0,0.3);
+            width: 140px;
+            text-align: right;
+        }
+
+        .bookmark-link:hover {
+            width: 160px;
+            background: #F2E8CF;
+            padding-right: 30px;
+        }
+
+        /* --- Chapter Styling --- */
+        .chapter {
+            margin-bottom: 120px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .chapter.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter-title {
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--gold);
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px double var(--gold);
+            padding-bottom: 20px;
+        }
+
+        .chapter-title::first-letter {
+            font-size: 1.5em;
+            color: var(--accent-crimson);
+            float: left;
+            line-height: 0.8;
+            padding-right: 10px;
+            margin-top: 5px;
+        }
+
+        /* --- Custom Hero for Storybook --- */
+        .hero-story {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .hero-story h1 {
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            color: var(--gold);
+            margin: 0;
+        }
+
+        .hero-story p {
+            font-family: 'Alice', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* --- Card & Content Adjustments --- */
+        .story-card {
+            background: rgba(245, 230, 202, 0.03);
+            border: 1px solid var(--border-medium);
+            padding: 40px;
+            border-radius: 30px 5px 30px 5px;
+            margin-bottom: 40px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: scale(1.02);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .story-card h3 {
+            font-family: 'Alice', serif;
+            color: var(--gold);
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        /* --- Drop Cap --- */
+        .drop-cap::first-letter {
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: 4rem;
+            float: left;
+            line-height: 1;
+            padding: 10px;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            margin: 0 15px 5px 0;
+        }
+
+        /* --- Magical Orbs --- */
+        .orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent 70%);
+            filter: blur(60px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Mobile Navigation --- */
+        @media (max-width: 1200px) {
+            .bookmarks {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        // --- High-Fidelity Theme Engine ---
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+            } else {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="orb" style="top: 10%; left: -10%;"></div>
+    <div class="orb" style="bottom: 10%; right: -10%;"></div>
+
+    <nav class="bookmarks">
+        <a href="#intro" class="bookmark-link">I. Prologue</a>
+        <a href="#lab" class="bookmark-link">II. The Lab</a>
+        <a href="#works" class="bookmark-link">III. The Deeds</a>
+        <a href="#journey" class="bookmark-link">IV. The Quest</a>
+        <a href="#scrolls" class="bookmark-link">V. Scrolls</a>
+    </nav>
+
+    <div class="storybook-container">
+        <div class="manuscript">
+            <!-- PROLOGUE -->
+            <header id="intro" class="chapter hero-story reveal">
+                <h1>The Fables of Nitin Kr.</h1>
+                <p>Architect of Digital Realms & Weaver of AI Intent</p>
+                <div style="margin-top: 40px;">
+                    <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-primary" target="_blank">Open the Scroll (Resume)</a>
+                </div>
+            </header>
+
+            <!-- THE LAB -->
+            <section id="lab" class="chapter">
+                <h2 class="chapter-title">The Enchanted Workshop</h2>
+                <div class="story-card">
+                    <p class="drop-cap">Within the deepest chambers of the digital forest, Nitin crafts autonomous entities that breathe life into the void. These are not mere scripts, but agents of intent, forged in the fires of Heuristic Audits and Case Study Alchemy.</p>
+                </div>
+                <div class="lab-grid" style="display: grid; gap: 20px;">
+                    <div class="story-card">
+                        <h3>Case Study Builder</h3>
+                        <p>An autonomous data-to-case-study engine that transforms research into Behance-ready artifacts.</p>
+                    </div>
+                    <div class="story-card">
+                        <h3>Heuristic Evaluator</h3>
+                        <p>Vision-based agent that performs multi-fold heuristic audits with grounded, visual citations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WORKS -->
+            <section id="works" class="chapter">
+                <h2 class="chapter-title">Great Deeds Accomplished</h2>
+                
+                <div class="story-card">
+                    <h3>Careline HRMS</h3>
+                    <p>A transformation of the employee experience, bringing order to the chaos of enterprise workflows.</p>
+                    <a href="../HRMS/case_study.html" class="ds-btn ds-btn-secondary">Read the Tale</a>
+                </div>
+
+                <div class="story-card">
+                    <h3>FIPA Website</h3>
+                    <p>A B2B e-commerce odyssey, reimagining the exchange of goods through strategic UX audits.</p>
+                    <a href="../FIPA/case_study.html" class="ds-btn ds-btn-secondary">Read the Tale</a>
+                </div>
+
+                <div class="story-card">
+                    <h3>HealthCare Platform</h3>
+                    <p>A quest for trustworthy doctor discovery, simplifying the path to healing for the masses.</p>
+                    <a href="../HealthCare/index.html" class="ds-btn ds-btn-secondary">Read the Tale</a>
+                </div>
+            </section>
+
+            <!-- JOURNEY -->
+            <section id="journey" class="chapter">
+                <h2 class="chapter-title">The Master's Quest</h2>
+                <div class="story-card">
+                    <h3>PwC India - Design Manager</h3>
+                    <span class="hero-tag" style="margin-bottom: 20px; display: inline-block;">Present Day</span>
+                    <p>Leading a battalion of twelve creative souls, bridging the gap between ancient strategy and modern digital sorcery. Mentoring, directing, and solving the most complex riddles for global enterprises.</p>
+                </div>
+                <div class="story-card">
+                    <h3>Technogen - VP Design</h3>
+                    <span class="hero-tag" style="margin-bottom: 20px; display: inline-block;">Years Past</span>
+                    <p>Orchestrating SaaS product strategies and establishing unified design languages for the banking elite.</p>
+                </div>
+            </section>
+
+            <!-- SCROLLS -->
+            <section id="scrolls" class="chapter">
+                <h2 class="chapter-title">The Written Scrolls</h2>
+                <div class="blogs-grid" style="display: grid; gap: 20px;">
+                    <div class="story-card">
+                        <h3>Designing for AI Trust</h3>
+                        <p>Exploring how behavioral psychology builds long-term trust in autonomous agents.</p>
+                    </div>
+                    <div class="story-card">
+                        <h3>The ROI of Design Systems</h3>
+                        <p>How standardized design reduces engineering debt at scale.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer style="text-align: center; padding-top: 80px; border-top: 1px solid var(--border-medium);">
+                <h2 class="chapter-title">Let Us Converse</h2>
+                <a href="mailto:grenitin@gmail.com" style="font-size: 2rem; color: var(--gold); text-decoration: none; font-family: 'Alice', serif;">grenitin@gmail.com</a>
+                <p style="margin-top: 40px; opacity: 0.5;">© 2026 Nitin Kr. • The End of the Beginning</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Simple Intersection Observer for Chapter Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.chapter').forEach(chapter => {
+            observer.observe(chapter);
+        });
+
+        // Smooth scroll for bookmarks
+        document.querySelectorAll('.bookmark-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

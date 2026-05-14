@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 follower.style.width = '80px';
                 follower.style.height = '80px';
                 follower.style.transform = `translate3d(${followerX - 40}px, ${followerY - 40}px, 0)`;
-                follower.style.backgroundColor = 'rgba(233, 30, 99, 0.05)';
-                follower.style.borderColor = 'rgba(233, 30, 99, 1)';
+                follower.style.backgroundColor = 'var(--accent-light)';
+                follower.style.borderColor = 'var(--accent)';
             });
             el.addEventListener('mouseleave', () => {
                 follower.style.width = '40px';
                 follower.style.height = '40px';
                 follower.style.backgroundColor = 'transparent';
-                follower.style.borderColor = 'rgba(233, 30, 99, 1)';
+                follower.style.borderColor = 'var(--accent)';
             });
         });
     }
@@ -89,10 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
 
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+    if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark-mode');
         body.classList.add('dark-mode');
         updateThemeIcon(true);
@@ -104,10 +103,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
+            body.classList.add('theme-transition');
+            document.documentElement.classList.add('theme-transition');
+            
+            // Force browser reflow
+            void document.documentElement.offsetHeight;
+            
+            const isDark = body.classList.toggle('dark-mode');
             document.documentElement.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            const theme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            setTimeout(() => {
+                body.classList.remove('theme-transition');
+                document.documentElement.classList.remove('theme-transition');
+            }, 600);
+
             updateThemeIcon(isDark);
         });
     }
@@ -135,9 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sliderSlides.length === 0) return;
 
         const heroImages = [
-            'assets/images/ux_innovation_trans.png',
+            'assets/images/hero_lightbulb_final.png',
             'assets/images/ux_ai_trans.png',
-            'assets/images/ux_enterprise_trans.png'
+            'assets/images/ux_enterprise_v2.png'
         ];
 
         let slideIdx = 0;
@@ -150,7 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderSlides[index].classList.add('active');
             if (sliderDots[index]) sliderDots[index].classList.add('active');
             
-            // Update Hero Asset with a smooth transition
+            // Update Hero Asset - Disabled for single hero image (nitin.png)
+            /*
             if (heroAsset && heroImages[index]) {
                 heroAsset.style.opacity = '0';
                 setTimeout(() => {
@@ -158,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     heroAsset.style.opacity = '1';
                 }, 400);
             }
+            */
             
             slideIdx = index;
         };
@@ -192,24 +207,158 @@ document.addEventListener('DOMContentLoaded', () => {
         
         journeyCards.forEach(card => {
             const expandBtn = card.querySelector('.expand-btn');
-            if (!expandBtn) return;
+            const details = card.querySelector('.journey-details');
+            const header = card.querySelector('.journey-header');
+            if (!expandBtn || !details || !header) return;
             
-            // Make the whole card clickable for easier expansion
-            card.addEventListener('click', (e) => {
-                // Prevent double toggle if button itself is clicked
-                if (e.target.tagName === 'BUTTON') return;
+            const toggleExpand = (e) => {
+                if (e) e.stopPropagation();
                 
-                card.classList.toggle('expanded');
-                expandBtn.textContent = card.classList.contains('expanded') ? 'HIDE DETAILS' : 'VIEW DETAILS';
-            });
+                const isMobile = window.innerWidth <= 768;
+                
+                if (isMobile) {
+                    // Create a true body-level modal to break out of CSS transforms
+                    let modal = document.querySelector('.mobile-journey-modal');
+                    if (modal) modal.remove();
+                    
+                    modal = document.createElement('div');
+                    modal.className = 'mobile-journey-modal';
+                    
+                    modal.innerHTML = `
+                        <button class="mobile-close-btn">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                        <div class="modal-content-wrapper">
+                            <div class="journey-header" style="margin-bottom: 2rem !important; padding-right: 3rem; margin-top: 0 !important;">
+                                ${header.innerHTML}
+                            </div>
+                            ${details.innerHTML}
+                        </div>
+                        <div class="modal-cta-bar">
+                            <a href="https://www.linkedin.com/in/nitin-kr-205341b/" class="ds-btn ds-btn-secondary" target="_blank">My LinkedIn</a>
+                            <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-primary" target="_blank">My Resume</a>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                    document.body.style.overflow = 'hidden'; // Lock background scroll
+                    
+                    // Handle scroll visibility for CTA bar
+                    const contentWrapper = modal.querySelector('.modal-content-wrapper');
+                    const ctaBar = modal.querySelector('.modal-cta-bar');
+                    let scrollTimeout;
 
-            expandBtn.addEventListener('click', () => {
-                card.classList.toggle('expanded');
-                expandBtn.textContent = card.classList.contains('expanded') ? 'HIDE DETAILS' : 'VIEW DETAILS';
+                    contentWrapper.addEventListener('scroll', () => {
+                        ctaBar.classList.add('hidden');
+                        clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            ctaBar.classList.remove('hidden');
+                        }, 150); // Show after 150ms of no scrolling
+                    });
+
+                    const closeModal = () => {
+                        modal.classList.add('closing');
+                        setTimeout(() => {
+                            modal.remove();
+                            document.body.style.overflow = '';
+                        }, 300);
+                    };
+                    
+                    const closeBtn = modal.querySelector('.mobile-close-btn');
+                    closeBtn.addEventListener('click', closeModal);
+                    
+                } else {
+                    // Desktop inline expansion
+                    const isExpanded = card.classList.toggle('expanded');
+                    expandBtn.textContent = isExpanded ? 'HIDE DETAILS' : 'VIEW DETAILS';
+                }
+            };
+
+            card.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' && e.target !== expandBtn) return;
+                toggleExpand(e);
+            });
+            
+            expandBtn.addEventListener('click', toggleExpand);
+        });
+    };
+
+    const initAccordionToggle = () => {
+        // Handle both special accordion toggles and regular section headers
+        const toggles = document.querySelectorAll('.accordion-toggle, .cs-section-header');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const section = toggle.closest('.cs-accordion-section, .cs-section');
+                if (section) {
+                    section.classList.toggle('expanded');
+                }
             });
         });
     };
 
+    function initBurgerMenu() {
+        const burgerBtn = document.getElementById('burger-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        const menuClose = document.getElementById('menu-close');
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        if (!burgerBtn || !menuOverlay) return;
+
+        burgerBtn.addEventListener('click', () => {
+            const isActive = menuOverlay.classList.toggle('active');
+            burgerBtn.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            
+            // Failsafe: Explicitly hide/show ALL hero actions to prevent CSS overlap issues
+            document.querySelectorAll('.hero-actions, .modal-cta-bar').forEach(el => {
+                el.style.setProperty('display', isActive ? 'none' : 'flex', 'important');
+                el.style.setProperty('visibility', isActive ? 'hidden' : 'visible', 'important');
+                el.style.setProperty('opacity', isActive ? '0' : '1', 'important');
+            });
+        });
+
+        // Close menu when clicking outside (on the overlay background)
+        menuOverlay.addEventListener('click', (e) => {
+            if (e.target === menuOverlay) {
+                closeMenu();
+            }
+        });
+
+        const closeMenu = () => {
+            burgerBtn.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        };
+
+        if (menuClose) {
+            menuClose.addEventListener('click', closeMenu);
+        }
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
+
     initJourneyExpansion();
+    initAccordionToggle();
+    initBurgerMenu();
+    initHeroVisibility();
 });
 
+// Mobile Hero CTA Visibility
+function initHeroVisibility() {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 600) {
+            document.body.classList.add('scrolled-past');
+        } else {
+            document.body.classList.remove('scrolled-past');
+        }
+    }, { passive: true });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    initHeroVisibility();
+});
