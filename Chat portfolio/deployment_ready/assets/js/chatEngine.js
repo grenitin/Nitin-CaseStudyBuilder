@@ -753,6 +753,49 @@ Latest Projects: ${portfolioData.extraProjects.map(p => `${p.title} (${p.role}):
         if (!text.trim() && pendingFilesData.length === 0) return;
         if (!text.trim()) text = "Attached file(s)";
 
+        // --- HUMAN-LIKE RANDOM/GIBBERISH INPUT HANDLER ---
+        // Detect random keyboard mashing or meaningless text before wasting an API call
+        const trimmed = text.trim();
+        const isGibberish = trimmed.length > 0 &&
+            trimmed.length < 25 &&
+            !/[aeiou]/i.test(trimmed) && // no vowels = almost certainly gibberish
+            !/\d/.test(trimmed) &&         // no numbers
+            !trimmed.includes(' ');         // single word
+
+        const isRepetitive = (str) => {
+            // e.g. "hhhh", "asdasd", "lllll"
+            const cleaned = str.toLowerCase().replace(/\s+/g, '');
+            if (cleaned.length < 4) return false;
+            const unique = new Set(cleaned.split('')).size;
+            return unique <= 2;
+        };
+
+        const gibberishReplies = [
+            "Hmm, I didn't quite catch that! Were you testing me out, or is there something specific about Nitin you'd like to know? 😄",
+            "Ha, looks like your keyboard had a moment there! No worries — what would you actually like to explore? Nitin's experience, case studies, or something else?",
+            "I think something got lost in translation! 😄 Feel free to ask me anything about Nitin — his work, experience, or even his AI projects.",
+            "Not sure I follow! Are you just warming up, or is there something I can help you with? I'm all ears. 👂",
+            "That one stumped me a little! Try asking something like 'Tell me about Nitin' or 'Show me his case studies' — I'd love to help. 😊"
+        ];
+
+        if (isGibberish || isRepetitive(trimmed)) {
+            appendMessage('user', text);
+            chatInput.value = '';
+            if (typeof toggleSendBtn === 'function') toggleSendBtn();
+
+            const chatContainer = document.getElementById('chat-container');
+            if (chatContainer && chatContainer.classList.contains('landing-state')) {
+                chatContainer.classList.remove('landing-state');
+            }
+
+            const reply = gibberishReplies[Math.floor(Math.random() * gibberishReplies.length)];
+            await new Promise(r => setTimeout(r, 800)); // Brief pause to feel natural
+            appendMessage('agent', reply);
+            showOptions(["Intro", "Case Studies", "Professional Journey", "The AI Lab"]);
+            return;
+        }
+        // -------------------------------------------------
+
         // Unlock audio context on first interaction for mobile devices
         if ('speechSynthesis' in window && !isTTSMuted) {
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
@@ -935,19 +978,35 @@ Latest Projects: ${portfolioData.extraProjects.map(p => `${p.title} (${p.role}):
                 }
 
                 if (finalText.trim().length === 0 && !actionToShow && (!optionsArray || optionsArray.length === 0)) {
-                    appendMessage('agent', "I seem to have lost my train of thought! Could you try asking that again? 🤔");
+                    const softFallbacks = [
+                        "Hmm, I'm not quite sure how to answer that one! Try asking about Nitin's experience, case studies, or skills — I'm much better at those. 😊",
+                        "That one's a bit outside my usual territory! Can I help you explore Nitin's work instead — maybe his AI projects or design process?",
+                        "Good question, but I think I need a bit more context! What specifically would you like to know about Nitin?",
+                        "I want to give you a great answer, but I'm drawing a blank on that one! Let's try something else — ask me about his professional journey or case studies. 🚀"
+                    ];
+                    appendMessage('agent', softFallbacks[Math.floor(Math.random() * softFallbacks.length)]);
+                    showOptions(["Intro", "Case Studies", "Professional Journey", "The AI Lab"]);
                 }
             } else {
-                // If aiResponse is missing completely, remove typing
+                // If aiResponse is missing completely, show a warm human fallback
                 const typingEl = document.getElementById(typingId);
                 if (typingEl) typingEl.remove();
-                appendMessage('agent', "I seem to have lost my train of thought! Could you try asking that again? 🤔");
+                const emptyFallbacks = [
+                    "Hmm, it seems I got a little tongue-tied there! Give it another shot — I'm usually much better than this. 😅",
+                    "I'm so sorry, I think I zoned out for a second! Could you try that again? I promise I'm paying attention. 😄",
+                    "Oops, my brain hiccuped! Please try again — I'll do better this time. 🤞"
+                ];
+                appendMessage('agent', emptyFallbacks[Math.floor(Math.random() * emptyFallbacks.length)]);
             }
         } catch (globalError) {
             console.error("Critical error in processInput:", globalError);
             const typingEl = document.getElementById(typingId);
             if (typingEl) typingEl.remove();
-            appendMessage('agent', "Oops, something broke in my circuitry! Let's try that again. 😅");
+            const criticalFallbacks = [
+                "Oh no, something went a little sideways on my end! But Nitin is always reachable directly.\n\n[grenitin@gmail.com](mailto:grenitin@gmail.com)\n[+91 9024930553](tel:+919024930553)",
+                "Looks like I had a small hiccup! You can always reach Nitin directly while I sort myself out.\n\n[grenitin@gmail.com](mailto:grenitin@gmail.com)\n[Chat with Nitin](https://wa.me/919024930553)"
+            ];
+            appendMessage('agent', criticalFallbacks[Math.floor(Math.random() * criticalFallbacks.length)]);
         }
     }
 
