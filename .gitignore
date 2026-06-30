@@ -2,3 +2,10 @@ __pycache__/
 .venv/
 .DS_Store
 UX Audit/
+node_modules/
+**/node_modules/
+.vercel/
+**/.vercel/
+.env*
+**/dist/
+**/build/

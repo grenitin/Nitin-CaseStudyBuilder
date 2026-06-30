@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Master Abstract Pod</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-teal: #1BC5BD;
+            --brand-orange: #FF9F43;
+            --brand-cream: #F8F9FA;
+            --text-dark: #2D3436;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #EFEFEF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1080x1350 Pinterest-Style Portrait Protocol */
+        .poster-container {
+            width: 1080px;
+            height: 1350px;
+            background-color: var(--brand-cream);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1);
+        }
+
+        /* The Abstract Pod (V1) */
+        .abstract-pod {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 850px;
+            height: 850px;
+            background-color: #ccc;
+            border-radius: 400px 400px 0 400px;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Maintaining natural look from your portrait */
+            filter: contrast(1.05);
+        }
+
+        /* Background Decorations */
+        .decor-circle {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .decor-1 {
+            top: -100px;
+            right: -100px;
+            background-color: var(--brand-teal);
+            opacity: 0.1;
+        }
+
+        .decor-2 {
+            bottom: 200px;
+            left: -200px;
+            background-color: var(--brand-orange);
+            opacity: 0.1;
+        }
+
+        /* Headline & Content */
+        .content-section {
+            position: absolute;
+            bottom: 150px;
+            left: 80px;
+            right: 80px;
+            z-index: 10;
+        }
+
+        .headline {
+            font-size: 110px;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .headline span {
+            color: var(--brand-teal);
+        }
+
+        .description {
+            font-size: 32px;
+            color: var(--text-dark);
+            margin-top: 30px;
+            line-height: 1.3;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        /* Branding */
+        .footer {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 20;
+        }
+
+        .brand-dot {
+            width: 30px;
+            height: 30px;
+            background-color: var(--brand-teal);
+            border-radius: 50%;
+        }
+
+        .brand-label {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- Decoration -->
+        <div class="decor-circle decor-1"></div>
+        <div class="decor-circle decor-2"></div>
+
+        <!-- Branding -->
+        <div class="footer">
+            <div class="brand-dot"></div>
+            <div class="brand-label">DESIGN STRATEGY</div>
+        </div>
+
+        <!-- Abstract Pod (The V1 Winner) -->
+        <div class="abstract-pod">
+            <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/media__1777391884847.jpg" class="hero-image" alt="UX Principal">
+        </div>
+
+        <!-- Content -->
+        <div class="content-section">
+            <h1 class="headline">Strategic<br><span>UX Audit</span></h1>
+            <p class="description">Identifying revenue leaks through systemic friction analysis and heuristic ROI mapping.</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+/* device-frames.css */
+
+/* --- IPHONE 15 PRO FRAME (CSS ONLY) --- */
+.device-iphone-15 {
+    position: relative;
+    width: 320px;
+    height: 650px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 44px;
+    border: 8px solid #1a1a1a;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.5), 0 0 0 2px #333;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+/* Dynamic Island */
+.device-iphone-15::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 25px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.device-iphone-15 .screen-content {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.device-iphone-15 .screen-content::-webkit-scrollbar {
+    display: none;
+}
+
+.device-iphone-15 img {
+    width: 100%;
+    display: block;
+}
+
+/* --- MINIMAL BROWSER FRAME --- */
+.device-browser {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-medium);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.device-browser .browser-header {
+    height: 40px;
+    background: rgba(0,0,0,0.05);
+    border-bottom: 1px solid var(--border-medium);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 8px;
+}
+
+.device-browser .dot {
+    width: 10px;
+    height: 100%; /* Reset from dot style */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] .device-browser .dot, 
+.dark-mode .device-browser .dot {
+    background: rgba(255,255,255,0.1);
+}
+
+.device-browser .screen-content {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.device-browser img {
+    width: 100%;
+    display: block;
+}

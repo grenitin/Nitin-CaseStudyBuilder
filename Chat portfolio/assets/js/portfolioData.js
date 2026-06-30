@@ -68,38 +68,7 @@ const portfolioData = {
             link: "RoundMart/index.html",
             img: "assets/images/roundmart_hero_clean.png"
         },
-        {
-            title: "Swiggy Daily - Meal Subscriptions",
-            tag: "FOOD DELIVERY & SUBSCRIPTIONS",
-            desc: "A UX evaluation aiming to improve the subscription process for daily meals, reducing drop-off rates.",
-            overview: "A UX evaluation aiming to improve the subscription process for daily meals, reducing drop-off rates.",
-            problem: "[PLACEHOLDER: Describe the core problem]",
-            users: "[PLACEHOLDER: Daily meal subscribers]",
-            research: "[PLACEHOLDER: Describe research methods used]",
-            challenges: "[PLACEHOLDER: What were the key constraints?]",
-            designDecisions: "[PLACEHOLDER: Why did you design it this way?]",
-            impact: "[PLACEHOLDER: E.g., Reduced subscription drop-off by 20%]",
-            learnings: "[PLACEHOLDER: What did you learn from this project?]",
-            vercelLink: "https://design-lab-zeta.vercel.app/SwiggyDaily/swiggy_daily.html",
-            link: "SwiggyDaily/swiggy_daily.html",
-            img: "SwiggyDaily/image/hero-image/SwiggyDaily.png"
-        },
-        {
-            title: "Parent Application - School Management",
-            tag: "EDTECH & PARENTING",
-            desc: "Connecting parents with schools for real-time updates on student progress, attendance, and events.",
-            overview: "Connecting parents with schools for real-time updates on student progress, attendance, and events.",
-            problem: "[PLACEHOLDER: Describe the core problem]",
-            users: "[PLACEHOLDER: Parents, Teachers, Admins]",
-            research: "[PLACEHOLDER: Describe research methods used]",
-            challenges: "[PLACEHOLDER: What were the key constraints?]",
-            designDecisions: "[PLACEHOLDER: Why did you design it this way?]",
-            impact: "[PLACEHOLDER: E.g., Improved parent engagement score]",
-            learnings: "[PLACEHOLDER: What did you learn from this project?]",
-            vercelLink: "https://design-lab-zeta.vercel.app/Parent/index.html",
-            link: "Parent/index.html",
-            img: "Parent/image/hero-image/ParentApp.png"
-        },
+
         {
             title: "Virtual Expo",
             tag: "INDUSTRIAL TECH & B2B",

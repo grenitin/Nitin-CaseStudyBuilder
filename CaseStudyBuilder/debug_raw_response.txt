@@ -1,0 +1,316 @@
+{
+  "title": "FinFlow Reimagined",
+  "subtitle": "Innovating India's Mobile Banking Experience for Zero-to-One Growth",
+  "problem_statement": "FinFlow offers standard banking features but lacks unique, personalized financial guidance and proactive tools.",
+  "hmw_questions": [
+    "How might we differentiate FinFlow in a crowded market?",
+    "How might users achieve financial goals effortlessly?",
+    "How might we integrate hyper-personalization and gamification?"
+  ],
+  "empathy_pillars": [
+    {
+      "title": "Trust & Security",
+      "insight": "Users need absolute confidence in their FinFlow transactions.",
+      "icon": "psychology"
+    },
+    {
+      "title": "Clarity & Control",
+      "insight": "Users desire clear overview of FinFlow balance and transactions.",
+      "icon": "visibility"
+    },
+    {
+      "title": "Efficiency & Speed",
+      "insight": "Users expect quick, seamless FinFlow payments and bill completion.",
+      "icon": "speed"
+    }
+  ],
+  "personas": [
+    {
+      "name": "Rohan Sharma",
+      "gender": "Male",
+      "age": 30,
+      "location": "Mumbai",
+      "occupation": "Software Engineer",
+      "family": "Single",
+      "quote": "I need a smart FinFlow app to manage my money.",
+      "bio": "Tech-savvy professional seeking efficient, secure FinFlow digital banking.",
+      "tech": {
+        "internet": 5,
+        "gadgets": 4
+      },
+      "brands": [
+        "Google Pay"
+      ],
+      "needs": [
+        "Quick FinFlow payments",
+        "Investment tracking"
+      ],
+      "frustrations": [
+        "Complex interfaces",
+        "Lack of insights"
+      ]
+    },
+    {
+      "name": "Priya Singh",
+      "gender": "Female",
+      "age": 25,
+      "location": "Bangalore",
+      "occupation": "Marketing Executive",
+      "family": "Single",
+      "quote": "I want to save more and invest wisely.",
+      "bio": "Ambitious young professional focused on financial growth with FinFlow.",
+      "tech": {
+        "internet": 4,
+        "gadgets": 5
+      },
+      "brands": [
+        "PhonePe"
+      ],
+      "needs": [
+        "Budgeting tools",
+        "Savings goals"
+      ],
+      "frustrations": [
+        "Lack of guidance",
+        "Overwhelming options"
+      ]
+    }
+  ],
+  "competitive_analysis": [
+    {
+      "name": "Paytm",
+      "pros": [
+        "Extensive merchant network",
+        "Diverse services"
+      ],
+      "cons": [
+        "Cluttered UI",
+        "Customer support issues"
+      ]
+    },
+    {
+      "name": "PhonePe",
+      "pros": [
+        "UPI dominance",
+        "User-friendly interface"
+      ],
+      "cons": [
+        "Limited banking features",
+        "Ad-heavy"
+      ]
+    },
+    {
+      "name": "Google Pay",
+      "pros": [
+        "Simple UI",
+        "Reliable transactions"
+      ],
+      "cons": [
+        "Basic features",
+        "Less financial depth"
+      ]
+    }
+  ],
+  "competitor_map": {
+    "title": "Market Positioning",
+    "x_axis": {
+      "title": "Innovation",
+      "high": "High",
+      "med": "Med",
+      "low": "Low"
+    },
+    "y_axis": {
+      "title": "Personalization",
+      "high": "High",
+      "med": "Med",
+      "low": "Low"
+    },
+    "points": [
+      {
+        "name": "Paytm",
+        "desc": "Broad services, less focused personalization.",
+        "x": 70,
+        "y": 30
+      },
+      {
+        "name": "PhonePe",
+        "desc": "Strong payments, moderate innovation.",
+        "x": 60,
+        "y": 50
+      },
+      {
+        "name": "Google Pay",
+        "desc": "Simple, but low innovation/personalization.",
+        "x": 40,
+        "y": 20
+      },
+      {
+        "name": "CRED",
+        "desc": "Niche, high personalization for credit.",
+        "x": 80,
+        "y": 70
+      }
+    ],
+    "solution": {
+      "name": "FinFlow Next",
+      "desc": "Hyper-personalized, innovative financial hub",
+      "x": 85,
+      "y": 85
+    }
+  },
+  "empathy_map": {
+    "title": "Empathy Mapping",
+    "quadrants": [
+      {
+        "type": "SAYS",
+        "insights": [
+          "My FinFlow app is just for transactions.",
+          "I wish saving was easier."
+        ]
+      },
+      {
+        "type": "THINKS",
+        "insights": [
+          "Am I getting the best returns?",
+          "Is my money truly safe here?"
+        ]
+      },
+      {
+        "type": "DOES",
+        "insights": [
+          "Checks FinFlow balance daily.",
+          "Pays bills via FinFlow app."
+        ]
+      },
+      {
+        "type": "FEELS",
+        "insights": [
+          "Anxious about future.",
+          "Frustrated by complex investment options."
+        ]
+      }
+    ]
+  },
+  "journey_map": [
+    {
+      "stage": "App Discovery",
+      "touchpoints": "App Store",
+      "actions": "Reads reviews, downloads FinFlow",
+      "emotions": "😊",
+      "friction": "Too many similar apps"
+    },
+    {
+      "stage": "Onboarding",
+      "touchpoints": "FinFlow App",
+      "actions": "Enters details, KYC process",
+      "emotions": "😐",
+      "friction": "Lengthy form filling"
+    },
+    {
+      "stage": "First Transaction",
+      "touchpoints": "FinFlow Home",
+      "actions": "Uses 'Send Money' feature",
+      "emotions": "😊",
+      "friction": "Finding recipient"
+    },
+    {
+      "stage": "Explore Features",
+      "touchpoints": "FinFlow Menu",
+      "actions": "Checks 'Bill Pay', 'Recharge'",
+      "emotions": "😊",
+      "friction": "Understanding all options"
+    },
+    {
+      "stage": "Regular Use",
+      "touchpoints": "FinFlow Daily",
+      "actions": "Manages finances, sets goals",
+      "emotions": "🎉",
+      "friction": "Lack of proactive insights"
+    }
+  ],
+  "key_insights": [
+    {
+      "title": "Feature Overload",
+      "desc": "FinFlow's home screen quick actions are many, potentially overwhelming new users."
+    },
+    {
+      "title": "Generic Experience",
+      "desc": "Current FinFlow offers standard banking, lacking unique, personalized financial guidance."
+    },
+    {
+      "title": "Trust is Paramount",
+      "desc": "Users prioritize security and clear communication for FinFlow transactions."
+    }
+  ],
+  "core_challenge": "How might we transform FinFlow into India's most intuitive, personalized, and proactive financial companion?",
+  "strategic_brainstorm": [
+    {
+      "method": "Substitute",
+      "action": "Replace generic FinFlow insights with AI-driven personalized financial advice.",
+      "benefit": "Increases relevance and user engagement."
+    },
+    {
+      "method": "Combine",
+      "action": "Integrate gamified savings challenges with social sharing features in FinFlow.",
+      "benefit": "Boosts motivation and community involvement."
+    },
+    {
+      "method": "Adapt",
+      "action": "Adapt global fintech trends like micro-investing for FinFlow's Indian market.",
+      "benefit": "Opens new revenue streams, attracts young investors."
+    },
+    {
+      "method": "Modify",
+      "action": "Modify FinFlow transaction history to show spending patterns visually.",
+      "benefit": "Enhances financial literacy and budgeting."
+    }
+  ],
+  "design_logic_pivot": {
+    "before": "FinFlow's current UI is functional but lacks engaging, proactive financial guidance.",
+    "pivot_logic": "Shift FinFlow from transactional utility to a proactive, intelligent financial wellness platform.",
+    "after": "FinFlow becomes a smart, personalized financial advisor, not just a bank."
+  },
+  "wireframes": [
+    {
+      "title": "Home Screen",
+      "platform": "mobile",
+      "layout": [
+        "Top Nav (FinFlow Logo, Notifications)",
+        "Account Balance Card",
+        "Quick Actions Grid (Send, Scan, Bill, Recharge)",
+        "Recent Transactions List",
+        "Bottom Nav (Home, Payments, Invest, Profile)"
+      ]
+    }
+  ],
+  "design_annotations": [
+    {
+      "title": "AI Insights",
+      "rationale": "Proactive spending analysis and saving recommendations on FinFlow home screen.",
+      "x": 20,
+      "y": 30
+    },
+    {
+      "title": "Gamified Goals",
+      "rationale": "Interactive challenges to encourage savings and investments within FinFlow.",
+      "x": 70,
+      "y": 50
+    },
+    {
+      "title": "Voice Banking",
+      "rationale": "Enable voice commands for FinFlow transactions and inquiries for accessibility.",
+      "x": 40,
+      "y": 80
+    }
+  ],
+  "heuristic_evaluation": [
+    {
+      "heuristic": "Visibility",
+      "severity": 1,
+      "finding": "FinFlow's account balance and quick actions are clearly visible.",
+      "status": "Pass"
+    },
+    {
+      "heuristic": "Consistency",
+      "severity": 2,
+      "finding":

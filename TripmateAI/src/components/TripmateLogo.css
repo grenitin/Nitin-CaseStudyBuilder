@@ -1,0 +1,40 @@
+.tripmate-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tripmate-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background-color: var(--warm-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(255, 132, 0, 0.2);
+}
+
+.tripmate-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tripmate-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--trust-blue);
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+}
+
+.tripmate-location {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--trust-blue-light, #088395);
+}

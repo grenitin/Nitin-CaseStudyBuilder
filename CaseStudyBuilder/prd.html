@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study Builder - Product Requirement Document (PRD)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0d;
+            --bg-card: #121217;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #d97706;
+            --accent-glow: rgba(217, 119, 6, 0.15);
+            --border-color: #27272a;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 3rem 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 3.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #f3f4f6 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        code {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: var(--text-primary);
+        }
+
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .flow-num {
+            background: var(--accent);
+            color: var(--bg-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .flow-text h4 {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .flow-text p {
+            margin-bottom: 0;
+            font-size: 0.88rem;
+        }
+
+        .formula {
+            background: rgba(217, 119, 6, 0.05);
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0;
+        }
+
+        .alert-box {
+            background: rgba(220, 38, 38, 0.05);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-left: 4px solid #dc2626;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            color: #ef4444;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .alert-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">Active & Approved</span>
+            <h1>Product Requirement Document (PRD)</h1>
+            <p>Case Study Builder - Technical Specifications & Dynamic Pipeline Parameters</p>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Author</div>
+                    <div class="meta-value">Lead Product Manager (LPM)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Target Release</div>
+                    <div class="meta-value">v1.0.0</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Global Mandate</div>
+                    <div class="meta-value">Zero Skeleton Compression</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- VISION -->
+        <section>
+            <h2>1. Product Vision & Value Proposition</h2>
+            <p>Visual UI designers are exceptional at crafting stunning interfaces, but often struggle with the rigorous, time-consuming task of drafting deep, research-backed UX case studies.</p>
+            <p>The <strong>Case Study Builder</strong> automates the strategic narrative. By analyzing user-supplied target application URLs, the platform's AI/agentic pipeline extracts visual patterns, synthesizes comprehensive heuristic audits, generates region-aware personas, and maps the resulting data into an <strong>immutable, ultra-premium visual skeleton</strong>.</p>
+        </section>
+
+        <!-- SKELETON MANDATE -->
+        <section>
+            <h2>2. The Immutable Skeleton Mandate</h2>
+            <div class="card">
+                <h3>Absolute Structural Preservation</h3>
+                <p>The structural layout, visual components, CSS grid patterns, and typography hierarchies from the verified <strong>RoundMart Showcase</strong> represent our permanent skeleton.</p>
+                <p><strong>Structural Integrity:</strong> No developer or designer may remove, rename, or collapse any structural sections or information architecture (IA) containers.</p>
+                <p><strong>Data Injection Only:</strong> The agentic pipeline must strictly inject dynamically gathered data into the predefined skeleton containers using CSS selectors and Jinja2 mapping keys.</p>
+                <p><strong>Responsiveness Guardrail:</strong> The output page must remain perfectly mobile-responsive across all viewports. No hardcoded width overflows or styling damage is permitted.</p>
+            </div>
+        </section>
+
+        <!-- CHARACTER MATRIX -->
+        <section>
+            <h2>3. Data Field Character & Word Count Matrix</h2>
+            <p>To prevent layout breaking, line clipping, text overlapping, or visual clutter, the dynamic content generator must strictly adhere to the following character/word count specifications:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section / Box</th>
+                        <th>HTML Element / Class</th>
+                        <th>Target Words</th>
+                        <th>Max Characters</th>
+                        <th>Failure Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Main Hero Title</strong></td>
+                        <td><code>.hero-title</code></td>
+                        <td>6 - 8 words</td>
+                        <td>60 chars</td>
+                        <td>Truncate & append <code>...</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Main Hero Subtitle</strong></td>
+                        <td><code>.hero-subtitle</code></td>
+                        <td>12 - 16 words</td>
+                        <td>120 chars</td>
+                        <td>Truncate & append <code>...</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hero Metadata: Role</strong></td>
+                        <td><code>#meta-role</code></td>
+                        <td>2 - 3 words</td>
+                        <td>25 chars</td>
+                        <td>Enforce strict wrap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hero Metadata: Platform</strong></td>
+                        <td><code>#meta-platform</code></td>
+                        <td>1 - 2 words</td>
+                        <td>15 chars</td>
+                        <td>Enforce strict wrap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Executive Overview Body</strong></td>
+                        <td><code>.exec-body</code></td>
+                        <td>100 - 120 words</td>
+                        <td>750 chars</td>
+                        <td>Truncate & append <code>...</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Problem Card Desc</strong></td>
+                        <td><code>.prob-card-desc</code></td>
+                        <td>20 - 25 words</td>
+                        <td>180 chars</td>
+                        <td>Truncate to 180</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Affinity Wall Theme Desc</strong></td>
+                        <td><code>.affinity-desc</code></td>
+                        <td>15 - 20 words</td>
+                        <td>140 chars</td>
+                        <td>Truncate to 140</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- INTAKE & REGION -->
+        <section>
+            <h2>4. Ingestion Configuration & Metadata</h2>
+            <div class="card">
+                <h3>4.1 Platform Specification</h3>
+                <p>During the Step 1 configuration intake, the user specifies the target platform. The system stores this in metadata and injects it into the hero details:</p>
+                <p>• <strong>Web Application:</strong> Triggers horizontal minimal browser mockups.</p>
+                <p>• <strong>Mobile Application:</strong> Triggers vertical smartphone mockups (e.g., iPhone 15 Pro frame).</p>
+                <p>• <strong>Hybrid:</strong> Renders a fanned showcase containing both Web and Mobile device frames.</p>
+            </div>
+
+            <div class="card">
+                <h3>4.2 Region-Aware Ingestion Pipeline (India vs. International)</h3>
+                <p>The intake configuration features a <strong>Region Selection</strong> dropdown: <code>[India | International]</code>. Based on this selection, the AI Persona Ingestion pipeline dynamically loads assets matching the regional target:</p>
+                <div class="flow-container">
+                    <div class="flow-step">
+                        <div class="flow-num">1</div>
+                        <div class="flow-text">
+                            <h4>Target Region Selected</h4>
+                            <p>Intake triggers region-aware asset routing mapping naming tables.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">2</div>
+                        <div class="flow-text">
+                            <h4>Copyright-Free Photo Retrieval</h4>
+                            <p>India target uses Indian portraits; International target uses global portraits.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">3</div>
+                        <div class="flow-text">
+                            <h4>Data Injection</h4>
+                            <p>Injects regional naming conventions and royalty-free portraits into Persona boxes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BRAND & ACCESSIBILITY -->
+        <section>
+            <h2>5. Brand Identity & Accessibility Mandate (WCAG 2.1 AA)</h2>
+            <p>Choosing an identity dynamically overrides the CSS variable block (<code>:root</code>) of the final skeleton page:</p>
+            <p>1. <strong>Boardroom Obsidian (Default):</strong> Deep charcoal blacks, muted golds, glassmorphic dark grey card frames.</p>
+            <p>2. <strong>Nordic Minimalist:</strong> Crisp ice-white backgrounds, slate grey borders, deep charcoal text.</p>
+            <p>3. <strong>Holographic Modern:</strong> Midnight blue gradients, neon cyan accents, translucent glowing cards.</p>
+            <p>4. <strong>Organic Professional:</strong> Soft warm cream backgrounds, forest green accents, dark olive text.</p>
+
+            <div class="alert-box">
+                <div class="alert-title">Strict Accessibility Contrast Rule</div>
+                <p class="alert-desc">To ensure maximum readability, text discoverability, and clean professional presentation, the dynamic contrast ratio between the foreground text/UI triggers and the background elements must strictly meet or exceed <strong>WCAG 2.1 AA standards</strong>.</p>
+            </div>
+
+            <div class="formula">
+                Contrast Ratio = (L1 + 0.05) / (L2 + 0.05) ≥ 4.5
+            </div>
+            <p><strong>Standard Text:</strong> Must maintain a minimum contrast ratio of <strong>4.5:1</strong> against the background.</p>
+            <p><strong>Large Text:</strong> Must maintain a minimum contrast ratio of <strong>3:1</strong> against the background.</p>
+        </section>
+
+        <!-- AGENTIC IMAGE CAPTURE -->
+        <section>
+            <h2>6. Agentic Screenshot Ingestion & Dynamic Wireframing</h2>
+            <div class="card">
+                <h3>6.1 Multi-Viewport Image Scraper</h3>
+                <p>The agentic pipeline features an automated Playwright crawler that visits the target URL provided by the user:</p>
+                <p>• <strong>Desktop Web:</strong> Captures high-definition viewport screenshots at <code>1440x900</code> resolution.</p>
+                <p>• <strong>Mobile Responsive:</strong> Captures responsive viewport screenshots at <code>375x812</code> resolution.</p>
+                <p>• <strong>Dynamic Wrapping:</strong> Captured images are dynamically injected into matching high-fidelity desktop browser and mobile device frames designed by the UI/UX team.</p>
+            </div>
+
+            <div class="card">
+                <h3>6.2 Minimalist Wireframe Ingestion</h3>
+                <p>The system must generate or reference a minimalist, low-fidelity wireframe showcase for at least one core page of the target platform (Web or Mobile depending on platform spec).</p>
+                <p>• <strong>Styling:</strong> Use thin slate grey lines, placeholder grey image blocks (X-boxes), and clean layout wireframe grids to elegantly demonstrate the mid-fidelity structure.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

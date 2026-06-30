@@ -2139,6 +2139,37 @@
             }
         });
     </script>
+  <script id="iframe-helper">
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('iframe-mode');
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+        } else {
+          document.documentElement.classList.remove('dark-mode');
+        }
+      }
+    }
+  </script>
+  <style id="iframe-style">
+    html.iframe-mode nav,
+    html.iframe-mode footer,
+    html.iframe-mode .cs-footer,
+    html.iframe-mode .back-btn,
+    html.iframe-mode .back-to-home,
+    html.iframe-mode .nav-bar,
+    html.iframe-mode header,
+    html.iframe-mode .theme-toggle,
+    html.iframe-mode #cs-theme-toggle {
+      display: none !important;
+    }
+    html.iframe-mode body {
+      padding-top: 0 !important;
+    }
+  </style>
 </head>
 
 <body class="dark-mode">
@@ -2205,7 +2236,7 @@
             <section class="cs-hero-centered reveal">
                 <div class="cs-hero-visual-centered">
                     <div class="cs-hero-image-wrapper">
-                        <img src="image/hero%20image/roundmart_hero_main.png" alt="RoundMart High-Fidelity Marketplace Dashboard Mockups"
+                        <img src="image/hero-image/roundmart_hero_main.png" alt="RoundMart High-Fidelity Marketplace Dashboard Mockups"
                             class="cs-hero-image" loading="eager" />
 
 
@@ -3074,16 +3105,16 @@
                             
                             <div class="hifi-slide active" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; padding: 2rem 2rem 10rem 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
                                 <style>.hifi-slide::-webkit-scrollbar { display: none; }</style>
-                                <img src="image/High-Fidelity%20Interface/Web/Index.png" alt="RoundMart Web Dashboard" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/Index.png" alt="RoundMart Web Dashboard" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem 2rem 10rem 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/08e50b33932b4899b8bbc5f3ac083241.png" alt="RoundMart Web Listings" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/08e50b33932b4899b8bbc5f3ac083241.png" alt="RoundMart Web Listings" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem 2rem 10rem 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/147ba1aff32a499fa6d9c177269b6edd.png" alt="RoundMart Web Search" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/147ba1aff32a499fa6d9c177269b6edd.png" alt="RoundMart Web Search" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem 2rem 10rem 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/22fed8aa6ffb4f008e1ca09f4fd05a1e.png" alt="RoundMart Web Profile" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/22fed8aa6ffb4f008e1ca09f4fd05a1e.png" alt="RoundMart Web Profile" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                         </div>
 
@@ -3106,32 +3137,22 @@
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
                                     <style>.hifi-mobile-slide div::-webkit-scrollbar { display: none; }</style>
-                                    <img src="image/High-Fidelity%20Interface/Mobile/02e240cba53a42ea91245e32b87fb3b0.png" alt="Mobile Dashboard" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/02e240cba53a42ea91245e32b87fb3b0.png" alt="Mobile Dashboard" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 100px; box-sizing: border-box;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/0456fc962682456d8b1ace58cd1b5ea1.png" alt="Mobile Verification" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/0456fc962682456d8b1ace58cd1b5ea1.png" alt="Mobile Verification" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 100px; box-sizing: border-box;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/06a293f72235406b9d23ab68be4aad5b.png" alt="Mobile Discovery" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/06a293f72235406b9d23ab68be4aad5b.png" alt="Mobile Discovery" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 100px; box-sizing: border-box;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/078afb6131b3437f8d8827bf9c066769.png" alt="Mobile Map" style="width: 100%; height: auto; display: block;" />
-                                </div>
-                            </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
-                                <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 100px; box-sizing: border-box;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/09e9e95561214f678e370bba6dee154f.png" alt="Mobile Chat" style="width: 100%; height: auto; display: block;" />
-                                </div>
-                            </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
-                                <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 100px; box-sizing: border-box;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/19f7a62abe284a8dbcf29e97fd74b9ba.png" alt="Mobile Filters" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/078afb6131b3437f8d8827bf9c066769.png" alt="Mobile Map" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                         </div>
@@ -3262,7 +3283,7 @@
                             </div>
                         </div>
                         <div class="case-visuals" style="flex: 1; position: relative; background: rgba(0,0,0,0.2);">
-                            <img src="../HRMS/image/hero%20image/hrms_hero_main.png" alt="Careline HRMS Mockup" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="../HRMS/image/hero-image/hrms_hero_main.png" alt="Careline HRMS Mockup" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
                 </div>

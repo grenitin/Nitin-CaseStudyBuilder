@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Analytical Layer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-purple: #7367F0;
+            --brand-teal: #1BC5BD;
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --text-dim: #636E72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #EFEFEF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1080x1080 Square Protocol */
+        .poster-container {
+            width: 1080px;
+            height: 1080px;
+            background-color: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Structural Axes Decoration */
+        .structural-line {
+            position: absolute;
+            background-color: #DDD;
+            z-index: 1;
+        }
+        .line-v { width: 2px; height: 100%; left: 50%; top: 0; }
+        .line-h { width: 100%; height: 2px; top: 40%; left: 0; }
+
+        /* Dotted Patterns */
+        .dot-grid {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-image: radial-gradient(#7367F0 2px, transparent 2px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        .dots-bottom-right { bottom: 50px; right: 50px; }
+
+        /* Floating Background Card */
+        .bg-card-shadow {
+            position: absolute;
+            top: 200px;
+            left: 200px;
+            width: 600px;
+            height: 700px;
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.05);
+            z-index: 1;
+        }
+
+        /* Hero Image Container */
+        .hero-container {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 650px;
+            height: 750px;
+            border-radius: 40px;
+            overflow: hidden;
+            z-index: 5;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.05);
+        }
+
+        /* Analytic Cards */
+        .analytic-card {
+            position: absolute;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card-engagement {
+            bottom: 100px;
+            left: 100px;
+            width: 300px;
+        }
+
+        .card-impressions {
+            top: 400px;
+            left: 50px;
+            width: 250px;
+        }
+
+        .metric-label { font-size: 18px; color: var(--text-dim); font-weight: 400; }
+        .metric-value { font-size: 48px; font-weight: 900; color: var(--text-dark); }
+        .metric-trend { font-size: 18px; font-weight: 700; color: #27AE60; }
+
+        /* Floating Icon */
+        .floating-arrow {
+            position: absolute;
+            top: 80px;
+            left: 250px;
+            width: 100px;
+            height: 100px;
+            background: var(--brand-purple);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 40px;
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(115, 103, 240, 0.3);
+        }
+
+        /* Headline & Strategic Overlay */
+        .headline-banner {
+            position: absolute;
+            top: 100px;
+            right: 80px;
+            width: 450px;
+            z-index: 10;
+            text-align: right;
+        }
+
+        .category-tag {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--brand-purple);
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .headline {
+            font-size: 80px;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .headline span { color: var(--brand-purple); }
+
+        /* Branding */
+        .footer-branding {
+            position: absolute;
+            bottom: 50px;
+            right: 80px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-dot { width: 25px; height: 25px; background: var(--brand-purple); border-radius: 50%; }
+        .brand-text { font-size: 28px; font-weight: 900; color: var(--text-dark); letter-spacing: 2px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- Structural Elements -->
+        <div class="structural-line line-v"></div>
+        <div class="structural-line line-h"></div>
+        <div class="dot-grid dots-bottom-right"></div>
+        <div class="bg-card-shadow"></div>
+
+        <!-- Floating Elements -->
+        <div class="floating-arrow">↗</div>
+
+        <!-- Metric Cards -->
+        <div class="analytic-card card-impressions">
+            <span class="metric-label">Impressions</span>
+            <span class="metric-value">9,649</span>
+            <span class="metric-trend">▲ 24.69%</span>
+        </div>
+
+        <div class="analytic-card card-engagement">
+            <span class="metric-label">Engagement Rate</span>
+            <span class="metric-value">19.46%</span>
+            <span class="metric-trend">▲ 102.48%</span>
+        </div>
+
+        <!-- Hero Subject (Your Natural Standing Portrait) -->
+        <div class="hero-container">
+            <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/velonet_exact_face_swap_hero_1777392920524.png" class="hero-image" alt="UX Lead">
+        </div>
+
+        <!-- Headline Content -->
+        <div class="headline-banner">
+            <p class="category-tag">Strategic Audit</p>
+            <h1 class="headline">ROI OF<br><span>DESIGN</span></h1>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-branding">
+            <div class="brand-dot"></div>
+            <div class="brand-text">DESIGN STRATEGY</div>
+        </div>
+    </div>
+
+</body>
+</html>

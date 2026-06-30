@@ -1,0 +1,1 @@
+{"status": "Critical Error during generation", "complete": true, "error": "'dict object' has no attribute 'cx'", "current_task": null, "progress": 0, "timestamp": 1776404800.9761128}

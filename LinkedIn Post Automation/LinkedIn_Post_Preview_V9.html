@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Circular Spotlight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-teal: #1BC5BD;
+            --brand-orange: #FF9F43;
+            --brand-purple: #7367F0;
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #EFEFEF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1080x1080 Square Protocol */
+        .poster-container {
+            width: 1080px;
+            height: 1080px;
+            background-color: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Large Background Circle/Ring */
+        .spotlight-ring {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 900px;
+            border: 80px solid var(--brand-teal);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        /* Hero Image Container - Overlapping the ring */
+        .hero-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 850px;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .hero-image {
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+        }
+
+        /* Floating Elements */
+        .floating-icon {
+            position: absolute;
+            z-index: 10;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .chat-bubble {
+            top: 150px;
+            left: 150px;
+            background-color: var(--brand-orange);
+            color: white;
+            font-size: 40px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Main Content Banner */
+        .content-banner {
+            position: absolute;
+            bottom: 250px;
+            right: 0;
+            width: 650px;
+            background-color: var(--brand-teal);
+            padding: 50px 80px;
+            border-radius: 100px 0 0 100px;
+            z-index: 10;
+            box-shadow: -15px 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .headline {
+            color: white;
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        /* URL / Social Bar */
+        .social-bar {
+            position: absolute;
+            bottom: 150px;
+            right: 80px;
+            background-color: var(--brand-purple);
+            padding: 15px 40px;
+            border-radius: 100px;
+            z-index: 10;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Branding */
+        .footer {
+            position: absolute;
+            bottom: 50px;
+            left: 80px;
+            z-index: 20;
+        }
+
+        .brand-label {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--brand-teal);
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- Decoration -->
+        <div class="spotlight-ring"></div>
+        <div class="floating-icon chat-bubble">💬</div>
+
+        <!-- Hero Subject -->
+        <div class="hero-container">
+            <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/circular_spotlight_face_swap_hero_1777392615077.png" class="hero-image" alt="UX Lead">
+        </div>
+
+        <!-- Content -->
+        <div class="content-banner">
+            <h1 class="headline">Strategic<br>Service Design</h1>
+        </div>
+
+        <div class="social-bar">
+            DESIGNSTRATEGY.COM
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="brand-label">DESIGN STRATEGY</div>
+        </div>
+    </div>
+
+</body>
+</html>

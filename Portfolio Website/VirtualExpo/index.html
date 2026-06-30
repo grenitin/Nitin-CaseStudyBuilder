@@ -2124,6 +2124,37 @@
             }
         });
     </script>
+  <script id="iframe-helper">
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('iframe-mode');
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+        } else {
+          document.documentElement.classList.remove('dark-mode');
+        }
+      }
+    }
+  </script>
+  <style id="iframe-style">
+    html.iframe-mode nav,
+    html.iframe-mode footer,
+    html.iframe-mode .cs-footer,
+    html.iframe-mode .back-btn,
+    html.iframe-mode .back-to-home,
+    html.iframe-mode .nav-bar,
+    html.iframe-mode header,
+    html.iframe-mode .theme-toggle,
+    html.iframe-mode #cs-theme-toggle {
+      display: none !important;
+    }
+    html.iframe-mode body {
+      padding-top: 0 !important;
+    }
+  </style>
 </head>
 
 <body class="dark-mode">
@@ -2190,7 +2221,7 @@
             <section class="cs-hero-centered reveal">
                 <div class="cs-hero-visual-centered">
                     <div class="cs-hero-image-wrapper">
-                        <img src="image/hero image/Virtual Expo.png" alt="Virtual Expo High-Fidelity Desktop Mockups"
+                        <img src="image/hero-image/Virtual-Expo.png" alt="Virtual Expo High-Fidelity Desktop Mockups"
                             class="cs-hero-image" />
 
 
@@ -3229,19 +3260,19 @@
                             style="width: 100%; border-radius: 32px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); position: relative; padding: 4rem 2rem 4rem 2rem; box-sizing: border-box; display: flex; gap: 2rem; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; background: var(--bg-card); backdrop-filter: blur(10px);">
                             
                             <div class="hifi-wireframe-slide" style="flex: 0 0 auto; width: 800px; height: 500px; scroll-snap-align: center; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #f5f5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative;">
-                                <img src="image/High-Fidelity%20Interface/Wireframe/26f90511576449aea1177163f625bb2b.png" alt="Mid-Fi Wireframe 1" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Wireframe/26f90511576449aea1177163f625bb2b.png" alt="Mid-Fi Wireframe 1" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-wireframe-slide" style="flex: 0 0 auto; width: 800px; height: 500px; scroll-snap-align: center; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #f5f5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative;">
-                                <img src="image/High-Fidelity%20Interface/Wireframe/291cd12b383d4f89997ac148129bdbff.png" alt="Mid-Fi Wireframe 2" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Wireframe/291cd12b383d4f89997ac148129bdbff.png" alt="Mid-Fi Wireframe 2" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-wireframe-slide" style="flex: 0 0 auto; width: 800px; height: 500px; scroll-snap-align: center; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #f5f5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative;">
-                                <img src="image/High-Fidelity%20Interface/Wireframe/39f04f3b584255a7b51a44269eccdb.png" alt="Mid-Fi Wireframe 3" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Wireframe/39f04f3b584255a7b51a44269eccdb.png" alt="Mid-Fi Wireframe 3" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-wireframe-slide" style="flex: 0 0 auto; width: 800px; height: 500px; scroll-snap-align: center; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #f5f5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative;">
-                                <img src="image/High-Fidelity%20Interface/Wireframe/460b1163b8074f1daa1123735aa80724.png" alt="Mid-Fi Wireframe 4" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Wireframe/460b1163b8074f1daa1123735aa80724.png" alt="Mid-Fi Wireframe 4" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-wireframe-slide" style="flex: 0 0 auto; width: 800px; height: 500px; scroll-snap-align: center; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: #f5f5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative;">
-                                <img src="image/High-Fidelity%20Interface/Wireframe/4b51ba69f6f4dbb80a45b4df549c24a.png" alt="Mid-Fi Wireframe 5" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Wireframe/4b51ba69f6f4dbb80a45b4df549c24a.png" alt="Mid-Fi Wireframe 5" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                         </div>
 
@@ -3269,22 +3300,16 @@
                             style="width: 100%; height: 600px; border-radius: 32px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; background: var(--bg-card); backdrop-filter: blur(10px);">
                             
                             <div class="hifi-slide active" style="position: absolute; inset: 0; opacity: 1; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem;">
-                                <img src="image/High-Fidelity%20Interface/Web/17e7d674a19d46a9878008a95cf4a8f2.png" alt="Web View 1" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Web/17e7d674a19d46a9878008a95cf4a8f2.png" alt="Web View 1" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-slide" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem; visibility: hidden;">
-                                <img src="image/High-Fidelity%20Interface/Web/9ec3883930a5488cab17e4d1c4612e8b.png" alt="Web View 2" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Web/9ec3883930a5488cab17e4d1c4612e8b.png" alt="Web View 2" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-slide" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem; visibility: hidden;">
-                                <img src="image/High-Fidelity%20Interface/Web/1bb391135ba94c2fbbd15a79cec1cc4e.png" alt="Web View 3" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Web/1bb391135ba94c2fbbd15a79cec1cc4e.png" alt="Web View 3" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                             <div class="hifi-slide" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem; visibility: hidden;">
-                                <img src="image/High-Fidelity%20Interface/Web/c2b1093cbff0475cad031dcc59b3c66e.png" alt="Web View 4" style="width: 100%; height: 100%; object-fit: contain;" />
-                            </div>
-                            <div class="hifi-slide" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem; visibility: hidden;">
-                                <img src="image/High-Fidelity%20Interface/Web/260e2f7344742678dfc127d4399c0df.png" alt="Web View 5" style="width: 100%; height: 100%; object-fit: contain;" />
-                            </div>
-                            <div class="hifi-slide" style="position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; justify-content: center; padding: 2rem; visibility: hidden;">
-                                <img src="image/High-Fidelity%20Interface/Web/ff1474356df74015a08c348447116102.png" alt="Web View 6" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <img src="image/High-Fidelity-Interface/Web/c2b1093cbff0475cad031dcc59b3c66e.png" alt="Web View 4" style="width: 100%; height: 100%; object-fit: contain;" />
                             </div>
                         </div>
 
@@ -3405,7 +3430,7 @@
                             </div>
                         </div>
                         <div class="case-visuals" style="flex: 1; position: relative; background: rgba(0,0,0,0.2);">
-                            <img src="../RoundMart/image/hero%20image/roundmart_hero_main.png" alt="RoundMart Mockup" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="../RoundMart/image/hero-image/roundmart_hero_main.png" alt="RoundMart Mockup" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -3496,7 +3521,7 @@
 
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-            // --- High-Fidelity Interface Slider Engine ---
+            // --- High-Fidelity-Interface Slider Engine ---
             const initHifiSlider = (id) => {
                 const slider = document.getElementById(id);
                 if (!slider) return;

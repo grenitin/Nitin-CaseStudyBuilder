@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Abstract Strategic Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-orange: #FF6E2E;
+            --brand-teal: #00303D;
+            --brand-cream: #F0E9E1;
+            --text-dark: #001F26;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #D1D1D1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        /* LinkedIn Portrait Protocol: 1080x1350 (4:5) */
+        .poster-container {
+            width: 1080px;
+            height: 1350px;
+            background-color: var(--brand-cream);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Top Heading Section */
+        .header-text {
+            position: absolute;
+            top: 150px;
+            right: 100px;
+            text-align: right;
+            z-index: 10;
+        }
+
+        .main-headline {
+            font-size: 80px;
+            font-weight: 700;
+            color: var(--brand-teal);
+            line-height: 1.1;
+        }
+
+        .main-headline span {
+            color: var(--brand-orange);
+            display: block;
+            font-weight: 900;
+        }
+
+        /* The Abstract Pod / Speech Bubble Shape */
+        .abstract-pod {
+            position: absolute;
+            bottom: 250px;
+            right: 0;
+            width: 750px;
+            height: 600px;
+            background-color: var(--brand-orange);
+            /* Complex shape mimicking the reference */
+            clip-path: polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 30%);
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .pod-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            mix-blend-mode: multiply;
+        }
+
+        .pod-text-overlay {
+            position: absolute;
+            bottom: 120px;
+            right: 60px;
+            text-align: right;
+            color: white;
+            z-index: 5;
+            max-width: 400px;
+        }
+
+        .pod-headline {
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .pod-sub {
+            font-size: 34px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* The Overlapping Hero (Human) */
+        .human-hero {
+            position: absolute;
+            bottom: 200px;
+            left: 50px;
+            height: 900px;
+            z-index: 5;
+            filter: drop-shadow(20px 20px 50px rgba(0,0,0,0.1));
+        }
+
+        /* Secondary Teal Bubble */
+        .teal-bubble {
+            position: absolute;
+            bottom: 450px;
+            left: 170px;
+            width: 280px;
+            height: 250px;
+            background-color: var(--brand-teal);
+            border-radius: 40px;
+            z-index: 6;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .bubble-icon {
+            width: 60px;
+            height: 40px;
+            background: var(--brand-orange);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+        }
+
+        .bubble-text {
+            color: white;
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .bubble-cta {
+            color: var(--brand-orange);
+            font-weight: 900;
+            font-size: 26px;
+            margin-top: 10px;
+        }
+
+        /* Bottom Call to Action */
+        .cta-bar {
+            position: absolute;
+            bottom: 120px;
+            left: 250px;
+            background: white;
+            border: 2px solid var(--brand-teal);
+            border-radius: 100px;
+            padding: 15px 60px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 10;
+        }
+
+        .cta-arrow {
+            width: 80px;
+            height: 50px;
+            background: var(--brand-orange);
+            border-radius: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        .cta-text {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--brand-teal);
+        }
+
+        .cta-text span {
+            font-weight: 900;
+            color: var(--brand-orange);
+        }
+
+        /* Footer Info */
+        .footer-links {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand-teal);
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-sq {
+            width: 30px;
+            height: 30px;
+            background: var(--brand-orange);
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- Top Heading -->
+        <div class="header-text">
+            <h1 class="main-headline">Strategize Less, <span>Execute Better!</span></h1>
+        </div>
+
+        <!-- The Abstract Pod -->
+        <div class="abstract-pod">
+            <!-- Background pattern/image inside pod -->
+            <img src="/Users/ni3_kr/Documents/UX/CaseStudyBuilder/static/case_study_template/hero_test_run.png" class="pod-image" alt="Strategy Visual">
+            <div class="pod-text-overlay">
+                <p class="pod-headline">Scale your design ops and</p>
+                <p class="pod-sub">Elevate UX Value.</p>
+            </div>
+        </div>
+
+        <!-- The Overlapping Hero -->
+        <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/ux_lead_pinterest_style_hero_1777389406731.png" class="human-hero" alt="UX Lead">
+
+        <!-- Teal Speech Bubble -->
+        <div class="teal-bubble">
+            <div class="bubble-icon"></div>
+            <p class="bubble-text">Ready to lead your next strategic project?</p>
+            <p class="bubble-cta">Get the Guide!</p>
+        </div>
+
+        <!-- CTA Bar -->
+        <div class="cta-bar">
+            <div class="cta-arrow">»»</div>
+            <div class="cta-text">Learn <span>More!</span></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-links">
+            <div class="social-icons">
+                <div class="icon-sq"></div>
+                <div class="icon-sq"></div>
+                <div class="icon-sq"></div>
+            </div>
+            <div>/ni3_kr_design</div>
+            <div>www.ni3kr.design</div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+

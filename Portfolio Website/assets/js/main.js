@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderSlides[index].classList.add('active');
             if (sliderDots[index]) sliderDots[index].classList.add('active');
             
-            // Update Hero Asset - Disabled for single hero image (nitin.png)
+            // Update Hero Asset - Disabled for single hero-image (nitin.png)
             /*
             if (heroAsset && heroImages[index]) {
                 heroAsset.style.opacity = '0';
@@ -361,4 +361,12 @@ function initHeroVisibility() {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     initHeroVisibility();
+    
+    // 8. Iframe / Modal Integration (Hide nav if embedded)
+    if (window.self !== window.top) {
+        const nav = document.querySelector('nav');
+        if (nav) {
+            nav.style.display = 'none';
+        }
+    }
 });

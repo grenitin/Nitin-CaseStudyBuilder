@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Checker AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Accessibility<span class="highlight">Checker</span> AI</h1>
+            <p>Ensure your digital experiences are accessible to everyone.</p>
+        </header>
+
+        <main class="glass-panel">
+            <div class="input-stack">
+                <!-- Row 1: Model Selection & API Key (Single Box Split in Two) -->
+                <div class="api-key-wrap">
+                    <div class="model-selector-inner">
+                        <select id="providerSelect" class="provider-select">
+                            <option value="gemini" selected>Gemini 1.5 Pro</option>
+                            <option value="openai">GPT-4o</option>
+                            <option value="anthropic">Claude 3.5 Sonnet</option>
+                        </select>
+                    </div>
+                    <div class="api-key-input-wrapper">
+                        <span class="key-icon">🔑</span>
+                        <input type="password" id="api-key-input" class="password-input" placeholder="Enter API Key" required>
+                    </div>
+                </div>
+
+                <!-- Row 2: URL & Action -->
+                <div class="url-action-wrap">
+                    <label for="url-input" class="sr-only">Enter Website URL</label>
+                    <span class="wrap-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </span>
+                    <input type="url" id="url-input" placeholder="https://example.com" required>
+                    <button id="analyze-btn" class="primary-btn">
+                        <span>Audit Now</span>
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="loading-state" class="hidden">
+                <div class="spinner"></div>
+                <p>Analyzing accessibility guidelines...</p>
+            </div>
+            
+            <div id="results-container" class="hidden">
+                <!-- Results will be injected here via JS -->
+            </div>
+        </main>
+        
+        <footer class="main-footer">
+            <div class="footer-badge">
+                <span class="badge">Powered by Agentic AI <span class="footer-extra">• Focusing on WCAG Guidelines</span></span>
+            </div>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

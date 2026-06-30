@@ -2060,6 +2060,37 @@
             }
         });
     </script>
+  <script id="iframe-helper">
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('iframe-mode');
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+        } else {
+          document.documentElement.classList.remove('dark-mode');
+        }
+      }
+    }
+  </script>
+  <style id="iframe-style">
+    html.iframe-mode nav,
+    html.iframe-mode footer,
+    html.iframe-mode .cs-footer,
+    html.iframe-mode .back-btn,
+    html.iframe-mode .back-to-home,
+    html.iframe-mode .nav-bar,
+    html.iframe-mode header,
+    html.iframe-mode .theme-toggle,
+    html.iframe-mode #cs-theme-toggle {
+      display: none !important;
+    }
+    html.iframe-mode body {
+      padding-top: 0 !important;
+    }
+  </style>
 </head>
 
 <body class="dark-mode">
@@ -2121,7 +2152,7 @@
             <section class="cs-hero-centered reveal">
                 <div class="cs-hero-visual-centered">
                     <div class="cs-hero-image-wrapper">
-                        <img src="image/hero image/FIPA.png" alt="FIPA Desktop Mockup"
+                        <img src="image/hero-image/FIPA.png" alt="FIPA Desktop Mockup"
                             class="cs-hero-image" />
 
                         <!-- Top Left Badge -->
@@ -3108,16 +3139,16 @@
                             
                             <div class="hifi-slide active" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; padding: 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
                                 <style>.hifi-slide::-webkit-scrollbar { display: none; }</style>
-                                <img src="image/High-Fidelity%20Interface/Web/080e7e6e0d9b4c48b987d8067e3db63a.png" alt="FIPA Web Dashboard" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/8b34f8eecc0f402ea89d5621002ee192.png" alt="FIPA Web Dashboard" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/096b4ca9fd794ac190d6fc5b6fde2f0c.png" alt="FIPA Web Inventory" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/3c761657275b423bb54f8d751c732f2e.png" alt="FIPA Web Inventory" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/09f13e1bb3541b2b4bfcbd043cb6cde.png" alt="FIPA Web Analytics" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/6c0175a52fde4d9e8de184dcac55057a.png" alt="FIPA Web Analytics" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: block; overflow-y: auto; visibility: hidden; padding: 2rem; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none;">
-                                <img src="image/High-Fidelity%20Interface/Web/0b393da6d58643e08238014068e0bc95.png" alt="FIPA Web Orders" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/1ab579a5f2d8401f89873d4c7b068c12.png" alt="FIPA Web Orders" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-lg);" />
                             </div>
                         </div>
 
@@ -3140,32 +3171,24 @@
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
                                     <style>.hifi-mobile-slide div::-webkit-scrollbar { display: none; }</style>
-                                    <img src="image/High-Fidelity%20Interface/Mobile/08a6504fe5a54f9ea8135f1e551f80a4.png" alt="FIPA Mobile 1" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/08a6504fe5a54f9ea8135f1e551f80a4.png" alt="FIPA Mobile 1" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/106956641dfd4b7e8a4b8570f7d0d8c8.png" alt="FIPA Mobile 2" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/106956641dfd4b7e8a4b8570f7d0d8c8.png" alt="FIPA Mobile 2" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/228c48af2b3d416dacb1d4c110c8a224.png" alt="FIPA Mobile 3" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/228c48af2b3d416dacb1d4c110c8a224.png" alt="FIPA Mobile 3" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
                                 <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/41640a32516245f9ad459d78071ffe14.png" alt="FIPA Mobile 4" style="width: 100%; height: auto; display: block;" />
+                                    <img src="image/High-Fidelity-Interface/Mobile/9fe47c53b0e7493d957c87b6e6587e58.png" alt="FIPA Mobile 4" style="width: 100%; height: auto; display: block;" />
                                 </div>
                             </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
-                                <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/48bc077f67f43af90708e4d22883f1a.png" alt="FIPA Mobile 5" style="width: 100%; height: auto; display: block;" />
-                                </div>
-                            </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; height: 580px; scroll-snap-align: center; overflow: hidden; border-radius: 36px; border: 8px solid #1a1a1a; background: #000; box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;">
-                                <div style="width: 100%; height: 100%; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;">
-                                    <img src="image/High-Fidelity%20Interface/Mobile/50e5d9bdf9df4eb0b849a2d5f9db09e5.png" alt="FIPA Mobile 6" style="width: 100%; height: auto; display: block;" />
                         </div>
 
                         <!-- Integrated Slider Controls & Actions -->
@@ -3311,7 +3334,7 @@
                             </div>
                         </div>
                         <div class="case-visuals" style="flex: 1; position: relative; background: rgba(0,0,0,0.2);">
-                            <img src="../HealthCare/image/hero%20image/HealthCare.png" alt="HealthCare Mockup" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="../HealthCare/image/hero-image/HealthCare.png" alt="HealthCare Mockup" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -3402,7 +3425,7 @@
 
             document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-            // --- High-Fidelity Interface Slider Engine ---
+            // --- High-Fidelity-Interface Slider Engine ---
             const initHifiSlider = (id) => {
                 const slider = document.getElementById(id);
                 if (!slider) return;

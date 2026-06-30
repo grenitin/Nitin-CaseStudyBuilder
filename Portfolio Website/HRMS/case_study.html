@@ -2038,6 +2038,37 @@
             }
         });
     </script>
+  <script id="iframe-helper">
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('iframe-mode');
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get('theme');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-mode');
+        } else {
+          document.documentElement.classList.remove('dark-mode');
+        }
+      }
+    }
+  </script>
+  <style id="iframe-style">
+    html.iframe-mode nav,
+    html.iframe-mode footer,
+    html.iframe-mode .cs-footer,
+    html.iframe-mode .back-btn,
+    html.iframe-mode .back-to-home,
+    html.iframe-mode .nav-bar,
+    html.iframe-mode header,
+    html.iframe-mode .theme-toggle,
+    html.iframe-mode #cs-theme-toggle {
+      display: none !important;
+    }
+    html.iframe-mode body {
+      padding-top: 0 !important;
+    }
+  </style>
 </head>
 
 <body class="dark-mode">
@@ -2099,7 +2130,7 @@
             <section class="cs-hero-centered reveal">
                 <div class="cs-hero-visual-centered">
                     <div class="cs-hero-image-wrapper">
-                        <img src="image/hero image/hrms_hero_main.png" alt="Careline Dashboard Mockup"
+                        <img src="image/hero-image/hrms_hero_main.png" alt="Careline Dashboard Mockup"
                             class="cs-hero-image" />
 
                         <!-- Top Left Badge -->
@@ -3263,16 +3294,16 @@
                             style="width: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; aspect-ratio: 16/9; padding: 32px 4rem 100px 4rem; box-sizing: border-box;">
                             
                             <div class="hifi-slide active" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 1; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; padding: inherit; box-sizing: border-box;">
-                                <img src="image/High-Fidelity%20Interface/Web/Dashboad.png" alt="Careline Dashboard" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/Dashboad.png" alt="Careline Dashboard" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; visibility: hidden; padding: inherit; box-sizing: border-box;">
-                                <img src="image/High-Fidelity%20Interface/Web/Attendance.png" alt="Careline Attendance" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/Attendance.png" alt="Careline Attendance" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; visibility: hidden; padding: inherit; box-sizing: border-box;">
-                                <img src="image/High-Fidelity%20Interface/Web/Tickets.png" alt="Careline Tickets" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/Tickets.png" alt="Careline Tickets" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
                             </div>
                             <div class="hifi-slide" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease-in-out; display: flex; align-items: center; justify-content: center; visibility: hidden; padding: inherit; box-sizing: border-box;">
-                                <img src="image/High-Fidelity%20Interface/Web/My%20Tea,.png" alt="Careline Team Management" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
+                                <img src="image/High-Fidelity-Interface/Web/My-Tea.png" alt="Careline Team Management" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 8px; box-shadow: var(--shadow-lg);" />
                             </div>
                         </div>
 
@@ -3294,22 +3325,16 @@
                             style="width: 100%; border-radius: var(--radius-lg); overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); position: relative; padding: 4rem 2rem 100px 2rem; box-sizing: border-box; display: flex; gap: 2rem; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
                             
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Dashboard.png" alt="Mobile Dashboard" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
+                                <img src="image/High-Fidelity-Interface/Mobile/Dashboard.png" alt="Mobile Dashboard" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Attendance.png" alt="Mobile Attendance" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
+                                <img src="image/High-Fidelity-Interface/Mobile/Attendance.png" alt="Mobile Attendance" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Leaves.png" alt="Mobile Leave Management" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
+                                <img src="image/High-Fidelity-Interface/Mobile/Leaves.png" alt="Mobile Leave Management" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
                             </div>
                             <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Team.png" alt="Mobile Team Directory" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
-                            </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Ticker.png" alt="Mobile Ticker" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
-                            </div>
-                            <div class="hifi-mobile-slide" style="flex: 0 0 auto; width: 280px; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-                                <img src="image/High-Fidelity%20Interface/Mobile/Celebration.png" alt="Mobile Celebration" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
+                                <img src="image/High-Fidelity-Interface/Mobile/Team.png" alt="Mobile Team Directory" style="width: 100%; border-radius: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);" />
                             </div>
                         </div>
 
@@ -3487,7 +3512,7 @@
                             </div>
                         </div>
                         <div class="case-visuals" style="flex: 1; position: relative; background: rgba(0,0,0,0.2);">
-                            <img src="../FIPA/image/hero%20image/FIPA.png" alt="FIPA Mockup" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="../FIPA/image/hero-image/FIPA.png" alt="FIPA Mockup" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
                 </div>

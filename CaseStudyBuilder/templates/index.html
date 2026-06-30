@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI UI/UX Case Study Builder — Antigravity</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* DESIGN INTELLIGENCE ARCHITECTURE - PREMIUM OVERHAUL */
+        /* FIGMA-STYLE TABBED HUD OVERHAUL */
+        .hud-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin: 3.5rem 0;
+            width: 100%;
+            align-items: stretch;
+            min-height: 480px;
+        }
+
+        /* Sidebar Tabs Column */
+        .hud-tabs-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 1.2rem;
+            box-sizing: border-box;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .hud-tab-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: left;
+            position: relative;
+            user-select: none;
+        }
+
+        .hud-tab-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Active HUD Tab Styling */
+        .hud-tab-item.active {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 15px var(--theme-color-glow, rgba(255,255,255,0.01));
+        }
+
+        /* Thick left accent line matching stage HSL gradient */
+        .hud-tab-item.active::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 4px;
+            background: var(--theme-color-gradient);
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 8px var(--theme-color-glow);
+        }
+
+        .hud-tab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .hud-tab-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--theme-color-gradient, linear-gradient(135deg, #FFD700, #D4AF37));
+            color: #000 !important;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hud-tab-counter {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 700;
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .hud-tab-item.active .hud-tab-counter {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hud-tab-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .hud-tab-item:hover .hud-tab-desc,
+        .hud-tab-item.active .hud-tab-desc {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Right Workspace Panel Column */
+        .hud-workspace-panel {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 28px;
+            padding: 2.2rem;
+            box-sizing: border-box;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 480px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .hud-stage-panel {
+            display: none;
+            width: 100%;
+            animation: panelFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hud-stage-panel.active {
+            display: block;
+        }
+
+        @keyframes panelFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hud-panel-title-block {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-bottom: 1.2rem;
+        }
+
+        .hud-panel-title-block h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .hud-panel-title-block p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin: 0;
+        }
+
+        .artifact-items {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 992px) {
+            .hud-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .hud-tabs-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 0.8rem;
+                scrollbar-width: none;
+            }
+            .hud-tabs-sidebar::-webkit-scrollbar {
+                display: none;
+            }
+            .hud-tab-item {
+                flex: 0 0 180px;
+                padding: 0.8rem 1rem;
+            }
+            .hud-tab-item.active::before {
+                left: 20%;
+                top: auto;
+                bottom: 0;
+                width: 60%;
+                height: 3px;
+                border-radius: 4px 4px 0 0;
+            }
+            .hud-workspace-panel {
+                padding: 1.5rem;
+                min-height: auto;
+            }
+            .artifact-items {
+                flex-direction: column;
+            }
+        }
+
+        .artifact-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            user-select: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            padding: 14px 18px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            flex: 1 1 220px;
+            max-width: 340px;
+            box-sizing: border-box;
+        }
+
+        .artifact-checkbox-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hide the native browser checkbox, style the custom replacement */
+        .artifact-checkbox-item input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            margin: 0;
+        }
+
+        .checkbox-indicator {
+            width: 22px;
+            height: 22px;
+            border-radius: 7px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+            color: transparent;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+
+        /* Toggled Custom Checkbox States */
+        .artifact-checkbox-item input:checked + .checkbox-indicator {
+            background: var(--theme-color-gradient, linear-gradient(135deg, #FFD700, #D4AF37));
+            border-color: transparent;
+            color: #000 !important;
+            box-shadow: 0 0 12px var(--theme-color-glow, rgba(212, 175, 55, 0.4));
+            transform: scale(1.08);
+        }
+
+        .artifact-checkbox-item input:checked ~ .checkbox-content strong {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+        }
+
+        .artifact-checkbox-item input:checked ~ .checkbox-content .checkbox-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .checkbox-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+        }
+
+        .checkbox-content strong {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .checkbox-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 400;
+            transition: all 0.3s ease;
+        /* Color input rounded corners fix */
+        input[type="color"].color-picker-input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 2px !important;
+            overflow: hidden !important;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.2) !important;
+            background: none !important;
+            padding: 0 !important;
+            transition: all 0.3s ease;
+        }
+        input[type="color"].color-picker-input:hover {
+            border-color: rgba(255,255,255,0.6) !important;
+            transform: scale(1.05);
+        }
+        input[type="color"].color-picker-input::-webkit-color-swatch-wrapper {
+            padding: 0 !important;
+            border-radius: 2px !important;
+        }
+        input[type="color"].color-picker-input::-webkit-color-swatch {
+            border: none !important;
+            border-radius: 2px !important;
+        }
+        input[type="color"].color-picker-input::-moz-color-swatch {
+            border: none !important;
+            border-radius: 2px !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app-container">
+        
+        <!-- SCREEN 1: START -->
+        <section id="screen-input" class="screen active">
+            <div class="header">
+                <span class="badge">UX Portfolio Intelligence</span>
+                <h1>Build Your Case Study</h1>
+                <p>Convert any project URL or research notes into a high-fidelity, boardroom-ready Behance presentation.</p>
+            </div>
+            
+            <div class="input-card glass">
+                <div class="input-group">
+                    <label for="url-input">Project Entry Point</label>
+                    <input type="text" id="url-input" placeholder="Paste your website, Figma, or Marvel link here" spellcheck="false">
+                </div>
+                
+                <div class="input-group">
+                    <label>Internal Research Context (Optional)</label>
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-icon">↑</div>
+                        <p>Drop <span>Research Documents</span> or click to upload</p>
+                        <input type="file" id="file-input" hidden>
+                    </div>
+                </div>
+                
+                <button id="btn-next-to-platform" class="btn-primary" disabled>Initialize Builder →</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: PLATFORM -->
+        <section id="screen-platform" class="screen">
+            <div class="header">
+                <h1>Deployment Platform</h1>
+                <p>Specify the target environment for visual sensor calibration.</p>
+            </div>
+            
+            <div class="selection-grid">
+                <div class="selection-card platform-card glass selected" data-platform="web">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                    </div>
+                    <h3>Web Application</h3>
+                    <p>Desktop-first interface.</p>
+                </div>
+                <div class="selection-card platform-card glass" data-platform="mobile">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    </div>
+                    <h3>Mobile Product</h3>
+                    <p>Native iOS or Android experience.</p>
+                </div>
+                <div class="selection-card platform-card glass" data-platform="responsive">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/><rect width="10" height="14" x="14" y="9" rx="1.5" ry="1.5" style="fill: var(--bg); stroke: currentColor;"/></svg>
+                    </div>
+                    <h3>Responsive</h3>
+                    <p>Seamless cross-device experience.</p>
+                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="btn-secondary" onclick="showScreen('screen-input')">Back</button>
+                <button id="btn-next-to-geo" class="btn-primary">Next Phase</button>
+            </div>
+        </section>
+
+        <!-- SCREEN: GEOLOCATION -->
+        <section id="screen-geo" class="screen">
+            <div class="header">
+                <h1>Regional Synthesis</h1>
+                <p>Where is your application primarily used? We'll adapt personas and language.</p>
+            </div>
+            
+            <div class="selection-grid">
+                <div class="selection-card geo-card glass" data-geo="India">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+                    </div>
+                    <h3>India</h3>
+                    <p>Localized insights for the Indian tech ecosystem.</p>
+                </div>
+                <div class="selection-card geo-card glass" data-geo="International">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>International</h3>
+                    <p>Global standards and broad demographics.</p>
+                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="btn-secondary" onclick="showScreen('screen-platform')">Back</button>
+                <button id="btn-next-to-colors" class="btn-primary">Next Phase</button>
+            </div>
+        </section>
+
+        <!-- SCREEN: BRAND COLORS -->
+        <section id="screen-colors" class="screen">
+            <div class="header">
+                <h1>Choose Color Theme</h1>
+                <p>We've detected these colors from your project. Adjust if needed.</p>
+            </div>
+            
+            <div class="input-card glass">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.8rem;">Primary color</label>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <input type="color" id="primary-color" class="color-picker-input" value="#1E3A8A">
+                            <input type="text" id="primary-color-hex" value="#1E3A8A" style="flex-grow: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 15px; border-radius: var(--radius-shape); color: white; outline: none; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.8rem;">Secondary Color</label>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <input type="color" id="secondary-color" class="color-picker-input" value="#64748B">
+                            <input type="text" id="secondary-color-hex" value="#64748B" style="flex-grow: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 15px; border-radius: var(--radius-shape); color: white; outline: none; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Selection Grid -->
+                <div style="margin-top: 40px;">
+                    <label style="display: block; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem;">Presentation Aesthetics</label>
+                    <div class="theme-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                        <div class="theme-card glass selected" data-theme="professional">
+                            <div class="theme-preview" id="preview-professional-bg" style="background: #1E3A8A; height: 60px; border-radius: 6px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700;">Aa</div>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Professional</span>
+                        </div>
+                        <div class="theme-card glass" data-theme="modern">
+                            <div class="theme-preview" id="preview-modern-bg" style="background: #7C3AED; height: 60px; border-radius: 6px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700;">Aa</div>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Modern</span>
+                        </div>
+                        <div class="theme-card glass" data-theme="minimalist">
+                            <div class="theme-preview" id="preview-minimalist-bg" style="background: #F3F4F6; height: 60px; border-radius: 6px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #111827; font-size: 0.7rem; font-weight: 700;">Aa</div>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Minimalist</span>
+                        </div>
+                        <div class="theme-card glass" data-theme="playful">
+                            <div class="theme-preview" id="preview-playful-bg" style="background: #F97316; height: 60px; border-radius: 6px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700;">Aa</div>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Playful</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="btn-secondary" onclick="showScreen('screen-geo')">Back</button>
+                <button id="btn-next-to-type" class="btn-primary">Next Phase</button>
+            </div>
+        </section>
+
+
+        <!-- SCREEN 2: TYPE -->
+        <section id="screen-case-type" class="screen">
+            <div class="header">
+                <h1>Strategic Objective</h1>
+                <p>Define the high-level narrative for this project.</p>
+            </div>
+            
+            <div class="selection-grid">
+                <div class="selection-card glass" data-type="redesign">
+                    <div class="icon">🪄</div>
+                    <h3>Redesign</h3>
+                    <p>Optimizing performance and solving accessibility debt.</p>
+                </div>
+                <div class="selection-card glass" data-type="scratch">
+                    <div class="icon">✨</div>
+                    <h3>New</h3>
+                    <p>Building a zero-to-one product from raw insights.</p>
+                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="btn-secondary" onclick="showScreen('screen-colors')">Back</button>
+                <button id="btn-next-to-artifacts" class="btn-primary">Next Phase</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: ARTIFACTS -->
+        <section id="screen-artifacts" class="screen">
+            <div class="header">
+                <h1>Design Intelligence Architecture</h1>
+                <p>Construct your strategic narrative by selecting high-fidelity building blocks.</p>
+            </div>
+            
+            <div class="hud-container">
+                <!-- Left Sidebar Tabs -->
+                <div class="hud-tabs-sidebar">
+                    <div class="hud-tab-item active" data-stage="empathize" onclick="switchHUDTab('empathize')" style="--theme-color-gradient: linear-gradient(135deg, #a78bfa, #7c3aed); --theme-color-glow: rgba(124, 58, 237, 0.45);">
+                        <div class="hud-tab-header">
+                            <span class="hud-tab-badge">Empathize</span>
+                            <span class="hud-tab-counter" id="counter-empathize">2 / 2</span>
+                        </div>
+                        <span class="hud-tab-desc">Competitive Benchmarking, User Personas, & positioning maps</span>
+                    </div>
+                    <div class="hud-tab-item" data-stage="define" onclick="switchHUDTab('define')" style="--theme-color-gradient: linear-gradient(135deg, #60a5fa, #2563eb); --theme-color-glow: rgba(37, 99, 235, 0.45);">
+                        <div class="hud-tab-header">
+                            <span class="hud-tab-badge">Define</span>
+                            <span class="hud-tab-counter" id="counter-define">2 / 2</span>
+                        </div>
+                        <span class="hud-tab-desc">Detailed Journey Mapping, problem statements, & Empathy Maps</span>
+                    </div>
+                    <div class="hud-tab-item" data-stage="ideate" onclick="switchHUDTab('ideate')" style="--theme-color-gradient: linear-gradient(135deg, #34d399, #059669); --theme-color-glow: rgba(5, 150, 105, 0.45);">
+                        <div class="hud-tab-header">
+                            <span class="hud-tab-badge">Ideate</span>
+                            <span class="hud-tab-counter" id="counter-ideate">1 / 1</span>
+                        </div>
+                        <span class="hud-tab-desc">Structural low-fi Wireframes, Discover Ideas brainstorming, & pivot models</span>
+                    </div>
+                    <div class="hud-tab-item" data-stage="design" onclick="switchHUDTab('design')" style="--theme-color-gradient: linear-gradient(135deg, #fb923c, #ea580c); --theme-color-glow: rgba(234, 88, 12, 0.45);">
+                        <div class="hud-tab-header">
+                            <span class="hud-tab-badge">Design</span>
+                            <span class="hud-tab-counter" id="counter-design">1 / 1</span>
+                        </div>
+                        <span class="hud-tab-desc">Expert Heuristic UX Audits, planning flowcharts, & hi-fi screens</span>
+                    </div>
+                    <div class="hud-tab-item" data-stage="deliver" onclick="switchHUDTab('deliver')" style="--theme-color-gradient: linear-gradient(135deg, #f472b6, #db2777); --theme-color-glow: rgba(219, 39, 119, 0.45);">
+                        <div class="hud-tab-header">
+                            <span class="hud-tab-badge">Deliver</span>
+                            <span class="hud-tab-counter" id="counter-deliver">1 / 1</span>
+                        </div>
+                        <span class="hud-tab-desc">Quantitative Usability Testing, KPI metrics, & takeaways</span>
+                    </div>
+                </div>
+
+                <!-- Right HUD Panel Workspace -->
+                <div class="hud-workspace-panel">
+                    <!-- E: EMPATHIZE PANEL -->
+                    <div class="hud-stage-panel active" id="panel-empathize">
+                        <div class="hud-panel-title-block">
+                            <h3>Empathize Phase</h3>
+                            <p>Research, discovery, and user segment building blocks</p>
+                        </div>
+                        <div class="artifact-items">
+                            <!-- Core items (Non-checkboxes) -->
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Empathy Pillars</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Research &mdash; Synthesizes user behavioral insights</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Competitor Positioning Map</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Strategy &mdash; Visualizes market differentiation gaps</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Priority Pyramid</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Deliverable &mdash; Structures user segment importance</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Research Flowchart</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Architecture &mdash; Outlines the qualitative/quantitative mix</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+
+                            <!-- Optional checkboxes (Dynamic input keys) -->
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium); margin-bottom: 8px;">
+                                <input type="checkbox" checked value="competitive_analysis">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Competitive Benchmarking</strong>
+                                    <span class="checkbox-desc">Market Context &mdash; Pros/cons assessment of top competitors</span>
+                                </div>
+                            </label>
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium);">
+                                <input type="checkbox" checked value="persona_mapping">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>User Personas</strong>
+                                    <span class="checkbox-desc">Define Phase &mdash; Generates high-fidelity user personas</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- D: DEFINE PANEL -->
+                    <div class="hud-stage-panel" id="panel-define">
+                        <div class="hud-panel-title-block">
+                            <h3>Define Phase</h3>
+                            <p>Strategic alignment, problem statements, and emotional mapping</p>
+                        </div>
+                        <div class="artifact-items">
+                            <!-- Core items (Non-checkboxes) -->
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Problem Statement</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Strategy &mdash; Focuses team on critical business friction</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Affinity Board</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Research &mdash; Groups heuristic & observational patterns</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Empathy Map</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Research &mdash; Maps says, thinks, does, and feels quadrants</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+
+                            <!-- Optional checkboxes (Dynamic input keys) -->
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium); margin-bottom: 8px;">
+                                <input type="checkbox" checked value="journey_map">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Journey Map Table</strong>
+                                    <span class="checkbox-desc">Synthesize Phase &mdash; Step-by-step user journey stage friction tracking</span>
+                                </div>
+                            </label>
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium);">
+                                <input type="checkbox" checked value="persona_mapping">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Spotlight Persona</strong>
+                                    <span class="checkbox-desc">Define Phase &mdash; Immersive single-persona profile layout sheet</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- I: IDEATE PANEL -->
+                    <div class="hud-stage-panel" id="panel-ideate">
+                        <div class="hud-panel-title-block">
+                            <h3>Ideate Phase</h3>
+                            <p>Lateral thinking, prioritization, and solution tactics</p>
+                        </div>
+                        <div class="artifact-items">
+                            <!-- Core items (Non-checkboxes) -->
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Discover Ideas</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Ideation &mdash; Lateral brainstorming sticky notes</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Prioritization Matrix</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Strategy &mdash; Balances UX impact against technical complexity</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Design Logic Pivot Model</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Strategy &mdash; Defines From/To paradigm pivot shifts</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+
+                            <!-- Optional checkboxes (Dynamic input keys) -->
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium);">
+                                <input type="checkbox" checked value="wireframes">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Structural Wireframes</strong>
+                                    <span class="checkbox-desc">Ideation Phase &mdash; Low-fidelity modular wireframe display blocks</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- S: DESIGN PANEL -->
+                    <div class="hud-stage-panel" id="panel-design">
+                        <div class="hud-panel-title-block">
+                            <h3>Design Phase</h3>
+                            <p>High-fidelity system flow and design architectures</p>
+                        </div>
+                        <div class="artifact-items">
+                            <!-- Core items (Non-checkboxes) -->
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Planning Architecture</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Architecture &mdash; Maps visual onboarding flow sequence</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">High-Fidelity UI Screens</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Deliverable &mdash; Generated mockups with high-res specs</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+
+                            <!-- Optional checkboxes (Dynamic input keys) -->
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium);">
+                                <input type="checkbox" checked value="heuristic_evaluation">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Heuristic Evaluation</strong>
+                                    <span class="checkbox-desc">Expert Audit &mdash; Deep expert-grade UX audit scorecard review</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- M: DELIVER PANEL -->
+                    <div class="hud-stage-panel" id="panel-deliver">
+                        <div class="hud-panel-title-block">
+                            <h3>Deliver Phase</h3>
+                            <p>KPI metrics, success targets, and takeaways</p>
+                        </div>
+                        <div class="artifact-items">
+                            <!-- Core items (Non-checkboxes) -->
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 8px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">KPI Impact Metrics</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Deliverable &mdash; Establishes quantitative success targets</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+                            <div class="artifact-checkbox-item core-deliverable" style="background: rgba(255, 255, 255, 0.01); border: 1.5px solid var(--border-medium); opacity: 0.85; pointer-events: none; display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px;">
+                                <span class="checkbox-indicator" style="background: var(--accent); color: #000; border-color: var(--accent); display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 4px; margin-right: 12px; font-weight: bold; font-size: 0.75rem;">✓</span>
+                                <div class="checkbox-content" style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9rem;">Strategic Takeaways</strong>
+                                    <span class="checkbox-desc" style="display: block; font-size: 0.75rem; color: var(--text-dim);">Core Strategy &mdash; Defines next-step execution takeaways</span>
+                                </div>
+                                <span style="font-size: 0.65rem; background: rgba(var(--accent-rgb), 0.15); color: var(--accent); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--accent-30); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Core</span>
+                            </div>
+
+                            <!-- Optional checkboxes (Dynamic input keys) -->
+                            <label class="artifact-checkbox-item" style="display: flex; align-items: center; padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1.5px solid var(--border-medium);">
+                                <input type="checkbox" checked value="usability_testing">
+                                <span class="checkbox-indicator">✓</span>
+                                <div class="checkbox-content">
+                                    <strong>Usability Testing</strong>
+                                    <span class="checkbox-desc">Validation Phase &mdash; Verifies product value targets with target users</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>                </div>
+            </div>
+            
+            <div class="footer-actions">
+                <button class="btn-secondary" onclick="showScreen('screen-case-type')">Back</button>
+                <button id="btn-start-analysis" class="btn-primary">Create Case Study</button>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: PROCESSING -->
+        <section id="screen-process" class="screen">
+            <div class="header">
+                <h1>Creating your Case Study...</h1>
+                <p>Our AI is analyzing your project and formatting the design.</p>
+            </div>
+            
+            <div class="process-content">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar" style="width: 10%;"></div>
+                </div>
+                
+                <div id="terminal-logs" class="terminal-logs">
+                    <div class="log-entry">Starting the build process...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 5: PREVIEW -->
+        <section id="screen-preview" class="screen">
+            <div class="header">
+                <h1>It's Ready!</h1>
+                <p>Review the professional case study generated by the AI.</p>
+            </div>
+            
+            <div class="preview-container glass">
+                <div class="preview-viewport">
+                    <iframe id="final-case-study-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+                
+                <div class="preview-overlay">
+                    <div class="overlay-card">
+                        <h3>Happy with the result?</h3>
+                        <p>High-resolution export (1400px width).</p>
+                        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 20px; align-items: center;">
+                            <a id="btn-full-view" class="btn-secondary" style="text-decoration: none; padding: 12px 20px;" target="_blank">Preview</a>
+                            <a id="btn-download" class="btn-secondary" style="text-decoration: none; padding: 12px 20px;" download="CaseStudy.png">Download</a>
+                            <button id="btn-approve" class="btn-primary" style="padding: 12px 24px; font-size: 0.9rem; width: auto; margin: 0;">Finish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 6: FINISH -->
+        <section id="screen-publish" class="screen">
+            <div class="header">
+                <h1>All Set!</h1>
+                <p>Your case study has been finalized.</p>
+            </div>
+            
+            <div class="publish-card glass" style="padding: 60px; text-align: center;">
+                <div class="success-icon">✓</div>
+                <h2>Success!</h2>
+                <p style="margin-bottom: 30px; color: var(--text-dim);">Project files are ready for your portfolio.</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <a id="btn-view-final" class="btn-primary" style="text-decoration: none; padding: 22px 30px; width: auto;" target="_blank">View Case Study</a>
+                    <button class="btn-secondary" onclick="window.location.reload()">Start New</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function switchHUDTab(stageId) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.hud-tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Add active class to clicked tab
+            const activeTab = document.querySelector(`.hud-tab-item[data-stage="${stageId}"]`);
+            if (activeTab) activeTab.classList.add('active');
+
+            // Hide all stage panels
+            document.querySelectorAll('.hud-stage-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            // Show current stage panel
+            const activePanel = document.getElementById(`panel-${stageId}`);
+            if (activePanel) activePanel.classList.add('active');
+        }
+
+        function updateHUDCounters() {
+            const stages = ['empathize', 'define', 'ideate', 'design', 'deliver'];
+            stages.forEach(stage => {
+                const panel = document.getElementById('panel-' + stage);
+                if (!panel) return;
+                const total = panel.querySelectorAll('input[type="checkbox"]').length;
+                const checked = panel.querySelectorAll('input[type="checkbox"]:checked').length;
+                const counter = document.getElementById('counter-' + stage);
+                if (counter) {
+                    counter.textContent = `${checked} / ${total}`;
+                }
+            });
+        }
+
+        // Initialize HUD counters on ready and hook active change listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHUDCounters();
+            
+            // Synchronize the two persona checkboxes
+            const personaCheckboxes = document.querySelectorAll('input[type="checkbox"][value="persona_mapping"]');
+            personaCheckboxes.forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    personaCheckboxes.forEach(otherCb => {
+                        if (otherCb !== e.target) {
+                            otherCb.checked = e.target.checked;
+                        }
+                    });
+                    updateHUDCounters();
+                });
+            });
+            
+            document.querySelectorAll('.hud-workspace-panel input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateHUDCounters);
+            });
+        });
+    </script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

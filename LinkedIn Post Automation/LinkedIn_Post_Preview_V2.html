@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Circular Fusion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-orange: #FF6E2E;
+            --brand-teal: #00303D;
+            --brand-cream: #FDFBF0;
+            --text-dark: #001F26;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #D1D1D1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        /* LinkedIn Portrait Protocol: 1080x1350 (4:5) */
+        .poster-container {
+            width: 1080px;
+            height: 1350px;
+            background-color: var(--brand-cream);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Decorative Circles */
+        .circle-accent {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .circle-1 {
+            width: 800px;
+            height: 800px;
+            background: var(--brand-orange);
+            top: -200px;
+            left: -200px;
+            opacity: 0.9;
+        }
+
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--brand-teal);
+            top: 100px;
+            right: -100px;
+            opacity: 0.1;
+        }
+
+        /* The Circular Pod */
+        .circular-pod {
+            position: absolute;
+            top: 200px;
+            right: 0;
+            width: 800px;
+            height: 800px;
+            background: var(--brand-orange);
+            border-radius: 50% 0 0 50%;
+            z-index: 2;
+            overflow: hidden;
+            border: 20px solid white;
+        }
+
+        .pod-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: luminosity;
+            opacity: 0.8;
+        }
+
+        /* Text Overlay on Pod */
+        .pod-text {
+            position: absolute;
+            bottom: 150px;
+            left: 100px;
+            color: white;
+            z-index: 5;
+        }
+
+        .pod-text h3 {
+            font-size: 60px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* Overlapping Human Subject */
+        .hero-image {
+            position: absolute;
+            bottom: 0;
+            left: -100px;
+            height: 1100px;
+            z-index: 10;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
+        }
+
+        /* Floating Geometric Labels */
+        .label-tag {
+            position: absolute;
+            z-index: 15;
+            background: var(--brand-teal);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 100px;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tag-1 { top: 150px; left: 100px; }
+        .tag-2 { bottom: 300px; left: 450px; background: var(--brand-orange); }
+
+        /* Main Headline */
+        .headline-section {
+            position: absolute;
+            top: 250px;
+            left: 100px;
+            z-index: 20;
+            max-width: 500px;
+        }
+
+        .headline {
+            font-size: 110px;
+            font-weight: 900;
+            line-height: 0.9;
+            color: var(--brand-teal);
+        }
+
+        .headline span {
+            color: var(--brand-orange);
+            -webkit-text-stroke: 2px var(--brand-teal);
+            color: transparent;
+        }
+
+        /* Footer / Branding */
+        .footer {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .design-strategy-label {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--brand-teal);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .design-strategy-label::before {
+            content: '';
+            width: 40px;
+            height: 40px;
+            background: var(--brand-orange);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        .cta-button {
+            background: var(--brand-teal);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 100px;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <!-- Decoration -->
+        <div class="circle-accent circle-1"></div>
+        <div class="circle-accent circle-2"></div>
+
+        <!-- Headline -->
+        <div class="headline-section">
+            <h1 class="headline">CORE <span>STRATEGY</span></h1>
+        </div>
+
+        <!-- Labels -->
+        <div class="label-tag tag-1">Innovation Lead</div>
+        <div class="label-tag tag-2">2026 Insights</div>
+
+        <!-- Circular Pod -->
+        <div class="circular-pod">
+            <img src="/Users/ni3_kr/Documents/UX/CaseStudyBuilder/static/case_study_template/hero_test_run.png" class="pod-image">
+            <div class="pod-text">
+                <h3>BUILDING<br>THE FUTURE.</h3>
+            </div>
+        </div>
+
+        <!-- Human Hero -->
+        <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/ux_lead_pinterest_style_hero_1777389406731.png" class="hero-image">
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="design-strategy-label">DESIGN STRATEGY</div>
+            <a href="#" class="cta-button">EXPLORE MORE</a>
+        </div>
+    </div>
+
+</body>
+</html>

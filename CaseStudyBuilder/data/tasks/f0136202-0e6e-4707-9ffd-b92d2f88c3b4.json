@@ -1,0 +1,1 @@
+{"status": "Critical Error during generation", "complete": true, "error": "404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.", "current_task": null, "progress": 0, "timestamp": 1776361614.6740181}

@@ -1,0 +1,3150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike India Reimagined | UX Case Study</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@100;300;400;500;600;700&family=Outfit:wght@400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/reference_assets/css/styles.css">
+    <link rel="stylesheet" href="/static/reference_assets/css/design-system.css">
+    <link rel="stylesheet" href="/static/reference_assets/css/case_study.css">
+    <script>
+        // --- High-Fidelity Theme Engine ---
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+            } else {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
+    <style>
+        /* NUCLEAR FIX FOR WHITE MARGIN AND THEME SYNC */
+        html,
+        body {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden !important;
+            background-color: var(--bg-main) !important;
+            min-height: 100vh !important;
+        }
+
+        .case-study-main .canvas-wrapper {
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+            float: none !important;
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+        }
+
+        .show-mobile-only {
+            display: none;
+        }
+
+        nav {
+            left: 0 !important;
+            right: 0 !important;
+            width: auto !important;
+        }
+
+        .cs-map-container {
+            width: 100%;
+            margin: 0 0 4rem 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+            padding: 5rem 4rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .cs-map-container:hover {
+            border-color: var(--accent-30);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .cs-map-title {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--text-secondary);
+            /* Vibrant Gold/Yellow */
+            margin-bottom: 5rem;
+        }
+
+        .cs-map-canvas {
+            width: 100%;
+            aspect-ratio: 16/9;
+            position: relative;
+            border-left: 2.5px solid var(--border-medium);
+            border-bottom: 2.5px solid var(--border-medium);
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .cs-axis-label {
+            position: absolute;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .axis-y-title {
+            top: 50%;
+            left: -80px;
+            transform: translateY(-50%) rotate(-90deg);
+            letter-spacing: 0.15em;
+        }
+
+        .axis-x-title {
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 0.15em;
+        }
+
+        .label-high-y {
+            top: 0;
+            left: -50px;
+            color: var(--text-secondary);
+        }
+
+        .label-med-y {
+            top: 50%;
+            left: -50px;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .label-low-y {
+            bottom: 0;
+            left: -50px;
+            color: var(--text-secondary);
+        }
+
+        .label-high-x {
+            right: 0;
+            bottom: -35px;
+            color: var(--text-secondary);
+        }
+
+        .label-med-x {
+            left: 50%;
+            bottom: -35px;
+            transform: translateX(-50%);
+            color: var(--text-secondary);
+        }
+
+        .label-low-x {
+            left: 0;
+            bottom: -35px;
+            color: var(--text-secondary);
+        }
+
+        .cs-map-point {
+            position: absolute;
+            padding: 1.2rem 1.8rem;
+            border-radius: 16px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-medium);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
+            transform: translate(-50%, 50%);
+            min-width: 160px;
+        }
+
+        .cs-map-point:hover {
+            transform: translate(-50%, 50%) translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-medium);
+            z-index: 10;
+        }
+
+        .cs-map-point h5 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .cs-map-point p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        /* Positions and Colors to match image */
+        .point-restaurants {
+            border-color: #4285F4;
+            left: 15%;
+            bottom: 80%;
+        }
+
+        .point-restaurants h5 {
+            color: #4285F4;
+        }
+
+        .point-tiffin {
+            border-color: var(--text-secondary);
+            left: 20%;
+            bottom: 35%;
+        }
+
+        .point-tiffin h5 {
+            color: var(--text-secondary);
+        }
+
+        .point-cooking {
+            border-color: #34A853;
+            left: 60%;
+            bottom: 60%;
+        }
+
+        .point-cooking h5 {
+            color: #34A853;
+        }
+
+        .point-delivery {
+            border-color: #EA4335;
+            left: 55%;
+            bottom: 15%;
+        }
+
+        .point-delivery h5 {
+            color: #EA4335;
+        }
+
+        /* Target Zone Rectangle - Restored and Balanced */
+        .cs-target-zone {
+            position: absolute;
+            border: 2px dashed var(--accent);
+            border-radius: 32px;
+            left: 80%;
+            bottom: 85%;
+            transform: translate(-50%, 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            background: rgba(255, 204, 0, 0.03);
+            width: 280px;
+            /* Balanced padding around the 200px box */
+            height: 200px;
+            /* Balanced padding around the 140px box */
+        }
+
+        .cs-map-point.point-solution {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--text-secondary);
+            position: relative;
+            left: auto;
+            bottom: auto;
+            transform: none;
+            padding: 0;
+            /* Removing padding to use flex-centering with fixed dimensions */
+            width: 200px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(255, 204, 0, 0.4);
+            text-align: center;
+            gap: 0.2rem;
+        }
+
+        .cs-map-point.point-solution h5 {
+            color: #fff;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .cs-map-point.point-solution p {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.2;
+            max-width: 80%;
+        }
+
+        body.dark-mode .cs-map-point.point-solution,
+        body.dark-mode .cs-map-point.point-solution h5,
+        body.dark-mode .cs-map-point.point-solution p {
+            color: #000 !important;
+        }
+
+        /* Dark Mode Chart Background Overrides */
+        body.dark-mode .cs-map-container,
+        body.dark-mode .cs-flow-container,
+        body.dark-mode .cs-pyramid-container,
+        body.dark-mode .cs-persona,
+        body.dark-mode .cs-journey-wrapper,
+        body.dark-mode .cs-ideas-board,
+        body.dark-mode .cs-idea-cluster,
+        body.dark-mode .cs-matrix-container,
+        body.dark-mode .cs-arch-container,
+        body.dark-mode .cs-flow-viewport,
+        body.dark-mode .cs-hifi-container,
+        body.dark-mode .cs-metric-card,
+        body.dark-mode .cs-affinity-cluster,
+        body.dark-mode .cs-empathy-grid,
+        body.dark-mode .cs-metrics-grid {
+            background: rgba(255, 255, 255, 0.03) !important;
+        }
+
+        body.dark-mode .cs-flow-node,
+        body.dark-mode .cs-flow-decision {
+            background: var(--bg-card-heavy) !important;
+            border-color: var(--border-medium) !important;
+        }
+
+        .cs-map-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 6rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mobile Map View Styles */
+        .cs-map-mobile-view,
+        .cs-map-mobile-view * {
+            box-sizing: border-box !important;
+        }
+
+        .cs-map-mobile-view {
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .cs-map-container {
+                padding: 2.5rem 1.25rem !important;
+                margin: 2rem 0 !important;
+                background: var(--bg-card) !important;
+                backdrop-filter: var(--blur-glass) !important;
+                -webkit-backdrop-filter: var(--blur-glass) !important;
+                border: 1px solid var(--border-medium) !important;
+                width: 100% !important;
+                overflow: hidden !important;
+                border-radius: 24px !important;
+            }
+
+            .cs-map-canvas,
+            .cs-map-title,
+            .cs-map-caption {
+                display: none !important;
+            }
+
+            .cs-map-mobile-view {
+                display: flex;
+            }
+        }
+
+        .cs-map-mobile-header {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 1rem;
+        }
+
+        .cs-map-mobile-solution-card {
+            background: var(--accent-light);
+            backdrop-filter: var(--blur-glass);
+            -webkit-backdrop-filter: var(--blur-glass);
+            border: 1px solid var(--accent-30);
+            border-radius: 16px;
+            padding: 1.25rem 1rem;
+            position: relative;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+
+        .solution-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            gap: 0.5rem;
+        }
+
+        .solution-info h2 {
+            color: var(--accent);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            /* Reduced size by ~2px */
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+            font-variant: small-caps;
+        }
+
+        .solution-tagline {
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 0.75rem;
+            margin: 0.15rem 0 0;
+            opacity: 0.8;
+        }
+
+        .market-leader-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 0.25rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-ui);
+            font-size: 0.45rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .solution-metrics {
+            display: flex;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-family: var(--font-ui);
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .metric-progress {
+            display: flex;
+            gap: 2px;
+        }
+
+        .metric-progress .segment {
+            flex: 1;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .metric-progress .segment.active {
+            background: var(--accent);
+            box-shadow: 0 0 5px rgba(229, 199, 107, 0.4);
+        }
+
+        .metric-value {
+            color: var(--accent);
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-align: right;
+            margin-top: 0.1rem;
+        }
+
+        /* Mobile Slider Styles */
+        .cs-map-mobile-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 0.5rem 1.25rem 1.5rem;
+            margin: 0 -1.25rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .cs-map-mobile-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Competitor Cards */
+        .cs-map-mobile-competitor-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--blur-glass);
+            -webkit-backdrop-filter: var(--blur-glass);
+            border: 1px solid var(--border-medium);
+            border-radius: 10px;
+            padding: 0.5rem 0.75rem 0.75rem;
+            /* Top padding reduced to 8px */
+            border-left: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            width: 100%;
+            min-width: 75vw;
+            flex: 0 0 75vw;
+            scroll-snap-align: center;
+        }
+
+        .competitor-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.1rem;
+        }
+
+        .competitor-header h3 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin: 0;
+            white-space: nowrap;
+            line-height: 2px;
+            /* As requested to eliminate space */
+        }
+
+        .competitor-quote {
+            color: var(--text-secondary);
+            font-style: normal;
+            font-size: 0.65rem;
+            margin: 0;
+            text-align: left;
+            opacity: 0.8;
+            line-height: 1.2;
+        }
+
+        .competitor-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.35rem;
+        }
+
+        .comp-metric-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.4rem 0.6rem;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .comp-metric-box .label {
+            color: var(--text-secondary);
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        .comp-metric-box .value {
+            color: var(--text-primary);
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        /* Specific Card Colors */
+        .cs-map-mobile-competitor-card.restaurants {
+            border-left-color: #4285F4;
+        }
+
+        .cs-map-mobile-competitor-card.restaurants h3 {
+            color: #4285F4;
+        }
+
+        .cs-map-mobile-competitor-card.restaurants .comp-metric-box:first-child .value {
+            color: #4285F4;
+        }
+
+        .cs-map-mobile-competitor-card.cooking {
+            border-left-color: #34A853;
+        }
+
+        .cs-map-mobile-competitor-card.cooking h3 {
+            color: #34A853;
+        }
+
+        .cs-map-mobile-competitor-card.tiffin {
+            border-left-color: var(--accent);
+        }
+
+        .cs-map-mobile-competitor-card.tiffin h3 {
+            color: var(--accent);
+        }
+
+        .cs-map-mobile-competitor-card.delivery {
+            border-left-color: #EA4335;
+        }
+
+        .cs-map-mobile-competitor-card.delivery h3 {
+            color: #EA4335;
+        }
+
+        .cs-map-mobile-caption {
+            text-align: center;
+            font-size: 0.6rem;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0rem;
+            line-height: 1.4;
+        }
+
+        /* Light Mode Overrides for Map */
+
+
+        /* --- GLOBAL SHADOWLESS GLASSMORPISM DESIGN SYSTEM --- */
+        .cs-card,
+        .cs-insight-card,
+        .cs-final-idea-card,
+        .cs-metric-card,
+        .cs-idea-sticky,
+        .cs-empathy-quadrant,
+        .cs-pyramid-layer,
+        .cs-affinity-cluster {
+            background: var(--bg-card) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: none !important;
+            border: 1px solid var(--border-medium) !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .cs-card:hover,
+        .cs-insight-card:hover,
+        .cs-final-idea-card:hover,
+        .cs-metric-card:hover,
+        .cs-idea-sticky:hover,
+        .cs-empathy-quadrant:hover,
+        .cs-pyramid-layer:hover,
+        .cs-affinity-cluster:hover {
+            background: var(--bg-card-heavy) !important;
+            border-color: var(--accent) !important;
+            transform: translateY(-5px) !important;
+            box-shadow: var(--shadow-lg) !important;
+        }
+
+        /* LIGHT MODE ADAPTATION */
+
+
+        /* Light Mode Overrides for Pyramid */
+
+        /* Light Mode Overrides for Flowchart */
+        /* User Priority Pyramid Styles */
+        .cs-pyramid-container {
+            width: 100%;
+            margin: 0 0 6rem 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 24px;
+            padding: 5rem 4rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 6rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cs-pyramid-axis {
+            position: relative;
+            height: 380px;
+            width: 40px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .cs-pyramid-axis::before {
+            content: 'Frequency →';
+            position: absolute;
+            left: -75px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            white-space: nowrap;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+        }
+
+        .cs-pyramid-visual {
+            width: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .cs-pyramid-layer {
+            position: relative;
+            width: 100%;
+            height: 125px;
+            background: rgba(var(--primary-rgb), 0.05);
+            border: 1px solid var(--border-medium);
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem; /* Exactly 16px */
+        }
+
+        .cs-pyramid-layer:hover {
+            background: rgba(var(--primary-rgb), 0.1);
+            transform: scale(1.03);
+            z-index: 10;
+            border-color: var(--accent);
+        }
+
+        .layer-primary {
+            width: 65%;
+            clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+            background: rgba(var(--primary-rgb), 0.15);
+        }
+
+        .layer-secondary {
+            width: 85%;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        }
+
+        .layer-low {
+            width: 100%;
+            clip-path: polygon(7% 0%, 93% 0%, 100% 100%, 0% 100%);
+        }
+
+        .cs-pyramid-labels {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 380px;
+            padding-left: 2rem;
+            max-width: 350px;
+        }
+
+        .cs-pyramid-label-group {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .cs-pyramid-label-group::before {
+            content: '';
+            position: absolute;
+            left: -120px;
+            top: 50%;
+            width: 100px;
+            border-top: 1px dashed var(--border-medium);
+        }
+
+        .cs-pyramid-label-group h4 {
+            color: var(--accent);
+            font-size: 1rem; /* Exactly 16px */
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+
+        .cs-pyramid-label-group p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        @media (max-width: 992px) {
+            .cs-pyramid-container {
+                display: none !important;
+            }
+
+            .cs-pyramid-mobile {
+                display: flex !important;
+            }
+
+            .cs-pyramid-section {
+                padding: 2.5rem 1.25rem !important;
+                margin: 2rem 0 !important;
+                background: var(--bg-card) !important;
+                backdrop-filter: var(--blur-glass) !important;
+                -webkit-backdrop-filter: var(--blur-glass) !important;
+                border: 1px solid var(--border-medium) !important;
+                width: 100% !important;
+                overflow: hidden !important;
+                border-radius: 24px !important;
+            }
+        }
+
+        .cs-pyramid-mobile-header {
+            display: none;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .cs-pyramid-mobile-header {
+                display: block;
+            }
+
+            .cs-section-subtitle.pyramid-title {
+                display: none;
+            }
+        }
+
+        .cs-pyramid-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            padding: 1rem 0;
+            width: 100%;
+        }
+
+        .pyramid-mobile-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .cs-pyramid-mobile .cs-pyramid-layer {
+            height: auto;
+            min-height: 110px;
+            padding: 1.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 0;
+            background: var(--accent-light) !important;
+            border: 1px solid rgba(229, 199, 107, 0.2);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2) !important;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .cs-pyramid-mobile .cs-pyramid-layer .layer-title {
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 0.2rem;
+            font-size: 0.5rem;
+        }
+
+        .cs-pyramid-mobile .cs-pyramid-layer h4 {
+            color: var(--accent);
+            font-size: 0.75rem;
+            margin: 0;
+            font-weight: 600;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cs-pyramid-mobile .cs-pyramid-layer p {
+            color: var(--text-secondary);
+            font-size: 0.55rem;
+            margin: 0.1rem 0 0;
+            opacity: 0.7;
+            line-height: 1.2;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cs-pyramid-mobile .layer-primary {
+            width: 85%;
+            clip-path: polygon(12% 0%, 88% 0%, 100% 100%, 0% 100%);
+        }
+
+        .cs-pyramid-mobile .layer-secondary {
+            width: 92%;
+            clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+        }
+
+        .cs-pyramid-mobile .layer-low {
+            width: 100%;
+            clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+        }
+
+        .cs-section-subtitle.pyramid-title {
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+
+        /* Research Approach Flowchart Styles */
+        .cs-flow-container {
+            width: 100%;
+            margin: 0 0 6rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 5rem 4rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .cs-flow-box {
+            padding: 1.5rem 3rem;
+            border: 1px solid var(--border-medium);
+            border-radius: 12px;
+            background: var(--bg-card);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            min-width: 300px;
+        }
+
+        .cs-flow-box:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            transform: translateY(-5px);
+        }
+
+        .cs-flow-box h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 800;
+        }
+
+        .cs-flow-box p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .cs-flow-line {
+            width: 1px;
+            height: 40px;
+            background: var(--border-medium);
+        }
+
+        .cs-flow-split {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            justify-content: center;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .cs-flow-split::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            width: 50%;
+            height: 30px;
+            border-top: 1px solid var(--border-medium);
+
+            border-right: 1px solid var(--border-medium);
+        }
+
+        .cs-flow-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+            max-width: 420px;
+        }
+
+        .cs-branch-type {
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .type-qual {
+            border-color: rgba(66, 185, 159, 0.4);
+            background: rgba(66, 185, 159, 0.05);
+        }
+
+        .type-quant {
+            border-color: rgba(234, 67, 53, 0.4);
+            background: rgba(234, 67, 53, 0.05);
+        }
+
+        .type-qual h4 {
+            color: #42b99f;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .type-quant h4 {
+            color: #ea4335;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .cs-branch-result {
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            /* More of a rounded rectangle than a full pill, to match image */
+            font-weight: 800;
+            font-size: 1rem;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-qual {
+            background: #42b99f;
+            color: #000;
+        }
+
+        .result-quant {
+            background: #ea4335;
+            color: #fff;
+        }
+
+        @media (max-width: 992px) {
+            .cs-research-section {
+                padding: 1rem 0 !important;
+                margin: 2rem 0 !important;
+                background: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            /* Remove outer parent box for Affinity Mapping on mobile */
+            .cs-affinity-board,
+            body.dark-mode .cs-affinity-board {
+                background: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 1rem !important;
+                width: 100% !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+
+            .cs-affinity-board::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            /* Full-width cluster cards on mobile - horizontal scroll */
+            .cs-affinity-cluster {
+                width: 100% !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                box-sizing: border-box !important;
+                flex-shrink: 0 !important;
+                scroll-snap-align: start !important;
+            }
+
+            /* User Persona Mobile Enhancements */
+            .cs-persona,
+            body.dark-mode .cs-persona {
+                background: none !important;
+                border: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                padding: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+            }
+
+            .cs-persona-left {
+                width: 100% !important;
+                padding: 2rem !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                border-radius: 14px !important;
+                background: var(--bg-card) !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+            }
+
+            .cs-persona-details {
+                padding: 0 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 1rem !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            .cs-persona-details::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .cs-persona-section {
+                padding: 1.5rem !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                border-radius: 14px !important;
+                background: var(--bg-card) !important;
+                box-sizing: border-box !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                flex-shrink: 0 !important;
+                scroll-snap-align: start !important;
+            }
+
+            .cs-persona-problem {
+                padding: 1.5rem !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                border-radius: 14px !important;
+                background: var(--bg-card) !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            .cs-persona-left .cs-persona-problem {
+                margin-top: 1.5rem !important;
+                border-radius: 12px !important;
+                background: #1c1b16 !important; /* Specific dark warmth from reference */
+                border: 1px solid rgba(229, 199, 107, 0.1) !important;
+            }
+
+            .show-mobile-only {
+                display: block !important;
+            }
+
+            .hide-mobile {
+                display: none !important;
+            }
+
+            /* Remove outer parent box for Discover Ideas on mobile */
+            .cs-ideas-board,
+            body.dark-mode .cs-ideas-board {
+                background: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+                margin: 2rem 0 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                gap: 1rem !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            .cs-ideas-board::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .cs-idea-cluster {
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                border-radius: 14px !important;
+                background: var(--bg-card) !important;
+                padding: 1.5rem !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                flex-shrink: 0 !important;
+                scroll-snap-align: start !important;
+            }
+
+            .cs-research-mobile-header {
+                display: none !important;
+            }
+
+            /* Strategic Pivot Mobile Enhancements */
+            .cs-pivot-container,
+            body.dark-mode .cs-pivot-container {
+                background: none !important;
+                border: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .cs-pivot-box {
+                background: var(--accent-light) !important;
+                border: 1px solid var(--accent-30) !important;
+                border-radius: 14px !important;
+                padding: 2rem !important;
+                box-sizing: border-box !important;
+                flex: 0 0 85% !important;
+                scroll-snap-align: start !important;
+                text-align: left !important;
+                margin-right: 1rem !important;
+            }
+
+            .cs-pivot-box.box-to {
+                margin-right: 0 !important;
+            }
+
+            .cs-arch-footer {
+                padding: 1.5rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .cs-arch-footer h4 {
+                font-size: 1.2rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            .cs-arch-footer p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+            }
+
+            /* High-Fidelity Spacing Fix */
+            .cs-hifi-container {
+                margin-bottom: 2rem !important;
+            }
+
+            .cs-hifi-features {
+                margin-top: 2rem !important;
+            }
+
+            /* Comparison Carousel Spacing */
+            .cs-comparison-grid {
+                margin-top: 2rem !important;
+            }
+
+            .cs-comparison-card {
+                min-height: 300px !important;
+                flex: 0 0 85% !important;
+                scroll-snap-align: start !important;
+                margin-right: 1rem !important;
+            }
+
+            .cs-comparison-label {
+                top: 1rem !important;
+                left: 1rem !important;
+                padding: 0.4rem 1rem !important;
+                font-size: 0.6rem !important;
+            }
+        }
+
+        /* Comparison Section Styles */
+        .cs-comparison-label {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: #d4af37;
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
+
+        .cs-comparison-placeholder {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+        }
+
+        /* Desktop specific pivot layout to maintain original design */
+        @media (min-width: 993px) {
+            .cs-pivot-box.box-from {
+                border-right: 1px solid var(--accent-30);
+                padding-right: 2rem;
+            }
+            .cs-pivot-box.box-to {
+                padding-left: 2rem;
+            }
+        }
+        @media (max-width: 992px) {
+            .cs-section-subtitle {
+                display: block !important;
+                font-family: 'Playfair Display', serif !important;
+                font-size: 24px !important;
+                font-weight: 700 !important;
+                color: var(--accent) !important;
+                text-transform: none !important;
+                letter-spacing: 0 !important;
+                margin-top: 2rem !important;
+                margin-bottom: 2rem !important;
+                text-align: left !important;
+                width: 100% !important;
+            }
+
+            .cs-flow-container,
+            .cs-flow-split,
+            .cs-flow-branch,
+            .branch-quant,
+            .branch-qual,
+            body.dark-mode .cs-flow-container,
+            body.dark-mode .cs-flow-split,
+            body.dark-mode .cs-flow-branch {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 0.5rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                background: transparent !important;
+                border: none !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+            }
+
+            .cs-flow-split::before,
+            .cs-flow-split::after,
+            .cs-flow-branch::after {
+                display: none !important;
+            }
+
+            .branch-quant,
+            .branch-qual {
+                background: var(--bg-card) !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                border-radius: 14px !important;
+                padding: 1rem !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .cs-flow-box {
+                padding: 0.75rem 1rem !important;
+                min-width: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 14px !important;
+                /* Sophisticated 14px radius */
+                background: var(--bg-card) !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                box-shadow: none !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+                margin: 0 auto !important;
+            }
+
+            .cs-flow-box h4 {
+                font-size: 0.8rem !important;
+                margin-bottom: 0.4rem !important;
+                color: var(--accent) !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.12em !important;
+                text-align: center !important;
+            }
+
+            .cs-flow-box p {
+                font-size: 0.75rem !important;
+                color: var(--text-secondary) !important;
+                opacity: 0.9;
+                line-height: 1.4 !important;
+                text-align: center !important;
+                margin: 0 !important;
+            }
+
+            .cs-flow-line {
+                width: 1px !important;
+                height: 8px !important;
+                background: var(--border-medium) !important;
+                margin: 0 auto !important;
+                display: block !important;
+            }
+
+            .cs-flow-branch::before {
+                content: '' !important;
+                width: 1px !important;
+                height: 8px !important;
+                background: var(--border-medium) !important;
+                display: block !important;
+                margin: 0 auto !important;
+            }
+
+            .cs-branch-type {
+                padding: 0.6rem 1rem !important;
+                border-radius: 14px !important;
+                /* Sophisticated 14px radius */
+                background: var(--bg-card) !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+                margin: 0 auto !important;
+            }
+
+            .cs-branch-type h4 {
+                font-size: 1rem !important;
+                margin-bottom: 0.3rem !important;
+                text-align: center !important;
+                width: 100% !important;
+            }
+
+            .cs-branch-type p {
+                font-size: 0.75rem !important;
+                text-align: center !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+
+            .cs-branch-result {
+                width: 100% !important;
+                max-width: 100% !important;
+                border-radius: 14px !important;
+                /* Sophisticated 14px radius */
+                padding: 0.75rem 0.5rem !important;
+                font-size: 0.7rem !important;
+                font-weight: 700 !important;
+                margin: 8px auto 0 !important;
+                text-transform: none !important;
+                position: relative;
+                box-sizing: border-box !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                border: 1px solid rgba(229, 199, 107, 0.2) !important;
+            }
+        }
+
+
+
+
+
+
+        .cs-research-mobile-header {
+            display: none;
+        }
+
+        /* Refined Empathy Map Styles */
+        .cs-empathy-container {
+            width: 100%;
+            margin: 6rem 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+            padding: 5rem;
+            position: relative;
+        }
+
+        .cs-empathy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .cs-empathy-quadrant {
+            border-radius: 20px;
+            padding: 3rem;
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-medium);
+        }
+
+        .cs-empathy-quadrant.q-says {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .cs-empathy-quadrant.q-thinks {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .cs-empathy-quadrant.q-does {
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .cs-empathy-quadrant.q-feels {
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .cs-empathy-header {
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 1rem;
+        }
+
+        .cs-empathy-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+        }
+
+        .cs-empathy-center-node {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: var(--bg-main);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 0 50px var(--accent-light);
+        }
+
+        .cs-empathy-center-node svg {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+
+        .cs-empathy-center-node span {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .cs-empathy-container {
+                padding: 3rem;
+            }
+
+            .cs-empathy-center-node {
+                display: none;
+            }
+
+            .cs-empathy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .cs-empathy-container,
+            body.dark-mode .cs-empathy-container {
+                padding: 0 !important;
+                border-radius: 0 !important;
+                background: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                border: none !important;
+                box-shadow: none !important;
+                margin: 1rem 0 !important;
+            }
+
+            .cs-empathy-grid {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                gap: 1rem !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            .cs-empathy-grid::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .cs-empathy-quadrant {
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                flex-shrink: 0 !important;
+                scroll-snap-align: start !important;
+                min-height: auto !important;
+                padding: 1.5rem !important;
+                border-radius: 14px !important;
+            }
+        }
+
+        /* Journey Map Styles */
+        .cs-journey-wrapper {
+            width: 100%;
+            margin: 6rem 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cs-journey-table {
+            display: grid;
+            grid-template-columns: 200px repeat(5, 1fr);
+            width: 100%;
+        }
+
+        .cs-journey-row {
+            display: contents;
+        }
+
+        .cs-journey-cell {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid var(--border-medium);
+            border-bottom: 1px solid var(--border-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .cs-journey-cell.header-row {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--accent);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+        }
+
+        .cs-journey-cell.label-col {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--accent);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.75rem;
+        }
+
+        .cs-persona-left {
+            padding-right: 0;
+            border-right: none;
+        }
+
+        .cs-journey-row:last-child .cs-journey-cell {
+            border-bottom: none;
+        }
+
+        .cs-journey-emotion {
+            color: var(--accent);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cs-journey-ownership {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1200px) {
+            .cs-journey-table {
+                grid-template-columns: 150px repeat(5, 250px);
+                overflow-x: auto;
+            }
+        }
+
+        /* Key Insights Styles */
+        .cs-insight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 24px 0;
+        }
+
+        .cs-insight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .cs-insight-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-heavy);
+            border-color: var(--accent-glow);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cs-insight-card h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cs-insight-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 992px) {
+            .cs-insight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Ideation Board Styles */
+        .cs-ideas-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 24px 0;
+            padding: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+        }
+
+        .cs-idea-cluster {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px dashed var(--border-medium);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cs-idea-theme {
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-align: center;
+        }
+
+        .cs-idea-sticky {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .cs-idea-sticky:hover {
+            transform: translateX(5px);
+            background: var(--bg-card-heavy);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .cs-ideas-board {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+        }
+
+        /* Prioritization Matrix Styles */
+        .cs-matrix-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            margin: 0 0 24px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+            padding: 4rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cs-matrix-grid {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            border-bottom: 1px solid var(--border-medium);
+        }
+
+        .cs-matrix-axis {
+            position: absolute;
+            background: var(--border-medium);
+        }
+
+        .cs-matrix-y-axis {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .cs-matrix-x-axis {
+            height: 1px;
+            width: 100%;
+            top: 50%;
+            left: 0;
+        }
+
+        .cs-matrix-label {
+            position: absolute;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+        }
+
+        .cs-matrix-bubble {
+            position: absolute;
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-main);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            white-space: nowrap;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .cs-matrix-bubble:hover {
+            transform: scale(1.05);
+            background: var(--accent-light);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        @media (max-width: 768px) {
+            .cs-matrix-container {
+                aspect-ratio: 1;
+                padding: 2rem;
+            }
+
+            .cs-matrix-bubble {
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Final Ideas Styles */
+        .cs-final-ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 24px 0;
+        }
+
+        .cs-final-idea-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .cs-final-idea-card:hover {
+            transform: translateY(-10px);
+            background: var(--bg-card-heavy);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cs-final-idea-num {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .cs-final-idea-card h4 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cs-final-idea-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 1024px) {
+            .cs-final-ideas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Planning Architecture Styles */
+        .cs-arch-container {
+            width: 100%;
+            margin: 24px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-medium);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cs-flow-viewport {
+            width: 100%;
+            padding: 5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .cs-flow-node {
+            background: var(--bg-main);
+            border: 1px solid var(--border-medium);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .cs-flow-node.gold {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .cs-flow-decision {
+            width: 140px;
+            height: 140px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-medium);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cs-flow-decision span {
+            transform: rotate(-45deg);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .cs-arch-footer {
+            background: rgba(var(--primary-rgb), 0.05);
+            padding: 3rem 4rem;
+            border-top: 1px solid var(--border-medium);
+        }
+
+        .cs-arch-footer h4 {
+            color: var(--accent);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .cs-arch-footer p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 800px;
+        }
+    </style>
+    <script>
+        // Sync body class with documentElement state
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</head>
+
+<body class="dark-mode theme-modern dark-mode">
+
+    <div class="glass-lines-bg"></div>
+    <div class="light-bubbles">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+    </div>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- HEADER REMOVED PER PM MANDATE -->
+
+    <main class="case-study-main">
+        <div class="ds-container">
+
+            <!-- 0. HERO -->
+            <section class="cs-hero-centered reveal">
+                <div class="cs-hero-visual-centered">
+                    <div class="cs-hero-image-wrapper">
+                        <img src="/static/output/hero_c57ca5fd-aa69-418a-ad4d-586b55ddc221.png" alt="Nike India Reimagined Mockup"
+                            class="cs-hero-image" />
+
+                        <!-- Top Left Badge -->
+                        <div class="hero-badge badge-tl">
+                            <div class="badge-top">
+                                <span class="badge-num">+45%</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20">
+                                    <path d="M0,15 Q10,15 15,10 T30,5 T50,2" />
+                                </svg>
+                            </div>
+                            <div class="badge-bottom">CONVERSION</div>
+                        </div>
+
+                        <!-- Top Right Badge -->
+                        <div class="hero-badge badge-tr">
+                            <div class="badge-top">
+                                <span class="badge-num">92</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20">
+                                    <path d="M0,18 L10,12 L25,15 L40,5 L50,2" />
+                                </svg>
+                            </div>
+                            <div class="badge-bottom">UX SCORE</div>
+                        </div>
+
+                        <!-- Bottom Left Badge -->
+                        <div class="hero-badge badge-bl">
+                            <div class="badge-top">
+                                <span class="badge-num">-60%</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20">
+                                    <path d="M0,2 Q10,5 20,10 T40,15 T50,18" />
+                                </svg>
+                            </div>
+                            <div class="badge-bottom">ERRORS</div>
+                        </div>
+
+                        <!-- Bottom Right Badge -->
+                        <div class="hero-badge badge-br">
+                            <div class="badge-top">
+                                <span class="badge-num">2.5X</span>
+                                <svg class="badge-sparkline" viewBox="0 0 50 20">
+                                    <path d="M0,18 L15,15 L30,8 L45,2 L50,0" />
+                                </svg>
+                            </div>
+                            <div class="badge-bottom">VELOCITY</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-hero-content-centered">
+                    <h1 class="ds-heading-h1 cs-title-centered" style="font-size: 44px !important;">Nike India Reimagined</h1>
+                    <p class="cs-subtitle-centered">Unlocking India's athletic potential through hyper-localized, community-driven experiences.</p>
+
+                    <div class="cs-meta-row">
+                        <div class="meta-item-inline">
+                            <span class="meta-label">Role:</span> Lead UX Designer
+                        </div>
+                        <div class="meta-item-inline">
+                            <span class="meta-label">Duration:</span> 2026
+                        </div>
+                        <div class="meta-item-inline">
+                            <span class="meta-label">Client:</span> Nike India
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 0. OVERVIEW & PROBLEM -->
+            <section class="cs-section cs-accordion-section cs-expanded reveal">
+                <div class="cs-section-header accordion-toggle">
+                    <div class="cs-section-marker">0</div>
+                    <h2 class="ds-heading-h2">Project Overview</h2>
+                    <p>Nike's current global approach in India overlooks the diverse athletic culture, price sensitivities, and unique digital behaviors, leading to untapped market potential and limited deep community engagement.</p>
+                </div>
+                <div class="cs-section-content">
+                    <div class="cs-overview-grid">
+                        <div class="cs-overview-left" style="flex: 1;">
+                            <div class="cs-overview-text">
+                                <p>Nike's current global approach in India overlooks the diverse athletic culture, price sensitivities, and unique digital behaviors, leading to untapped market potential and limited deep community engagement.</p>
+                            </div>
+                        </div>
+                        <div class="cs-overview-right" style="flex: 1.2;">
+                            <h3 class="ds-heading-h3 cs-section-subtitle">Core Friction Points</h3>
+                            <div class="cs-grid-2" style="margin-top: 0; gap: 1.5rem;">
+                                <div class="ds-card">
+                                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Global Friction</h4>
+                                    <p>Standardized global templates often fail to capture regional sports culture and unique localized digital behaviors.</p>
+                                </div>
+                                <div class="ds-card">
+                                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">High Entry Barriers</h4>
+                                    <p>Pricing structures and distribution pathways present friction points for new athletes looking to engage with premium activewear.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. EMPATHY -->
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">E</div>
+                    <h2 class="ds-heading-h2">Empathy Pillars</h2>
+                </div>
+                <div class="cs-section-content">
+                    <div class="cs-grid-3">
+                        
+                        <div class="ds-card">
+                            <h4 style="color: var(--accent); margin-bottom: 1rem;">Aspiration & Value</h4>
+                            <p>Indian consumers aspire to global brands but demand local relevance, durability, and perceived value for their investment.</p>
+                        </div>
+                        
+                        <div class="ds-card">
+                            <h4 style="color: var(--accent); margin-bottom: 1rem;">Community & Belonging</h4>
+                            <p>Fitness and sports in India are often social activities, driven by peer motivation, group participation, and a strong sense of community.</p>
+                        </div>
+                        
+                        <div class="ds-card">
+                            <h4 style="color: var(--accent); margin-bottom: 1rem;">Accessibility & Convenience</h4>
+                            <p>Users seek easy access to products, training, and information, often through mobile-first experiences and local touchpoints.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Personas Section -->
+            
+            
+            
+            
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">P</div>
+                    <h2 class="ds-heading-h2">User Personas</h2>
+                    <p>Understanding our core user groups to guide strategic features.</p>
+                </div>
+                <div class="cs-section-content">
+                    <div class="cs-grid-2">
+                        
+                        <div class="ds-card" style="padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01); display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                                
+                                <img src="/static/img/personas/India/indian_male_1.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent);" alt="Arjun Sharma">
+                                
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.4rem; color: var(--text-primary);">Arjun Sharma</h3>
+                                    <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: var(--accent);">Software Engineer • Age 28 • Bengaluru</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent); font-style: italic;">
+                                <p style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">"I want to stay fit and look good, but also feel like the brand understands my local sports and lifestyle."</p>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Bio</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">Arjun is a tech-savvy urban professional who enjoys running and playing badminton with friends. He follows international fitness trends but finds many global apps and products don't quite fit his local context or budget. He seeks performance gear that's also stylish and durable, and values community challenges.</p>
+                            </div>
+                            <div class="cs-grid-2" style="gap: 1rem; margin-top: auto;">
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Needs</h4>
+                                    <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Localized fitness content (e.g., cricket, yoga)</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Community features to connect with local athletes</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Value-for-money premium products</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Seamless mobile experience</li>
+                                        
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Frustrations</h4>
+                                    <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.85rem; color: #ff5252;">
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Generic global product launches that don't resonate locally</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Lack of local events or challenges on global platforms</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">High price points without clear local value proposition</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Limited vernacular language support</li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ds-card" style="padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01); display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                                
+                                <img src="/static/img/personas/India/indian_female_2.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent);" alt="Priya Singh">
+                                
+                                <div>
+                                    <h3 style="margin: 0; font-size: 1.4rem; color: var(--text-primary);">Priya Singh</h3>
+                                    <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: var(--accent);">Marketing Executive • Age 23 • Pune</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--accent); font-style: italic;">
+                                <p style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">"I'm new to fitness and need motivation. Something that feels inclusive and helps me find my tribe."</p>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Bio</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">Priya is an enthusiastic young professional who recently started her fitness journey. She's active on social media and looks for inspiration and guidance. She's conscious about her appearance and wants comfortable, stylish activewear. She's keen to join local fitness groups but finds it hard to discover them.</p>
+                            </div>
+                            <div class="cs-grid-2" style="gap: 1rem; margin-top: auto;">
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Needs</h4>
+                                    <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.85rem; color: var(--text-secondary);">
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Beginner-friendly workout plans with local context</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Discovery of local fitness communities and events</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Affordable yet stylish activewear options</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Inspirational content from Indian athletes/influencers</li>
+                                        
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">Frustrations</h4>
+                                    <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.85rem; color: #ff5252;">
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Intimidating global fitness content</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Difficulty finding local, women-friendly sports groups</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Expensive premium brands that feel out of reach</li>
+                                        
+                                        <li style="margin-bottom: 0.25rem;">Lack of personalized recommendations for her fitness level</li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Empathy Map Section -->
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">M</div>
+                    <h2 class="ds-heading-h2">Indian Athlete Empathy Map</h2>
+                    <p>Deep dive into the user's emotional and sensory state.</p>
+                </div>
+                <div class="cs-section-content">
+                    <div class="cs-grid-2" style="gap: 1.5rem;">
+                        
+                        <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
+                            <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Says</h3>
+                            <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"I want to get fit, but don't know where to start or who to train with."</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"Is this brand worth the price? Will it last?"</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"I wish there were more local sports events or groups I could join."</li>
+                                
+                            </ul>
+                        </div>
+                        
+                        <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
+                            <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Thinks</h3>
+                            <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"Am I good enough to wear a premium brand like Nike?"</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"How can I balance my fitness goals with my cultural commitments?"</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">"Is this product truly designed for Indian conditions and body types?"</li>
+                                
+                            </ul>
+                        </div>
+                        
+                        <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
+                            <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Does</h3>
+                            <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Searches for fitness content on YouTube in local languages.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Asks friends and family for recommendations on sports gear.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Participates in local community runs or informal sports games.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Compares prices across multiple online and offline retailers.</li>
+                                
+                            </ul>
+                        </div>
+                        
+                        <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
+                            <h3 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Feels</h3>
+                            <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Motivated by peer success stories and local heroes.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Frustrated by generic global content that doesn't resonate.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Proud when representing local culture or achievements.</li>
+                                
+                                <li style="margin-bottom: 0.5rem; line-height: 1.5;">Skeptical about brands that don't seem to understand India.</li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- 2. DEFINE -->
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">D</div>
+                    <h2 class="ds-heading-h2">Defining the Challenges</h2>
+                </div>
+                <div class="cs-section-content">
+                    <ul style="list-style-type: none; padding: 0;">
+                        
+                        <li style="margin-bottom: 1rem; padding: 1.5rem; background: rgba(255,255,255,0.02); border-left: 4px solid var(--accent); border-radius: 4px;">
+                            <h4 style="font-size: 1.2rem; margin: 0;">How might we create a truly localized athletic experience that respects India's diverse sports culture and economic realities?</h4>
+                        </li>
+                        
+                        <li style="margin-bottom: 1rem; padding: 1.5rem; background: rgba(255,255,255,0.02); border-left: 4px solid var(--accent); border-radius: 4px;">
+                            <h4 style="font-size: 1.2rem; margin: 0;">How might we build a community-first platform that fosters genuine connection and motivation among Indian athletes, beyond just product transactions?</h4>
+                        </li>
+                        
+                        <li style="margin-bottom: 1rem; padding: 1.5rem; background: rgba(255,255,255,0.02); border-left: 4px solid var(--accent); border-radius: 4px;">
+                            <h4 style="font-size: 1.2rem; margin: 0;">How might we leverage emerging tech and local partnerships to make premium athletic wear and training accessible to a broader Indian audience?</h4>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Competitor Map Section -->
+            
+            
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">C</div>
+                    <h2 class="ds-heading-h2">Indian Athletic Market Positioning</h2>
+                    <p>Mapping market landscape relative to key parameters.</p>
+                </div>
+                <div class="cs-section-content">
+                    <div class="ds-card" style="padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01);">
+                        <div class="cs-grid-2" style="gap: 2rem; align-items: center;">
+                            <div>
+                                <p style="font-size: 1.1rem; color: var(--text-primary); line-height: 1.6; margin-bottom: 1.5rem;">
+                                    <strong>Nike India (Proposed):</strong> Aims for market leadership by combining premium brand equity with unparalleled local relevance and community focus.
+                                </p>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    
+                                    <div style="display: flex; gap: 1rem; align-items: start;">
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent); display: inline-block; margin-top: 0.35rem; flex-shrink: 0;"></span>
+                                        <div>
+                                            <strong style="color: var(--text-primary); font-size: 0.95rem;">Adidas</strong>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.15rem 0 0 0;">Strong global brand, moderate local adaptation.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 1rem; align-items: start;">
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent); display: inline-block; margin-top: 0.35rem; flex-shrink: 0;"></span>
+                                        <div>
+                                            <strong style="color: var(--text-primary); font-size: 0.95rem;">Puma</strong>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.15rem 0 0 0;">Youth-focused, increasing local collaborations.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 1rem; align-items: start;">
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent); display: inline-block; margin-top: 0.35rem; flex-shrink: 0;"></span>
+                                        <div>
+                                            <strong style="color: var(--text-primary); font-size: 0.95rem;">Decathlon</strong>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.15rem 0 0 0;">High local relevance, value-for-money, less premium.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 1rem; align-items: start;">
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent); display: inline-block; margin-top: 0.35rem; flex-shrink: 0;"></span>
+                                        <div>
+                                            <strong style="color: var(--text-primary); font-size: 0.95rem;">Local Brands</strong>
+                                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.15rem 0 0 0;">High local relevance, often lower premium perception.</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 2rem; text-align: center;">
+                                <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;">Market Alignment</div>
+                                <div style="font-size: 2rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">Competitive Edge</div>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">Visualized mapping of premium value versus regional market relevance indicators.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- Priority Pyramid Section -->
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">F</div>
+                    <h2 class="ds-heading-h2">Impact Pyramid</h2>
+                    <p>Hierarchical grouping of features by strategic and immediate importance.</p>
+                </div>
+                <div class="cs-section-content">
+                    <div class="ds-card" style="padding: 2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01);">
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            
+                            <div style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.015); border-left: 4px solid var(--accent);">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.05em;">Quick Wins</h4>
+                                <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Implement vernacular language options for key UI elements and content.</li>
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Curate and promote India-specific athlete stories and fitness journeys.</li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.015); border-left: 4px solid var(--accent);">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.05em;">Strategic Bets</h4>
+                                <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Launch a dedicated 'Nike India Connect' community platform with local groups and challenges.</li>
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Introduce India-exclusive product lines and collaborations with local designers/artists.</li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.015); border-left: 4px solid var(--accent);">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.05em;">Long Term</h4>
+                                <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Establish local manufacturing partnerships to reduce costs and improve supply chain efficiency.</li>
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Integrate AI-driven personalized training plans based on local climate, diet, and sport preferences.</li>
+                                    
+                                </ul>
+                            </div>
+                            
+                            <div style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.015); border-left: 4px solid var(--accent);">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.05em;">Fill-ins</h4>
+                                <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Enhance customer support with WhatsApp integration and regional language agents.</li>
+                                    
+                                    <li style="margin-bottom: 0.25rem;">Offer diverse local payment options (UPI, Net Banking, EMI).</li>
+                                    
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- 3. IDEATE -->
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">I</div>
+                    <h2 class="ds-heading-h2">Strategic Brainstorm</h2>
+                </div>
+                <div class="cs-section-content">
+                    <div class="cs-grid-2">
+                        
+                        <div class="ds-card">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Substitute</div>
+                            <h4 style="margin-bottom: 0.5rem;">Substitute global product launches with India-specific collections and collaborations (e.g., Nike x Indian designer, Nike Cricket line).</h4>
+                            <p style="color: var(--accent);">Increases relevance and desirability for the Indian market, fostering a sense of ownership and pride.</p>
+                        </div>
+                        
+                        <div class="ds-card">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Combine</div>
+                            <h4 style="margin-bottom: 0.5rem;">Combine fitness tracking with hyper-local community challenges and leaderboards, integrating popular Indian sports.</h4>
+                            <p style="color: var(--accent);">Boosts engagement through social motivation and competition, making fitness more relatable and fun.</p>
+                        </div>
+                        
+                        <div class="ds-card">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Adapt</div>
+                            <h4 style="margin-bottom: 0.5rem;">Adapt global Nike Training Club (NTC) programs to include Indian fitness routines (e.g., yoga flows, traditional martial arts) and local language instruction.</h4>
+                            <p style="color: var(--accent);">Makes premium training accessible and culturally relevant, broadening appeal beyond Western fitness norms.</p>
+                        </div>
+                        
+                        <div class="ds-card">
+                            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Modify</div>
+                            <h4 style="margin-bottom: 0.5rem;">Modify pricing and payment models to include localized options like EMI, 'buy now, pay later' for premium items, or subscription models for exclusive content/gear.</h4>
+                            <p style="color: var(--accent);">Addresses price sensitivity and improves accessibility for a wider demographic, reducing purchase barriers.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">P</div>
+                    <h2 class="ds-heading-h2">The Design Logic Pivot</h2>
+                </div>
+                <div class="cs-section-content">
+                    <div class="ds-card" style="border: 1px solid var(--accent);">
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="color: #ff5252; margin-bottom: 0.5rem;">Before</h4>
+                            <p>A generic, globally-focused e-commerce platform with limited cultural resonance and community features for the Indian market.</p>
+                        </div>
+                        <div style="margin-bottom: 1.5rem; padding-left: 1.5rem; border-left: 2px solid var(--text-secondary);">
+                            <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">The Pivot Logic</h4>
+                            <p>Shift from a 'product-first, global-template' approach to a 'community-first, hyper-localized experience' that deeply understands and serves the unique needs and aspirations of Indian athletes.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #4CAF50; margin-bottom: 0.5rem;">After</h4>
+                            <p>A vibrant, personalized digital ecosystem that connects Indian athletes through local sports, culturally relevant content, accessible premium products, and a strong sense of belonging.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <!-- 4. DESIGN -->
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">S</div>
+                    <h2 class="ds-heading-h2">High-Fidelity Interface</h2>
+                    <p>Translating strategy into pixel-perfect interactive design.</p>
+                </div>
+                <div class="cs-section-content">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="ds-card" style="padding: 2rem; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; background: rgba(255,255,255,0.01);">
+                        <h3 class="ds-heading-h3 cs-section-subtitle" style="margin-bottom: 2rem;">High-Fidelity Interface</h3>
+                        <div style="width: 100%; text-align: center; margin-bottom: 3rem;">
+                            <!-- Desktop Web Browser Mockup Frame -->
+                            
+                            <div class="browser-mockup" style="border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; background: #1a1a1a; box-shadow: var(--shadow-lg); overflow: hidden; max-width: 1000px; margin: 0 auto;">
+                                <div class="browser-header" style="height: 30px; background: rgba(255,255,255,0.05); display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <div class="browser-dots" style="display: flex; gap: 8px;">
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+                                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                                    </div>
+                                </div>
+                                <img src="/static/output/ui_c57ca5fd-aa69-418a-ad4d-586b55ddc221.png" style="width: 100%; display: block; border-radius: 0 0 12px 12px;" alt="High-Fidelity Interface">
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Dynamic Annotations Grid -->
+                        
+                        <h4 class="ds-heading-h4" style="margin-bottom: 1.5rem; color: var(--accent);">Key Annotations & Design Rationale</h4>
+                        <div class="cs-grid-3">
+                            
+                            <div class="ds-card" style="background: rgba(255,255,255,0.02); border-left: 3px solid var(--accent); padding: 1.5rem; border-radius: 8px;">
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Local Sports Hub</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">Directly addresses the need for culturally relevant content by curating sections for popular Indian sports like cricket, badminton, and yoga, making the platform immediately relatable.</p>
+                            </div>
+                            
+                            <div class="ds-card" style="background: rgba(255,255,255,0.02); border-left: 3px solid var(--accent); padding: 1.5rem; border-radius: 8px;">
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Community Challenges & Groups</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">Fosters belonging and motivation by allowing users to join local fitness groups, participate in city-specific challenges, and connect with peers, moving beyond individualistic fitness.</p>
+                            </div>
+                            
+                            <div class="ds-card" style="background: rgba(255,255,255,0.02); border-left: 3px solid var(--accent); padding: 1.5rem; border-radius: 8px;">
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Vernacular Language Support</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">Enhances accessibility and inclusivity for a diverse linguistic population, ensuring a broader user base can comfortably navigate and engage with the platform.</p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </section>
+
+            <!-- 5. TEST & ITERATE -->
+            <section class="cs-section reveal">
+                <div class="cs-section-header">
+                    <div class="cs-section-marker">T</div>
+                    <h2 class="ds-heading-h2">Let's Evaluate</h2>
+                    <p>Validating assumptions through rigorous usability testing and user feedback loops.</p>
+                </div>
+                <div class="cs-section-content">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="ds-card" style="padding: 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01);">
+                        <div style="margin-bottom: 2rem;">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem;">Testing Methodology</span>
+                            <p style="font-size: 1.1rem; color: var(--text-primary); line-height: 1.6;">Remote moderated user interviews with 20 Indian athletes (urban & semi-urban) focusing on localized content, community features, and purchase flow.</p>
+                        </div>
+
+                        <!-- Stats Bar -->
+                        
+                        <div class="cs-grid-3" style="margin-bottom: 3rem;">
+                            
+                            <div class="ds-card" style="text-align: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.02); border-radius: 16px;">
+                                <div style="font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.5rem;">90%</div>
+                                <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">Task Completion Rate (Local Challenge Join)</div>
+                                
+                                <span style="font-size: 0.8rem; font-weight: 800; color: #4CAF50; background: rgba(76, 175, 80, 0.1); padding: 0.25rem 0.75rem; border-radius: 99px;">+15%</span>
+                                
+                            </div>
+                            
+                        </div>
+                        
+
+                        <!-- Findings & Insights -->
+                        
+                        <h3 class="ds-heading-h3" style="margin-bottom: 1.5rem; color: var(--text-primary);">Key Usability Findings</h3>
+                        <div class="cs-grid-2" style="margin-bottom: 3rem;">
+                            
+                            <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.015);">
+                                <div style="font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Content Strategy</div>
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Localized Content Relevance</h4>
+                                <p style="font-size: 0.95rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">Users found the India-specific sports content and athlete stories highly relevant and engaging, leading to increased time on page.</p>
+                            </div>
+                            
+                            <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.015);">
+                                <div style="font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Social Interaction</div>
+                                <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Community Feature Adoption</h4>
+                                <p style="font-size: 0.95rem; color: var(--text-secondary); margin: 0; line-height: 1.5;">The ability to join local groups and participate in challenges was a significant draw, though some users desired more robust messaging features.</p>
+                            </div>
+                            
+                        </div>
+                        
+
+                        <!-- User Quotes -->
+                        
+                        <h3 class="ds-heading-h3" style="margin-bottom: 1.5rem; color: var(--text-primary);">Direct User Voices</h3>
+                        <div class="cs-grid-2">
+                            
+                            <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; background: rgba(217, 119, 6, 0.02); border-left: 3px solid var(--accent); font-style: italic;">
+                                <p style="font-size: 1rem; color: var(--text-primary); line-height: 1.6; margin: 0;">"Finally, a fitness app that understands *my* sport, not just what's popular globally!"</p>
+                            </div>
+                            
+                            <div class="ds-card" style="padding: 1.5rem; border-radius: 12px; background: rgba(217, 119, 6, 0.02); border-left: 3px solid var(--accent); font-style: italic;">
+                                <p style="font-size: 1rem; color: var(--text-primary); line-height: 1.6; margin: 0;">"It's great to find people in my city who play badminton and train together. This feels like my community."</p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="cs-footer">
+        <div class="cs-footer-container">
+            <p>© 2026 Nitin Kr. • UX Case Study Portfolio</p>
+        </div>
+    </footer>
+
+    <!-- FULL SCREEN MENU OVERLAY -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-nav">
+            <a href="../index.html#portfolio" class="menu-link">PORTFOLIO</a>
+            <a href="../index.html#lab" class="menu-link">THE LAB</a>
+            <a href="../index.html#about" class="menu-link">ABOUT</a>
+            <a href="../index.html#contact" class="menu-link">CONTACT</a>
+        </div>
+        <div class="mobile-menu-actions">
+            <a href="https://www.linkedin.com/in/nitin-kr-205341b/" class="ds-btn ds-btn-primary" target="_blank">LinkedIn</a>
+            <a href="https://drive.google.com/file/d/1QZ3t9m-rhyUR12MwxylxgyfCBWVkjNqZ/view?usp=sharing" class="ds-btn ds-btn-secondary" target="_blank">Resume</a>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // --- High-Fidelity Theme Toggle (Independent) ---
+        function handleThemeToggle() {
+            const html = document.documentElement;
+            const body = document.body;
+            const toggleBtn = document.getElementById('cs-theme-toggle');
+            
+            if (!toggleBtn) return;
+
+            const isDark = html.classList.toggle('dark-mode');
+            body.classList.toggle('dark-mode');
+            
+            const theme = isDark ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // Update Icons
+            const moon = toggleBtn.querySelector('.moon-icon');
+            const sun = toggleBtn.querySelector('.sun-icon');
+            if (moon && sun) {
+                moon.style.display = isDark ? 'none' : 'block';
+                sun.style.display = isDark ? 'block' : 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('cs-theme-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', handleThemeToggle);
+                
+                // Initial Icon Sync
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                const moon = toggleBtn.querySelector('.moon-icon');
+                const sun = toggleBtn.querySelector('.sun-icon');
+                if (moon && sun) {
+                    moon.style.display = isDark ? 'none' : 'block';
+                    sun.style.display = isDark ? 'block' : 'none';
+                }
+            }
+
+            // Accordion Logic
+            const sections = document.querySelectorAll('.cs-section');
+            sections.forEach(section => {
+                const header = section.querySelector('.cs-section-header');
+                header.addEventListener('click', () => {
+                    section.classList.toggle('cs-expanded');
+                });
+            });
+            // Expand first section by default
+            if (sections.length > 0) sections[0].classList.add('cs-expanded');
+
+            // Reveal on Scroll
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            // --- High-Fidelity Interface Slider Engine ---
+            const initHifiSlider = (id) => {
+                const slider = document.getElementById(id);
+                if (!slider) return;
+                
+                const slides = slider.querySelectorAll('.hifi-slide');
+                if (slides.length === 0) return;
+
+                let currentIdx = 0;
+                let sliderInterval;
+
+                const updateHifiSlider = (index) => {
+                    slides.forEach((slide, i) => {
+                        if (i === index) {
+                            slide.style.visibility = 'visible';
+                            slide.style.opacity = '1';
+                            slide.classList.add('active');
+                        } else {
+                            slide.style.opacity = '0';
+                            slide.classList.remove('active');
+                            setTimeout(() => {
+                                if (!slide.classList.contains('active')) {
+                                    slide.style.visibility = 'hidden';
+                                }
+                            }, 800);
+                        }
+                    });
+                    currentIdx = index;
+                };
+
+                const startAutoSlide = () => {
+                    sliderInterval = setInterval(() => {
+                        let next = (currentIdx + 1) % slides.length;
+                        updateHifiSlider(next);
+                    }, 4000);
+                };
+
+                startAutoSlide();
+            };
+
+            // --- Mobile Horizontal Auto-Slider Engine ---
+            const initMobileSlider = () => {
+                const container = document.getElementById('hifi-slider-mobile');
+                if (!container) return;
+                
+                const slides = container.querySelectorAll('.hifi-mobile-slide');
+                if (slides.length === 0) return;
+
+                let currentIdx = 0;
+                let autoSlideInterval;
+
+                const startAutoSlide = () => {
+                    autoSlideInterval = setInterval(() => {
+                        currentIdx = (currentIdx + 1) % slides.length;
+                        const itemWidth = slides[0].offsetWidth + 32; // width + gap
+                        container.scrollTo({
+                            left: currentIdx * itemWidth,
+                            behavior: 'smooth'
+                        });
+                    }, 4000);
+                };
+
+                // Pause on user interaction
+                container.addEventListener('touchstart', () => clearInterval(autoSlideInterval));
+                container.addEventListener('mousedown', () => clearInterval(autoSlideInterval));
+
+                startAutoSlide();
+            };
+
+            initHifiSlider('hifi-slider-web');
+            initMobileSlider();
+        });
+    </script>
+</body>
+
+</html>

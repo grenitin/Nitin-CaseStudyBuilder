@@ -1283,6 +1283,12 @@ Latest Projects: ${portfolioData.extraProjects.map(p => `${p.title} (${p.role}):
                 try {
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                     if (iframeDoc) {
+                        // Update parent modal title based on the iframe's document title
+                        if (iframeDoc.title && titleEl) {
+                            let newTitle = iframeDoc.title.replace(' | UX Case Study', '').replace(' | Nitin Kr', '').trim();
+                            if (newTitle) titleEl.innerText = newTitle;
+                        }
+                        
                         // 1. Inject CSS to completely hide the top navigation, back button, theme toggle and footer
                         const style = iframeDoc.createElement('style');
                         style.textContent = `

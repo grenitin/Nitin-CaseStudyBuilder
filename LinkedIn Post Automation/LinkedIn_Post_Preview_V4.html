@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post - Dark Square Teal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-teal: #1BC5BD;
+            --brand-dark-teal: #008D85;
+            --brand-orange: #FF6E2E;
+            --bg-deep: #0A111F;
+            --text-main: #FFFFFF;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --accent-cream: #FDFBF0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 1080x1080 Square Protocol */
+        .poster-container {
+            width: 1080px;
+            height: 1080px;
+            background: radial-gradient(circle at 10% 10%, #111D35 0%, var(--bg-deep) 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Main Hero Pod */
+        .hero-pod {
+            position: absolute;
+            top: 150px;
+            left: 50px;
+            width: 550px;
+            height: 750px;
+            border-radius: 40px 180px 40px 40px;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* Overlapping Teal Card 1 */
+        .teal-card-primary {
+            position: absolute;
+            top: 250px;
+            right: 50px;
+            width: 500px;
+            height: 400px;
+            background-color: var(--brand-teal);
+            border-radius: 40px;
+            z-index: 5;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+        }
+
+        .card-icon::after {
+            content: '↗';
+            color: white;
+            font-size: 26px;
+            font-weight: 900;
+        }
+
+        .primary-headline {
+            color: white;
+            font-size: 68px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* Overlapping Teal Card 2 */
+        .teal-card-secondary {
+            position: absolute;
+            bottom: 220px;
+            right: 50px;
+            width: 420px;
+            background-color: var(--brand-teal);
+            border-radius: 30px;
+            z-index: 6;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .secondary-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--brand-teal);
+            font-size: 24px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .secondary-text {
+            color: white;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        /* Top Brand Logo Area */
+        .top-branding {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--brand-teal);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .brand-label {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-cream);
+            letter-spacing: 3px;
+        }
+
+        /* Bottom CTA Label */
+        .action-label {
+            position: absolute;
+            bottom: 80px;
+            right: 50px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--brand-teal);
+            letter-spacing: 1px;
+        }
+
+        /* Decorative Elements */
+        .dot-grid {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 250px;
+            height: 250px;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 30px 30px;
+            z-index: 1;
+        }
+
+        .accent-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--brand-teal), var(--brand-orange));
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <div class="accent-line"></div>
+        <div class="dot-grid"></div>
+
+        <!-- Top Branding -->
+        <div class="top-branding">
+            <div class="brand-logo"></div>
+            <div class="brand-label">DESIGN STRATEGY</div>
+        </div>
+
+        <!-- Main Hero Pod -->
+        <div class="hero-pod">
+            <img src="/Users/ni3_kr/.gemini/antigravity/brain/95a9b5f6-2de8-4d62-b0eb-4b24242ada44/professional_thumbs_up_hero_1777390054566.png" class="hero-image" alt="Strategy Lead">
+        </div>
+
+        <!-- Teal Cards -->
+        <div class="teal-card-primary">
+            <div class="card-icon"></div>
+            <h1 class="primary-headline">Upgrade<br>Your Strategy<br>Instantly.</h1>
+        </div>
+
+        <div class="teal-card-secondary">
+            <div class="secondary-icon">→</div>
+            <p class="secondary-text">Data-driven roadmaps for scaling enterprise UX teams.</p>
+        </div>
+
+        <!-- Action Label -->
+        <div class="action-label">Lead with AI-First Design</div>
+    </div>
+
+</body>
+</html>
+
+
