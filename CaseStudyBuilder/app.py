@@ -12,8 +12,10 @@ import analyzer
 
 app = Flask(__name__)
 
-# Use /tmp/ in Vercel as it's the only writable directory
-USAGE_DB_FILE = os.path.join('/tmp', 'usage_db.json')
+# Use data/ directory to persist on Render
+TASKS_DIR = os.path.join(os.path.dirname(__file__), 'data', 'tasks')
+os.makedirs(TASKS_DIR, exist_ok=True)
+USAGE_DB_FILE = os.path.join(os.path.dirname(__file__), 'data', 'usage_db.json')
 
 def get_usage(ip):
     if not os.path.exists(USAGE_DB_FILE):
@@ -93,10 +95,6 @@ def ensure_contrast(hex_color, bg_hex, target_ratio=4.5):
             
     return rgb_to_hex(rgb)
 # ---------------------------------
-
-# Directory for task statuses
-TASKS_DIR = os.path.join(os.path.dirname(__file__), 'data', 'tasks')
-os.makedirs(TASKS_DIR, exist_ok=True)
 
 # Directory for generated images
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), 'static', 'output')
@@ -300,10 +298,10 @@ def start_analysis():
     # Freemium Gate
     client_ip = request.remote_addr
     usage_count = get_usage(client_ip)
-    if usage_count >= 1: 
+    if usage_count >= 2: 
         return jsonify({'error': 'LIMIT_REACHED'}), 402
-        
-    increment_usage(client_ip)
+    
+    # We no longer increment here. It increments when they download.
     
     data = request.get_json()
     url = data.get('url', '').strip()
@@ -447,6 +445,26 @@ def preview(task_id):
     cleaned_data['text_accent_color'] = ensure_contrast(primary, bg_hex, 4.5)
     
     return render_template('case_study_render.html', **cleaned_data)
+
+@app.route('/api/check-usage', methods=['GET'])
+def check_usage():
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    # Handle multiple IPs from X-Forwarded-For
+    if ip and ',' in ip:
+        ip = ip.split(',')[0].strip()
+        
+    usage = get_usage(ip)
+    return jsonify({"attempts_used": usage, "limit": 2})
+
+@app.route('/api/increment-usage', methods=['POST'])
+def increment_usage_api():
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    if ip and ',' in ip:
+        ip = ip.split(',')[0].strip()
+        
+    increment_usage(ip)
+    new_usage = get_usage(ip)
+    return jsonify({"success": True, "attempts_used": new_usage})
 
 if __name__ == '__main__':
     print("\n🚀 AI Case Study Builder running at: http://localhost:8080\n")

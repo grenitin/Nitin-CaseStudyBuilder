@@ -63,8 +63,24 @@ function parseAndRenderCaseStudy(data) {
     const btnViewFinal = document.getElementById('btn-view-final');
     
     if (btnFullView && data.preview_url) btnFullView.href = data.preview_url;
-    if (btnDownload && data.image_url) btnDownload.href = data.image_url;
-    if (btnViewFinal && data.preview_url) btnViewFinal.href = data.preview_url;
+    if (btnDownload && data.image_url) {
+        btnDownload.href = data.image_url;
+        btnDownload.onclick = () => {
+            if (!window.usageIncremented) {
+                fetch('/api/increment-usage', { method: 'POST' });
+                window.usageIncremented = true;
+            }
+        };
+    }
+    if (btnViewFinal && data.preview_url) {
+        btnViewFinal.href = data.preview_url;
+        btnViewFinal.onclick = () => {
+            if (!window.usageIncremented) {
+                fetch('/api/increment-usage', { method: 'POST' });
+                window.usageIncremented = true;
+            }
+        };
+    }
 }
 
 async function listenToProgress(taskId) {
@@ -100,6 +116,7 @@ async function listenToProgress(taskId) {
 }
 
 async function startAnalysis() {
+    window.usageIncremented = false;
     const url = document.getElementById('url-input').value;
     const artifacts = Array.from(document.querySelectorAll('.artifact-checkbox-item input:checked')).map(cb => cb.value);
     
