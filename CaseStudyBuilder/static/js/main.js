@@ -247,13 +247,6 @@ document.getElementById('btn-next-to-platform').addEventListener('click', async 
     }
 });
 
-    document.getElementById('btn-next-to-platform').addEventListener('click', () => {
-        showScreen('screen-platform');
-    });
-
-    document.getElementById('btn-back-to-input').addEventListener('click', () => {
-        showScreen('screen-input');
-    });
 
     const submitKeyBtn = document.getElementById('btn-submit-key');
     if (submitKeyBtn) {
