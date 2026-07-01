@@ -304,3 +304,40 @@ document.querySelectorAll('.theme-card[data-theme]').forEach(card => {
         switchTheme(card.getAttribute('data-theme'));
     });
 });
+
+// API Key Placeholder Animation
+const placeholders = ["Paste Gemini Key...", "Paste OpenAI Key...", "Paste Claude Key..."];
+let pIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typeDelay = 100;
+
+function animatePlaceholder() {
+    const inputs = document.querySelectorAll('.animated-api-input');
+    if (!inputs.length) return;
+    
+    const currentString = placeholders[pIndex];
+    
+    if (isDeleting) {
+        charIndex--;
+        typeDelay = 50;
+    } else {
+        charIndex++;
+        typeDelay = 100;
+    }
+    
+    const currentText = currentString.substring(0, charIndex);
+    inputs.forEach(input => input.setAttribute('placeholder', currentText));
+    
+    if (!isDeleting && charIndex === currentString.length) {
+        typeDelay = 2000; // Pause at end of word
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        pIndex = (pIndex + 1) % placeholders.length;
+        typeDelay = 500; // Pause before typing next word
+    }
+    
+    setTimeout(animatePlaceholder, typeDelay);
+}
+setTimeout(animatePlaceholder, 1000);

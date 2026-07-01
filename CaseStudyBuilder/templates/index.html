@@ -353,7 +353,7 @@
                         </div>
                         <div style="flex: 1; display: flex; align-items: center; padding: 0 1rem; gap: 0.5rem;">
                             <span style="font-size: 0.9rem; opacity: 0.5; filter: grayscale(100%);">🔑</span>
-                            <input type="password" id="global-api-key" value="••••••••••••••••••••••••" placeholder="Paste your API Key here" style="background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.85rem; width: 100%; outline: none; letter-spacing: 0.1em; padding: 0.8rem 0;">
+                            <input type="password" id="global-api-key" class="animated-api-input" value="••••••••••••••••••••••••" placeholder="Paste Gemini Key..." style="background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.85rem; width: 100%; outline: none; letter-spacing: 0.1em; padding: 0.8rem 0;">
                         </div>
                     </div>
                 </div>
@@ -968,8 +968,8 @@
             <p>You've used your 2 free attempts! To continue generating unlimited case studies, please provide your own API Key.</p>
             
             <div class="input-group" style="margin: 1.5rem 0; text-align: left;">
-                <label for="popup-api-key" style="font-size: 0.75rem; opacity: 0.7;">Your Gemini API Key</label>
-                <input type="password" id="popup-api-key" placeholder="AIzaSy..." style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; margin-top: 0.5rem;">
+                <label for="popup-api-key" style="font-size: 0.75rem; opacity: 0.7;">Your API Key</label>
+                <input type="password" id="popup-api-key" class="animated-api-input" placeholder="Paste Gemini Key..." style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; margin-top: 0.5rem;">
             </div>
             
             <button id="btn-submit-key" class="btn-primary" style="width: 100%; margin-bottom: 1rem;">Submit Key & Continue</button>
